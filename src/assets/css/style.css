@@ -233,7 +233,7 @@
 /*Common css Starts*/
 @font-face {
   font-family: antonio;
-  src: url(../fonts/antonio.ttf);
+  src: url(https://cdn.926assets.com/g3ver/v107/static/front/fonts/antonio.ttf);
 }
 
 body {
@@ -359,36 +359,36 @@ a {
 
 @font-face {
   font-family: Card Characters;
-  src: url(../fonts/card.ttf);
+  src: url(https://cdn.926assets.com/g3ver/v107/static/front/fonts/card.ttf);
 }
 
 @font-face {
   font-family: Casino;
-  src: url(../fonts/casino.ttf);
+  src: url(https://cdn.926assets.com/g3ver/v107/static/front/fonts/casino.ttf);
 }
 
 @font-face {
   font-family: Numeric;
-  src: url(../fonts/numeric.ttf);
+  src: url(https://cdn.926assets.com/g3ver/v107/static/front/fonts/numeric.ttf);
 }
 
 @font-face {
   font-family: "CasinoNumFont";
   src:
-    url("../fonts/casino3dmarquee-webfont.woff2") format("woff2"),
-    url("../fonts/casino3dmarquee-webfont.woff") format("woff");
+    url("https://cdn.926assets.com/g3ver/v107/static/front/fonts/casino3dmarquee-webfont.woff2") format("woff2"),
+    url("https://cdn.926assets.com/g3ver/v107/static/front/fonts/casino3dmarquee-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "dfont";
-  src: url("../fonts/dfont.eot");
+  src: url("https://cdn.926assets.com/g3ver/v107/static/front/fonts/dfont.eot");
   src:
-    url("../fonts/dfont.eot") format("embedded-opentype"),
-    url("../fonts/dfont.ttf") format("truetype"),
-    url("../fonts/dfont.woff") format("woff"),
-    url("../fonts/dfont.svg") format("svg");
+    url("https://cdn.926assets.com/g3ver/v107/static/front/fonts/dfont.eot") format("embedded-opentype"),
+    url("https://cdn.926assets.com/g3ver/v107/static/front/fonts/dfont.ttf") format("truetype"),
+    url("https://cdn.926assets.com/g3ver/v107/static/front/fonts/dfont.woff") format("woff"),
+    url("https://cdn.926assets.com/g3ver/v107/static/front/fonts/dfont.svg") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -1993,7 +1993,7 @@ tr {
 }
 
 .suspended-box::before {
-  background-image: url("../img/icons/lock.svg");
+  background-image: url("https://cdn.926assets.com/g3ver/v107/static/front/img/icons/lock.svg");
   background-size: 17px 17px;
   filter: invert(1);
   -webkit-filter: invert(1);
@@ -3265,7 +3265,7 @@ tr {
 .scorecard {
   width: calc(100% - 8px);
   padding: 5px;
-  background-image: url("../img/scorecard-bg.png");
+  background-image: url("https://cdn.926assets.com/g3ver/v107/static/front/img/scorecard-bg.png");
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;
@@ -4966,7 +4966,7 @@ tr {
 }
 
 .casino-table .suspended-row::before {
-  background-image: url("../img/icons/lock.svg");
+  background-image: url("https://cdn.926assets.com/g3ver/v107/static/front/img/icons/lock.svg");
   background-size: 17px 17px;
   filter: invert(1);
   -webkit-filter: invert(1);
@@ -7636,7 +7636,7 @@ img.r-rotate {
   height: 64px;
   margin-top: 30px;
   padding: 0;
-  background-image: url("../img/score-bg.png");
+  background-image: url("https://cdn.926assets.com/g3ver/v107/static/front/img/score-bg.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center;
@@ -8581,7 +8581,7 @@ img.r-rotate {
 
 .vcasino .casino-video {
   padding-bottom: 80px;
-  background-image: url("../img/table-bg.jpg");
+  background-image: url("https://cdn.926assets.com/g3ver/v107/static/front/img/table-bg.jpg");
   background-size: cover;
   background-position: bottom;
 }
@@ -9366,7 +9366,7 @@ img.r-rotate {
   position: absolute;
   right: -20px;
   bottom: 25px;
-  background-image: url("../img/coupon-blue.png");
+  background-image: url("https://cdn.926assets.com/g3ver/v107/static/front/img/coupon-blue.png");
   background-size: 100% 100%;
   height: 59px;
   width: 100px;
@@ -11444,7 +11444,7 @@ img.r-rotate {
 
 .bet-chip-top:after {
   /* background-image: url(https://rgs-livedealerwebclient.worldserviceprovider.com/af4a3dba7a5c3b087d6a.svg); */
-  background-image: url("../img/roulette/icon.svg");
+  background-image: url("https://cdn.926assets.com/g3ver/v107/static/front/img/roulette/icon.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

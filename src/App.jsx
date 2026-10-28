@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { BetSlipProvider } from './context/BetSlipContext';
 
@@ -15,45 +15,7 @@ import { CasinoListPage } from './pages/CasinoListPage';
 import { SportsListPage } from './pages/SportsListPage';
 import { TermsPage, ResponsibleGamingPage } from './pages/StaticPages';
 
-function AppRoutes() {
-  const { isLoggedIn } = useAuth();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const location = useLocation();
-
-  const isStaticPage = 
-    location.pathname === '/terms-and-conditions' || 
-    location.pathname === '/responsible-gaming';
-
-  // If not logged in, any visit to root or home or login renders LoginPage (matching target silverbhai.com behavior 1:1)
-  if (!isLoggedIn && !isStaticPage && location.pathname !== '/register') {
-    return (
-      <Routes>
-        <Route path="*" element={<LoginPage />} />
-      </Routes>
-    );
-  }
-
-  // If static page without auth
-  if (!isLoggedIn && isStaticPage) {
-    return (
-      <Routes>
-        <Route path="/terms-and-conditions" element={<TermsPage />} />
-        <Route path="/responsible-gaming" element={<ResponsibleGamingPage />} />
-        <Route path="*" element={<LoginPage />} />
-      </Routes>
-    );
-  }
-
-  if (!isLoggedIn && location.pathname === '/register') {
-    return (
-      <Routes>
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="*" element={<LoginPage />} />
-      </Routes>
-    );
-  }
-
-  // When authenticated, render the Exchange Dashboard layout
+function ExchangeLayout({ sidebarOpen, setSidebarOpen, children }) {
   return (
     <div className="wrapper min-vh-100 d-flex flex-column">
       {/* Top Header */}
@@ -64,36 +26,8 @@ function AppRoutes() {
         {/* Left Sports Navigation Sidebar */}
         <LeftSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-        {/* Main Content Router */}
-        <Routes>
-          {/* Core Home routes */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/login" element={<Navigate to="/home" replace />} />
-
-          {/* Sports list & events */}
-          <Route path="/all-sports" element={<SportsListPage />} />
-          <Route path="/all-sports/:etId" element={<SportsListPage />} />
-          <Route path="/sports/:etId" element={<SportsListPage />} />
-
-          {/* Match details / Live exchange markets */}
-          <Route path="/game-details/:etId/:gameId" element={<GameDetailsPage />} />
-          <Route path="/gamedetails/:etId/:gameId" element={<GameDetailsPage />} />
-
-          {/* Casino & Live dealer list */}
-          <Route path="/casino-list" element={<CasinoListPage />} />
-          <Route path="/live-casino-list" element={<CasinoListPage />} />
-          <Route path="/slot-list" element={<CasinoListPage />} />
-          <Route path="/fantasy-list" element={<CasinoListPage />} />
-          <Route path="/aviator-list" element={<CasinoListPage />} />
-
-          {/* Legal and information */}
-          <Route path="/terms-and-conditions" element={<TermsPage />} />
-          <Route path="/responsible-gaming" element={<ResponsibleGamingPage />} />
-
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/home" replace />} />
-        </Routes>
+        {/* Dynamic Center Container */}
+        {children}
       </div>
 
       {/* Footer */}
@@ -102,15 +36,162 @@ function AppRoutes() {
   );
 }
 
+function AppRoutes() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  return (
+    <Routes>
+      {/* Dedicated Login Gateway */}
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+
+      {/* Static Legal Pages */}
+      <Route path="/terms-and-conditions" element={<TermsPage />} />
+      <Route path="/responsible-gaming" element={<ResponsibleGamingPage />} />
+
+      {/* Exchange Core Pages with Main Layout */}
+      <Route
+        path="/"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <HomePage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/home"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <HomePage />
+          </ExchangeLayout>
+        }
+      />
+
+      {/* Sports listing */}
+      <Route
+        path="/all-sports"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <SportsListPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/all-sports/:etId"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <SportsListPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/sports/:etId"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <SportsListPage />
+          </ExchangeLayout>
+        }
+      />
+
+      {/* Game Details Market */}
+      <Route
+        path="/game-details/:etId/:gameId"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <GameDetailsPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/gamedetails/:etId/:gameId"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <GameDetailsPage />
+          </ExchangeLayout>
+        }
+      />
+
+      {/* Casino Games */}
+      <Route
+        path="/casino-list"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoListPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/casino-list/:cType"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoListPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/casino-list/:cType/:type"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoListPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/casino-list/:cType/:type/:gType"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoListPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/live-casino-list"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoListPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/slot-list"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoListPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/fantasy-list"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoListPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/aviator-list"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoListPage />
+          </ExchangeLayout>
+        }
+      />
+
+      {/* Fallback to Home */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
+}
+
 export function App() {
   return (
-    <AuthProvider>
-      <BetSlipProvider>
-        <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
+        <BetSlipProvider>
           <AppRoutes />
-        </BrowserRouter>
-      </BetSlipProvider>
-    </AuthProvider>
+        </BetSlipProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

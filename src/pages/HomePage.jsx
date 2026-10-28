@@ -1,26 +1,38 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { NEW_EVENTS, MATCHES_DATA, CASINO_GAMES, SPORTS_CATEGORIES } from '../data/mockData';
+import { NEW_EVENTS, MATCHES_DATA, CASINO_GAMES } from '../data/mockData';
 import { useBetSlip } from '../context/BetSlipContext';
-import { RightSidebar } from '../components/RightSidebar';
 
 export const HomePage = () => {
-  const [selectedSportTab, setSelectedSportTab] = useState('all'); // 'all' | 4 | 1 | 2 | 7 | 8
-  const [selectedCasinoCategory, setSelectedCasinoCategory] = useState('all');
-  const { selectBet } = useBetSlip();
+  const [tabEventId, setTabEventId] = useState(4); // default 4 = Cricket
+  const {
+    activeBet,
+    selectBet,
+    updateOdds,
+    setStake,
+    addStake,
+    cancelBet,
+    placeBet,
+    betSuccessMsg
+  } = useBetSlip();
   const navigate = useNavigate();
 
-  // Filter matches by sport
-  const filteredMatches = selectedSportTab === 'all'
-    ? MATCHES_DATA
-    : selectedSportTab === 'inplay'
-      ? MATCHES_DATA.filter(m => m.isInPlay)
-      : MATCHES_DATA.filter(m => m.sportId === Number(selectedSportTab));
+  // Sports Tabs matching target
+  const tabs = [
+    { eid: 'all', ename: 'All Sports' },
+    { eid: 4, ename: 'Cricket' },
+    { eid: 2, ename: 'Tennis' },
+    { eid: 1, ename: 'Football' },
+    { eid: 8, ename: 'Table Tennis' },
+    { eid: 'inplay', ename: 'In-Play' }
+  ];
 
-  // Filter casino games
-  const filteredCasino = selectedCasinoCategory === 'all'
-    ? CASINO_GAMES
-    : CASINO_GAMES.filter(g => g.category === selectedCasinoCategory);
+  // Filter matches
+  const filteredMatches = tabEventId === 'all'
+    ? MATCHES_DATA
+    : tabEventId === 'inplay'
+      ? MATCHES_DATA.filter(m => m.isInPlay)
+      : MATCHES_DATA.filter(m => m.sportId === Number(tabEventId));
 
   const handleOddsClick = (match, selection, type, odds) => {
     if (!odds || odds === '-') return;
@@ -36,19 +48,17 @@ export const HomePage = () => {
   return (
     <div className="center-main-container home-page">
       <div className="center-container">
-        {/* Latest Events Ticker */}
+        {/* Top Latest Events Ticker */}
         {NEW_EVENTS && NEW_EVENTS.length > 0 && (
-          <div className="latest-event d-none d-xl-flex flex-wrap gap-2 mb-2 p-2 rounded" style={{ background: '#0e1215', border: '1px solid #1f272e' }}>
+          <div className="latest-event d-none d-xl-flex">
             {NEW_EVENTS.map((event, idx) => (
               <div className="latest-event-item" key={idx}>
                 <Link
-                  className="blink_me text-decoration-none d-flex align-items-center text-white small px-2 py-1 rounded"
+                  className="blink_me"
                   to={`/game-details/${event.sportId}/${event.id}`}
-                  style={{ background: '#171e24', border: '1px solid #2e3b46' }}
                 >
-                  <i className={`fas fa-${event.sportId === 4 ? 'baseball-ball text-warning' : 'table-tennis text-success'} me-1`}></i>
+                  <i className={`fas fa-${event.sportId === 4 ? 'baseball-ball' : 'table-tennis'} me-1`}></i>
                   <span>{event.name}</span>
-                  {event.live && <span className="badge bg-danger ms-1" style={{ fontSize: '9px' }}>LIVE</span>}
                 </Link>
               </div>
             ))}
@@ -56,235 +66,426 @@ export const HomePage = () => {
         )}
 
         {/* Sports Navigation Tabs */}
-        <div className="sports-tab-container mb-3">
-          <ul className="nav nav-pills sports-tab flex-nowrap overflow-auto p-1 rounded" style={{ background: '#1c2125' }}>
-            <li className="nav-item">
-              <button 
-                type="button"
-                className={`nav-link py-2 px-3 fw-bold ${selectedSportTab === 'all' ? 'active' : 'text-white'}`}
-                style={{ borderRadius: '4px', cursor: 'pointer' }}
-                onClick={() => setSelectedSportTab('all')}
+        <ul className="nav nav-pills sports-tab">
+          {tabs.map((tab, idx) => (
+            <li className="nav-item" key={idx}>
+              <a
+                onClick={() => setTabEventId(tab.eid)}
+                className={`nav-link ${tab.eid === tabEventId ? 'active' : ''}`}
+                style={{ cursor: 'pointer' }}
               >
-                All Sports
-              </button>
+                <div className="d-xl-none">
+                  <i className={`icon icon-${tab.eid}`}></i>
+                </div>
+                <span>{tab.ename}</span>
+              </a>
             </li>
-            <li className="nav-item">
-              <button 
-                type="button"
-                className={`nav-link py-2 px-3 fw-bold ${selectedSportTab === 'inplay' ? 'active bg-danger' : 'text-danger'}`}
-                style={{ borderRadius: '4px', cursor: 'pointer' }}
-                onClick={() => setSelectedSportTab('inplay')}
-              >
-                <i className="fas fa-play-circle me-1 blink_me"></i> In-Play ({MATCHES_DATA.filter(m => m.isInPlay).length})
-              </button>
-            </li>
-            {SPORTS_CATEGORIES.slice(0, 6).map(sport => (
-              <li className="nav-item" key={sport.id}>
-                <button 
-                  type="button"
-                  className={`nav-link py-2 px-3 fw-bold ${selectedSportTab === sport.id ? 'active' : 'text-white'}`}
-                  style={{ borderRadius: '4px', cursor: 'pointer' }}
-                  onClick={() => setSelectedSportTab(sport.id)}
-                >
-                  <i className={`${sport.icon} me-1`}></i> {sport.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+          ))}
+        </ul>
 
         {/* Bet Table (Exchange Markets) */}
-        <div className="bet-table-wrapper mb-4 rounded overflow-hidden" style={{ border: '1px solid #28333c' }}>
-          <div className="bet-table-header d-flex align-items-center py-2 px-3" style={{ background: '#0e1215', borderBottom: '2px solid #04a1a6' }}>
-            <div className="flex-grow-1 fw-bold text-white">
-              <i className="fas fa-trophy me-2 text-warning"></i> Match / Event
-            </div>
-            <div className="d-flex text-center" style={{ minWidth: '360px' }}>
-              <div className="flex-fill fw-bold text-white">1</div>
-              <div className="flex-fill fw-bold text-white">X</div>
-              <div className="flex-fill fw-bold text-white">2</div>
-            </div>
-          </div>
-
-          <div className="bet-table-body" style={{ background: '#16191c' }}>
-            {filteredMatches.length === 0 ? (
-              <div className="text-center py-4 text-muted">No active matches found in this category.</div>
-            ) : (
-              filteredMatches.map(match => (
-                <div 
-                  key={match.id} 
-                  className="bet-table-row d-flex flex-wrap align-items-center py-2 px-3 border-bottom border-dark"
-                  style={{ transition: 'background 0.2s' }}
-                >
-                  {/* Match Info Column */}
-                  <div className="flex-grow-1 pe-2 mb-2 mb-md-0" style={{ minWidth: '240px' }}>
-                    <div className="d-flex align-items-center mb-1">
-                      {match.isInPlay ? (
-                        <span className="badge bg-danger me-2 blink_me" style={{ fontSize: '10px' }}>IN-PLAY</span>
-                      ) : (
-                        <span className="badge bg-secondary me-2" style={{ fontSize: '10px' }}>{match.date}</span>
-                      )}
-                      <span className="text-muted small">{match.tournament}</span>
-                      {match.hasTv && (
-                        <i className="fas fa-tv text-warning ms-2" title="Live Video Available"></i>
-                      )}
-                      {match.hasBookmaker && (
-                        <span className="badge bg-dark border border-secondary text-info ms-2" style={{ fontSize: '9px' }}>BM</span>
-                      )}
-                      {match.hasFancy && (
-                        <span className="badge bg-dark border border-secondary text-warning ms-1" style={{ fontSize: '9px' }}>FANCY</span>
-                      )}
-                    </div>
-
-                    <Link 
-                      to={`/game-details/${match.sportId}/${match.id}`}
-                      className="text-dark fw-bold text-decoration-none hover-underline fs-6 d-block"
-                    >
-                      {match.name}
-                    </Link>
-
-                    {match.score && (
-                      <div className="small text-danger fw-bold mt-1">
-                        <i className="fas fa-baseball-ball me-1"></i> {match.score}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Odds Columns: 1, X, 2 (Back & Lay) */}
-                  <div className="d-flex align-items-center justify-content-end" style={{ minWidth: '360px' }}>
-                    {/* Selection 1 */}
-                    <div className="d-flex flex-fill me-1">
-                      <button 
-                        type="button" 
-                        className="btn btn-sm flex-fill p-1 me-1 text-center back odd-box"
-                        style={{ background: '#72bbef', color: '#000', border: 'none', minWidth: '54px' }}
-                        onClick={() => handleOddsClick(match, match.team1, 'back', match.odds.team1.back)}
-                      >
-                        <b className="d-block">{match.odds.team1.back}</b>
-                        <small className="text-muted" style={{ fontSize: '10px' }}>{match.odds.team1.backVol || '10K'}</small>
-                      </button>
-                      <button 
-                        type="button" 
-                        className="btn btn-sm flex-fill p-1 text-center lay odd-box"
-                        style={{ background: '#faa9ba', color: '#000', border: 'none', minWidth: '54px' }}
-                        onClick={() => handleOddsClick(match, match.team1, 'lay', match.odds.team1.lay)}
-                      >
-                        <b className="d-block">{match.odds.team1.lay}</b>
-                        <small className="text-muted" style={{ fontSize: '10px' }}>{match.odds.team1.layVol || '5K'}</small>
-                      </button>
-                    </div>
-
-                    {/* Draw (X) */}
-                    <div className="d-flex flex-fill me-1">
-                      <button 
-                        type="button" 
-                        className="btn btn-sm flex-fill p-1 me-1 text-center back odd-box"
-                        style={{ background: match.odds.draw.back !== '-' ? '#72bbef' : '#e9ecef', color: match.odds.draw.back !== '-' ? '#000' : '#adb5bd', border: 'none', minWidth: '54px' }}
-                        disabled={match.odds.draw.back === '-'}
-                        onClick={() => handleOddsClick(match, 'Draw', 'back', match.odds.draw.back)}
-                      >
-                        <b className="d-block">{match.odds.draw.back}</b>
-                        <small style={{ fontSize: '10px' }}>{match.odds.draw.backVol || '-'}</small>
-                      </button>
-                      <button 
-                        type="button" 
-                        className="btn btn-sm flex-fill p-1 text-center lay odd-box"
-                        style={{ background: match.odds.draw.lay !== '-' ? '#faa9ba' : '#e9ecef', color: match.odds.draw.lay !== '-' ? '#000' : '#adb5bd', border: 'none', minWidth: '54px' }}
-                        disabled={match.odds.draw.lay === '-'}
-                        onClick={() => handleOddsClick(match, 'Draw', 'lay', match.odds.draw.lay)}
-                      >
-                        <b className="d-block">{match.odds.draw.lay}</b>
-                        <small style={{ fontSize: '10px' }}>{match.odds.draw.layVol || '-'}</small>
-                      </button>
-                    </div>
-
-                    {/* Selection 2 */}
-                    <div className="d-flex flex-fill">
-                      <button 
-                        type="button" 
-                        className="btn btn-sm flex-fill p-1 me-1 text-center back odd-box"
-                        style={{ background: '#72bbef', color: '#000', border: 'none', minWidth: '54px' }}
-                        onClick={() => handleOddsClick(match, match.team2, 'back', match.odds.team2.back)}
-                      >
-                        <b className="d-block">{match.odds.team2.back}</b>
-                        <small className="text-muted" style={{ fontSize: '10px' }}>{match.odds.team2.backVol || '15K'}</small>
-                      </button>
-                      <button 
-                        type="button" 
-                        className="btn btn-sm flex-fill p-1 text-center lay odd-box"
-                        style={{ background: '#faa9ba', color: '#000', border: 'none', minWidth: '54px' }}
-                        onClick={() => handleOddsClick(match, match.team2, 'lay', match.odds.team2.lay)}
-                      >
-                        <b className="d-block">{match.odds.team2.lay}</b>
-                        <small className="text-muted" style={{ fontSize: '10px' }}>{match.odds.team2.layVol || '7K'}</small>
-                      </button>
-                    </div>
-                  </div>
+        <div className="tab-content mt-1">
+          <div className="tab-pane active">
+            <div className="bet-table">
+              {/* Table Header */}
+              <div className="bet-table-header">
+                <div className="bet-nation-name">
+                  <b>Game</b>
                 </div>
-              ))
-            )}
+                <div className="bet-nation-odd">
+                  <b>1</b>
+                </div>
+                <div className="bet-nation-odd">
+                  <b>X</b>
+                </div>
+                <div className="bet-nation-odd">
+                  <b>2</b>
+                </div>
+              </div>
+
+              {/* Table Body */}
+              <div className="bet-table-body">
+                {/* Special Super Over2 row when Cricket or All Sports is selected */}
+                {(tabEventId === 'all' || tabEventId === 4) && (
+                  <div className="bet-table-row">
+                    <div className="bet-nation-name">
+                      <Link to="/casino-list/superover2" className="bet-nation-game-name">
+                        <span>Super Over2</span>
+                      </Link>
+                      <div className="game-icons">
+                        <div className="game-icon">
+                          <span className="active"></span>
+                        </div>
+                        <div className="game-icon">
+                          <i className="fas fa-tv icon-tv"></i>
+                        </div>
+                        <div className="game-icon">
+                          <span className="badge bg-warning text-dark fw-bold" style={{ fontSize: '10px', padding: '2px 4px' }}>F</span>
+                        </div>
+                        <div className="game-icon">
+                          <span className="badge bg-info text-white fw-bold" style={{ fontSize: '10px', padding: '2px 4px' }}>BM</span>
+                        </div>
+                        <div className="game-icon"></div>
+                      </div>
+                    </div>
+
+                    <div className="bet-nation-odd">
+                      <div className="back odd-box">
+                        <span className="bet-odd"><b>-</b></span>
+                      </div>
+                      <div className="lay odd-box">
+                        <span className="bet-odd"><b>-</b></span>
+                      </div>
+                    </div>
+                    <div className="bet-nation-odd">
+                      <div className="back odd-box">
+                        <span className="bet-odd"><b>-</b></span>
+                      </div>
+                      <div className="lay odd-box">
+                        <span className="bet-odd"><b>-</b></span>
+                      </div>
+                    </div>
+                    <div className="bet-nation-odd">
+                      <div className="back odd-box">
+                        <span className="bet-odd"><b>-</b></span>
+                      </div>
+                      <div className="lay odd-box">
+                        <span className="bet-odd"><b>-</b></span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Special Goal2 row when Football is selected */}
+                {(tabEventId === 1) && (
+                  <div className="bet-table-row">
+                    <div className="bet-nation-name">
+                      <Link to="/casino-list/goal2" className="bet-nation-game-name">
+                        <span>Goal2</span>
+                      </Link>
+                      <div className="game-icons">
+                        <div className="game-icon">
+                          <span className="active"></span>
+                        </div>
+                        <div className="game-icon">
+                          <i className="fas fa-tv icon-tv"></i>
+                        </div>
+                        <div className="game-icon"></div>
+                        <div className="game-icon"></div>
+                        <div className="game-icon"></div>
+                      </div>
+                    </div>
+                    <div className="bet-nation-odd suspended-box">
+                      <div className="back odd-box">
+                        <span className="bet-odd"><b>-</b></span>
+                      </div>
+                      <div className="lay odd-box">
+                        <span className="bet-odd"><b>-</b></span>
+                      </div>
+                    </div>
+                    <div className="bet-nation-odd">
+                      <div className="back odd-box">
+                        <span className="bet-odd"><b>-</b></span>
+                      </div>
+                      <div className="lay odd-box">
+                        <span className="bet-odd"><b>-</b></span>
+                      </div>
+                    </div>
+                    <div className="bet-nation-odd suspended-box">
+                      <div className="back odd-box">
+                        <span className="bet-odd"><b>-</b></span>
+                      </div>
+                      <div className="lay odd-box">
+                        <span className="bet-odd"><b>-</b></span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Event rows */}
+                {filteredMatches.length === 0 ? (
+                  <div className="bet-table-row p-3 text-center w-100">
+                    No Record Found
+                  </div>
+                ) : (
+                  filteredMatches.map((m, idx) => {
+                    return (
+                      <div className="bet-table-row" key={idx}>
+                        <div className="bet-nation-name">
+                          <Link
+                            to={`/game-details/${m.sportId}/${m.id}`}
+                            className="bet-nation-game-name"
+                          >
+                            <span>{m.name}</span>
+                            <span className="d-none d-md-inline-block">&nbsp;/&nbsp;</span>
+                            <span>{m.date}</span>
+                          </Link>
+                          <div className="game-icons">
+                            <div className="game-icon">
+                              {m.isInPlay && <span className="active"></span>}
+                            </div>
+                            <div className="game-icon">
+                              {m.hasTv && <i className="fas fa-tv icon-tv"></i>}
+                            </div>
+                            <div className="game-icon">
+                              {m.hasFancy && <span className="badge bg-warning text-dark fw-bold" style={{ fontSize: '10px', padding: '2px 4px' }}>F</span>}
+                            </div>
+                            <div className="game-icon">
+                              {m.hasBookmaker && <span className="badge bg-info text-white fw-bold" style={{ fontSize: '10px', padding: '2px 4px' }}>BM</span>}
+                            </div>
+                            <div className="game-icon"></div>
+                          </div>
+                        </div>
+
+                        {/* Mobile Odd column labels */}
+                        <div className="bet-nation-odd d-xl-none">
+                          <b>1</b>
+                        </div>
+                        <div className="bet-nation-odd d-xl-none">
+                          <b>X</b>
+                        </div>
+                        <div className="bet-nation-odd d-xl-none">
+                          <b>2</b>
+                        </div>
+
+                        {/* Selection 1 Odds (Back & Lay) */}
+                        <div className="bet-nation-odd">
+                          <div
+                            className="back odd-box pointer"
+                            onClick={() => handleOddsClick(m, m.team1, 'back', m.odds?.team1?.back)}
+                            style={{ cursor: 'pointer' }}
+                          >
+                            <span className="bet-odd">
+                              <b>{m.odds?.team1?.back || '-'}</b>
+                            </span>
+                          </div>
+                          <div
+                            className="lay odd-box pointer"
+                            onClick={() => handleOddsClick(m, m.team1, 'lay', m.odds?.team1?.lay)}
+                            style={{ cursor: 'pointer' }}
+                          >
+                            <span className="bet-odd">
+                              <b>{m.odds?.team1?.lay || '-'}</b>
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Selection X / Draw Odds */}
+                        <div className="bet-nation-odd">
+                          <div
+                            className={`back odd-box ${m.odds?.draw?.back !== '-' ? 'pointer' : ''}`}
+                            onClick={() => m.odds?.draw?.back !== '-' && handleOddsClick(m, 'The Draw', 'back', m.odds?.draw?.back)}
+                            style={{ cursor: m.odds?.draw?.back !== '-' ? 'pointer' : 'default' }}
+                          >
+                            <span className="bet-odd">
+                              <b>{m.odds?.draw?.back || '-'}</b>
+                            </span>
+                          </div>
+                          <div
+                            className={`lay odd-box ${m.odds?.draw?.lay !== '-' ? 'pointer' : ''}`}
+                            onClick={() => m.odds?.draw?.lay !== '-' && handleOddsClick(m, 'The Draw', 'lay', m.odds?.draw?.lay)}
+                            style={{ cursor: m.odds?.draw?.lay !== '-' ? 'pointer' : 'default' }}
+                          >
+                            <span className="bet-odd">
+                              <b>{m.odds?.draw?.lay || '-'}</b>
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Selection 2 Odds (Back & Lay) */}
+                        <div className="bet-nation-odd">
+                          <div
+                            className="back odd-box pointer"
+                            onClick={() => handleOddsClick(m, m.team2, 'back', m.odds?.team2?.back)}
+                            style={{ cursor: 'pointer' }}
+                          >
+                            <span className="bet-odd">
+                              <b>{m.odds?.team2?.back || '-'}</b>
+                            </span>
+                          </div>
+                          <div
+                            className="lay odd-box pointer"
+                            onClick={() => handleOddsClick(m, m.team2, 'lay', m.odds?.team2?.lay)}
+                            style={{ cursor: 'pointer' }}
+                          >
+                            <span className="bet-odd">
+                              <b>{m.odds?.team2?.lay || '-'}</b>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Casino & Live Games Section */}
-        <div className="casino-section mt-4">
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h4 className="fs-5 text-white m-0 d-flex align-items-center">
-              <i className="fas fa-dice text-warning me-2"></i> Our Live Casino & Crash Games
-            </h4>
-            <div className="d-flex gap-1">
-              {['all', 'crash', 'live', 'table'].map(cat => (
-                <button
-                  key={cat}
-                  className={`btn btn-sm text-capitalize ${selectedCasinoCategory === cat ? 'btn-info text-dark fw-bold' : 'btn-outline-secondary text-white'}`}
-                  onClick={() => setSelectedCasinoCategory(cat)}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
+        {/* Casino List Grid (Matching target 7/10-column grid) */}
+        <div className="casino-list mt-2">
+          {CASINO_GAMES.map((game, idx) => {
+            const title = game.gname || game.name;
+            const image = game.image || (game.imgpath ? `https://cdn.926assets.com/casino-icons/lc/${game.imgpath}` : 'https://cdn.926assets.com/casino-icons/default.jpg');
+            return (
+              <div className="casino-list-item" key={idx}>
+                <Link to={`/casino-list/${game.category || 'LC'}`}>
+                  <div
+                    className="casino-list-item-banner"
+                    style={{
+                      backgroundImage: `url(${image}), url(https://cdn.926assets.com/casino-icons/default.jpg)`
+                    }}
+                  />
+                  <div className="casino-list-name">{title}</div>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
 
-          <div className="row g-3">
-            {filteredCasino.map(game => (
-              <div className="col-6 col-md-4 col-lg-3" key={game.id}>
-                <div 
-                  className="casino-list-item position-relative rounded overflow-hidden shadow-sm"
-                  style={{
-                    background: game.bg || '#1a2228',
-                    height: '140px',
-                    cursor: 'pointer',
-                    border: '1px solid #2f3b44',
-                    transition: 'transform 0.2s, box-shadow 0.2s'
-                  }}
-                  onClick={() => {
-                    alert(`Starting ${game.gname} Demo Session!`);
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+        {/* Floating Bet Slip (When odd is clicked on Home page) */}
+        {activeBet && (
+          <div
+            className="floating-place-bet shadow-lg"
+            style={{
+              position: 'fixed',
+              bottom: '20px',
+              right: '20px',
+              width: '380px',
+              maxWidth: 'calc(100vw - 40px)',
+              zIndex: 1080,
+              borderRadius: '4px',
+              overflow: 'hidden',
+              border: '1px solid #04a1a6'
+            }}
+          >
+            <div className="sidebar-box place-bet-container m-0">
+              <div className="sidebar-title d-flex justify-content-between align-items-center">
+                <h4>Place Bet</h4>
+                <button
+                  type="button"
+                  className="btn btn-sm text-white p-0 me-2"
+                  onClick={cancelBet}
+                  style={{ background: 'transparent', border: 'none' }}
                 >
-                  <div className="p-3 d-flex flex-column justify-content-between h-100">
-                    <div className="d-flex justify-content-between">
-                      <span className="badge bg-dark text-warning border border-secondary" style={{ fontSize: '10px' }}>
-                        {game.provider}
-                      </span>
-                      {game.category === 'crash' && (
-                        <span className="badge bg-danger blink_me" style={{ fontSize: '10px' }}>HOT</span>
-                      )}
+                  <i className="fas fa-times"></i>
+                </button>
+              </div>
+
+              {betSuccessMsg && (
+                <div className="alert alert-success py-1 px-2 m-2 small text-center">
+                  <i className="fas fa-check-circle me-1"></i> {betSuccessMsg}
+                </div>
+              )}
+
+              <div className={`place-bet-box ${activeBet.type.toLowerCase()}`}>
+                <div className="place-bet-box-header">
+                  <div className="place-bet-for">(Bet for)</div>
+                  <div className="place-bet-odds">Odds</div>
+                  <div className="place-bet-stake">Stake</div>
+                  <div className="place-bet-profit">Profit</div>
+                </div>
+
+                <div className="place-bet-box-body">
+                  <div className="place-bet-for">
+                    <span>{activeBet.selection}</span>
+                  </div>
+
+                  <div className="place-bet-odds">
+                    <input
+                      type="text"
+                      value={activeBet.odds}
+                      className="form-control"
+                      disabled
+                    />
+                    <div className="spinner-buttons input-group-btn btn-group-vertical">
+                      <button
+                        type="button"
+                        className="btn-default"
+                        onClick={() => updateOdds(Number((Number(activeBet.odds) + 0.01).toFixed(2)))}
+                      >
+                        <i className="fa fa-angle-up"></i>
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-default"
+                        onClick={() => updateOdds(Math.max(1.01, Number((Number(activeBet.odds) - 0.01).toFixed(2))))}
+                      >
+                        <i className="fa fa-angle-down"></i>
+                      </button>
                     </div>
-                    <div>
-                      <h6 className="text-white fw-bold m-0">{game.gname}</h6>
-                      <small className="text-white-50 text-capitalize">{game.category} game</small>
-                    </div>
+                  </div>
+
+                  <div className="place-bet-stake">
+                    <input
+                      type="number"
+                      value={activeBet.stake || ''}
+                      placeholder="0"
+                      onChange={(e) => setStake(e.target.value)}
+                      className="form-control"
+                    />
+                  </div>
+
+                  <div className="place-bet-profit">
+                    {activeBet.type.toLowerCase() === 'back'
+                      ? Math.round(Number(activeBet.stake || 0) * (Number(activeBet.odds) - 1))
+                      : Number(activeBet.stake || 0)}
+                  </div>
+                </div>
+
+                <div className="place-bet-buttons">
+                  {[100, 500, 1000, 5000, 10000, 25000].map(val => (
+                    <button
+                      type="button"
+                      key={val}
+                      className="btn btn-place-bet"
+                      onClick={() => addStake(val)}
+                    >
+                      +{val}
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => setStake(0)}
+                    className="btn btn-sm btn-link text-dark flex-fill text-end"
+                  >
+                    clear
+                  </button>
+                </div>
+
+                <div className="place-bet-action-buttons">
+                  <div>
+                    <button
+                      type="button"
+                      className="btn btn-info"
+                      onClick={() => alert('Quick stake values are configured.')}
+                    >
+                      Edit
+                    </button>
+                  </div>
+                  <div>
+                    <button
+                      type="button"
+                      className="btn btn-danger me-1"
+                      onClick={cancelBet}
+                    >
+                      Reset
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-success"
+                      disabled={!activeBet.stake || Number(activeBet.stake) <= 0}
+                      onClick={placeBet}
+                    >
+                      Submit
+                    </button>
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
-      <RightSidebar />
     </div>
   );
 };
-
