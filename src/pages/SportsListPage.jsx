@@ -76,14 +76,14 @@ export const SportsListPage = () => {
 
                     <Link 
                       to={`/game-details/${match.sportId}/${match.id}`}
-                      className="text-white fw-bold text-decoration-none fs-6 d-block"
+                      className="text-dark fw-bold text-decoration-none fs-6 d-block"
                     >
                       {match.name}
                     </Link>
 
                     {match.score && (
-                      <div className="small text-warning mt-1">
-                        <i className="fas fa-chart-line me-1"></i> {match.score}
+                      <div className="small text-danger fw-bold mt-1">
+                        <i className="fas fa-baseball-ball me-1"></i> {match.score}
                       </div>
                     )}
                   </div>
@@ -113,7 +113,7 @@ export const SportsListPage = () => {
                       <button 
                         type="button" 
                         className="btn btn-sm flex-fill p-1 me-1 text-center"
-                        style={{ background: match.odds.draw.back !== '-' ? '#72bbef' : '#1f272e', color: match.odds.draw.back !== '-' ? '#000' : '#6c757d', border: 'none', minWidth: '54px' }}
+                        style={{ background: match.odds.draw.back !== '-' ? '#72bbef' : '#e9ecef', color: match.odds.draw.back !== '-' ? '#000' : '#adb5bd', border: 'none', minWidth: '54px' }}
                         disabled={match.odds.draw.back === '-'}
                         onClick={() => handleOddsClick(match, 'Draw', 'back', match.odds.draw.back)}
                       >
@@ -122,7 +122,7 @@ export const SportsListPage = () => {
                       <button 
                         type="button" 
                         className="btn btn-sm flex-fill p-1 text-center"
-                        style={{ background: match.odds.draw.lay !== '-' ? '#faa9ba' : '#1f272e', color: match.odds.draw.lay !== '-' ? '#000' : '#6c757d', border: 'none', minWidth: '54px' }}
+                        style={{ background: match.odds.draw.lay !== '-' ? '#faa9ba' : '#e9ecef', color: match.odds.draw.lay !== '-' ? '#000' : '#adb5bd', border: 'none', minWidth: '54px' }}
                         disabled={match.odds.draw.lay === '-'}
                         onClick={() => handleOddsClick(match, 'Draw', 'lay', match.odds.draw.lay)}
                       >
@@ -158,3 +158,4 @@ export const SportsListPage = () => {
     </div>
   );
 };
+

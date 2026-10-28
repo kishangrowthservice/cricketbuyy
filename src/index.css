@@ -1,29 +1,4 @@
-/* Custom global resets and styling consistent with silverbhai.com */
-:root {
-  --bg-primary: #04A1A6;
-  --bg-primary90: #04A1A6E6;
-  --text-primary: #FFFFFF;
-  --bg-secondary: #0F696E;
-  --bg-secondary70: #0F696EB3;
-  --bg-secondary85: #0F696ED9;
-  --text-secondary: #FFFFFF;
-  --bg-body: #16191C;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color: var(--bg-body, #16191C);
-  color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  overflow-x: hidden;
-}
-
-a {
-  text-decoration: none;
-}
-
-/* Animations */
+/* Global scrollbar and animation helpers without overriding original site styles */
 @keyframes blinker {
   50% {
     opacity: 0.3;
@@ -34,7 +9,6 @@ a {
   animation: blinker 1.2s linear infinite;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -43,9 +17,9 @@ a {
   background: #111417;
 }
 ::-webkit-scrollbar-thumb {
-  background: #04A1A6;
+  background: var(--bg-primary, #04A1A6);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0F696E;
+  background: var(--bg-secondary, #0F696E);
 }

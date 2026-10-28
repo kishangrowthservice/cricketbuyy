@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { MATCHES_DATA } from '../data/mockData';
 import { useBetSlip } from '../context/BetSlipContext';
+import { RightSidebar } from '../components/RightSidebar';
 
 export const GameDetailsPage = () => {
   const { etId, gameId } = useParams();
@@ -322,6 +323,8 @@ export const GameDetailsPage = () => {
           </div>
         )}
       </div>
+      <RightSidebar />
     </div>
   );
 };
+

@@ -121,3 +121,4 @@ export const CasinoListPage = () => {
     </div>
   );
 };
+

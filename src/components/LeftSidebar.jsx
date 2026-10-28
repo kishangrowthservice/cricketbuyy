@@ -159,3 +159,4 @@ export const LeftSidebar = ({ isOpen, onClose }) => {
     </>
   );
 };
+

@@ -224,3 +224,4 @@ export const OTHER_CASINOS = [
   { cname: 'Slot Game', ctype: 5, type: 'SLOT' },
   { cname: 'Fantasy Game', ctype: 6, type: 'FANTASY' }
 ];
+
