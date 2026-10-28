@@ -14,7 +14,12 @@ import { GameDetailsPage } from './pages/GameDetailsPage';
 import { CasinoListPage } from './pages/CasinoListPage';
 import { SportsListPage } from './pages/SportsListPage';
 import { TermsPage, ResponsibleGamingPage } from './pages/StaticPages';
-import { AccountStatementPage, CurrentBetsPage } from './pages/ReportPage';
+import { 
+  AccountStatementPage, 
+  CurrentBetsPage, 
+  CasinoResultsPage, 
+  StatementPage 
+} from './pages/ReportPage';
 
 function ExchangeLayout({ sidebarOpen, setSidebarOpen, children }) {
   return (
@@ -39,10 +44,11 @@ function ExchangeLayout({ sidebarOpen, setSidebarOpen, children }) {
 
 function AppRoutes() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { isLoggedIn } = useAuth();
 
   return (
     <Routes>
-      {/* Dedicated Login Gateway */}
+      {/* Dedicated Login & Register Routes */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
 
@@ -54,17 +60,25 @@ function AppRoutes() {
       <Route
         path="/"
         element={
-          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-            <HomePage />
-          </ExchangeLayout>
+          isLoggedIn ? (
+            <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+              <HomePage />
+            </ExchangeLayout>
+          ) : (
+            <LoginPage />
+          )
         }
       />
       <Route
         path="/home"
         element={
-          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-            <HomePage />
-          </ExchangeLayout>
+          isLoggedIn ? (
+            <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+              <HomePage />
+            </ExchangeLayout>
+          ) : (
+            <LoginPage />
+          )
         }
       />
 
@@ -138,7 +152,7 @@ function AppRoutes() {
         }
       />
       <Route
-        path="/casino-list/:cType/:type/:gType"
+        path="/casino-list/:cType/:type/:tabId"
         element={
           <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
             <CasinoListPage />
@@ -216,6 +230,38 @@ function AppRoutes() {
         element={
           <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
             <CurrentBetsPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/live-casino-bets"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CurrentBetsPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/casino-results"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoResultsPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/deposit-statement"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <StatementPage type="Deposit" />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/withdraw-statement"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <StatementPage type="Withdraw" />
           </ExchangeLayout>
         }
       />

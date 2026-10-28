@@ -1,15 +1,19 @@
 import React, { useState, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { SITE_CONFIG, MATCHES_DATA } from '../data/mockData';
 
 export const Header = ({ onToggleSidebar }) => {
   const { isLoggedIn, user, loginDemo, logout } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showRulesModal, setShowRulesModal] = useState(false);
+  const [showButtonsModal, setShowButtonsModal] = useState(false);
+  const [stakeButtons, setStakeButtons] = useState([100, 500, 1000, 5000, 10000, 25000]);
+  const [tempButtons, setTempButtons] = useState([100, 500, 1000, 5000, 10000, 25000]);
   const searchInputRef = useRef(null);
 
   const isHome = location.pathname === '/' || location.pathname === '/home';
@@ -24,6 +28,12 @@ export const Header = ({ onToggleSidebar }) => {
   const filteredSearchResults = searchQuery.trim().length >= 2
     ? MATCHES_DATA.filter(m => m.name.toLowerCase().includes(searchQuery.toLowerCase()))
     : [];
+
+  const handleSaveButtons = (e) => {
+    e.preventDefault();
+    setStakeButtons([...tempButtons]);
+    setShowButtonsModal(false);
+  };
 
   return (
     <section className="header">
@@ -135,7 +145,7 @@ export const Header = ({ onToggleSidebar }) => {
               </div>
 
               {/* User Account Dropdown */}
-              <div className="user-name ms-3 d-none d-xl-block position-relative">
+              <div className="user-name ms-3 position-relative">
                 <div
                   className="pointer text-white fw-bold d-flex align-items-center py-1 px-2 rounded"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -143,7 +153,7 @@ export const Header = ({ onToggleSidebar }) => {
                 >
                   <i className="fas fa-user-circle me-1 text-warning"></i>
                   <span>{user?.uname || 'demouser'}</span>
-                  <i className="fas fa-caret-down ms-2"></i>
+                  <i className="fas fa-chevron-down ms-1" style={{ fontSize: '11px' }}></i>
                 </div>
 
                 {dropdownOpen && (
@@ -152,12 +162,83 @@ export const Header = ({ onToggleSidebar }) => {
                     style={{
                       zIndex: 1050,
                       background: '#1c2125',
-                      minWidth: '180px',
-                      overflow: 'hidden'
+                      minWidth: '220px',
+                      overflow: 'hidden',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.5)'
                     }}
                   >
-                    <li className="p-2 border-bottom border-secondary text-light small">
-                      Signed in as <b>{user?.uname || 'demouser'}</b>
+                    <li className="p-2 border-bottom border-secondary text-light small d-flex align-items-center justify-content-between">
+                      <span>Signed in as <b>{user?.uname || 'demouser'}</b></span>
+                      <span className="badge bg-success" style={{ fontSize: '10px' }}>Active</span>
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown-item text-white py-2"
+                        to="/account-statement"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        <i className="fas fa-file-invoice-dollar me-2 text-info"></i> Account Statement
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown-item text-white py-2"
+                        to="/current-bet"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        <i className="fas fa-list-alt me-2 text-warning"></i> Current Bets
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown-item text-white py-2"
+                        to="/casino-results"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        <i className="fas fa-dice me-2 text-success"></i> Casino Results
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown-item text-white py-2"
+                        to="/deposit-statement"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        <i className="fas fa-arrow-circle-down me-2 text-primary"></i> Deposit Statement
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown-item text-white py-2"
+                        to="/withdraw-statement"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        <i className="fas fa-arrow-circle-up me-2 text-danger"></i> Withdraw Statement
+                      </Link>
+                    </li>
+                    <li>
+                      <a
+                        className="dropdown-item text-white py-2 pointer"
+                        onClick={() => {
+                          setDropdownOpen(false);
+                          setShowButtonsModal(true);
+                        }}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        <i className="fas fa-cog me-2 text-info"></i> Set Button Values
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="dropdown-item text-white py-2 pointer"
+                        onClick={() => {
+                          setDropdownOpen(false);
+                          setShowRulesModal(true);
+                        }}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        <i className="fas fa-book me-2 text-secondary"></i> Rules
+                      </a>
                     </li>
                     <li>
                       <Link
@@ -165,7 +246,7 @@ export const Header = ({ onToggleSidebar }) => {
                         to="/terms-and-conditions"
                         onClick={() => setDropdownOpen(false)}
                       >
-                        <i className="fas fa-file-contract me-2 text-info"></i> Terms &amp; Conditions
+                        <i className="fas fa-file-contract me-2 text-secondary"></i> Terms &amp; Conditions
                       </Link>
                     </li>
                     <li>
@@ -180,10 +261,11 @@ export const Header = ({ onToggleSidebar }) => {
                     <li>
                       <button
                         type="button"
-                        className="dropdown-item text-danger py-2 border-top border-secondary"
+                        className="dropdown-item text-danger py-2 border-top border-secondary w-100 text-start bg-transparent"
                         onClick={() => {
                           setDropdownOpen(false);
                           logout();
+                          navigate('/');
                         }}
                       >
                         <i className="fas fa-sign-out-alt me-2"></i> Logout
@@ -213,6 +295,37 @@ export const Header = ({ onToggleSidebar }) => {
         </div>
       </div>
 
+      {/* Mobile Search Bar */}
+      <div className="search-box-container d-xl-none px-2 py-1 bg-dark">
+        <div className="search-box position-relative">
+          <input
+            type="search"
+            placeholder="Search here"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="form-control"
+            style={{ height: '32px', fontSize: '13px' }}
+          />
+          {searchQuery.trim().length >= 2 && (
+            <div className="search-list shadow" style={{ position: 'absolute', top: '100%', left: 0, zIndex: 1100, background: '#1c2125', width: '100%', maxHeight: '250px', overflowY: 'auto' }}>
+              {filteredSearchResults.map((m, idx) => (
+                <Link
+                  key={idx}
+                  to={`/game-details/${m.sportId}/${m.id}`}
+                  onClick={() => setSearchQuery('')}
+                  className="text-decoration-none"
+                >
+                  <div className="p-2 border-bottom border-dark text-white">
+                    <div className="fw-bold small text-info">{m.tournament}</div>
+                    <div className="small">{m.name}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* News Marquee */}
       <div className="news">
         <marquee scrollamount="3">
@@ -228,7 +341,7 @@ export const Header = ({ onToggleSidebar }) => {
               <Link to="/" className="nav-link">Home</Link>
             </li>
             <li className="nav-item">
-              <Link to="/all-sports/lottery" className="nav-link">Lottery</Link>
+              <Link to="/all-sports/33" className="nav-link">Lottery</Link>
             </li>
             <li className="nav-item">
               <Link to="/all-sports/4" className="nav-link">Cricket</Link>
@@ -243,22 +356,22 @@ export const Header = ({ onToggleSidebar }) => {
               <Link to="/all-sports/8" className="nav-link">Table Tennis</Link>
             </li>
             <li className="nav-item">
-              <Link to="/casino-list/baccarat" className="nav-link">Baccarat</Link>
+              <Link to="/casino-list/LC/4/22" className="nav-link">Baccarat</Link>
             </li>
             <li className="nav-item">
-              <Link to="/casino-list/32cards" className="nav-link">32 Cards</Link>
+              <Link to="/casino-list/LC/4/24" className="nav-link">32 Cards</Link>
             </li>
             <li className="nav-item">
-              <Link to="/casino-list/teenpatti" className="nav-link">Teenpatti</Link>
+              <Link to="/casino-list/LC/4/20" className="nav-link">Teenpatti</Link>
             </li>
             <li className="nav-item">
-              <Link to="/casino-list/poker" className="nav-link">Poker</Link>
+              <Link to="/casino-list/LC/4/21" className="nav-link">Poker</Link>
             </li>
             <li className="nav-item">
-              <Link to="/casino-list/lucky7" className="nav-link">Lucky 7</Link>
+              <Link to="/casino-list/LC/4/27" className="nav-link">Lucky 7</Link>
             </li>
             <li className="nav-item aviator">
-              <Link to="/aviator-list" className="nav-link">
+              <Link to="/aviator-list" className="nav-link d-flex align-items-center">
                 <svg
                   id="Layer_2"
                   data-name="Layer 2"
@@ -276,11 +389,71 @@ export const Header = ({ onToggleSidebar }) => {
                     />
                   </g>
                 </svg>
+                <span className="ms-1 fw-bold text-danger">Crash</span>
               </Link>
             </li>
           </ul>
         </nav>
       </div>
+
+      {/* Set Button Values Modal */}
+      {showButtonsModal && (
+        <div
+          className="modal fade show d-block"
+          tabIndex="-1"
+          style={{ background: 'rgba(0,0,0,0.7)', zIndex: 1200 }}
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content" style={{ background: '#1c2125', color: '#fff', border: '1px solid #04a1a6' }}>
+              <div className="modal-header" style={{ background: '#04a1a6' }}>
+                <h5 className="modal-title fw-bold">Set Button Values</h5>
+                <button
+                  type="button"
+                  className="btn-close btn-close-white"
+                  onClick={() => setShowButtonsModal(false)}
+                ></button>
+              </div>
+              <form onSubmit={handleSaveButtons}>
+                <div className="modal-body">
+                  <p className="small text-muted mb-3">Customize quick stake button amounts for your bet slip:</p>
+                  <div className="row g-2">
+                    {tempButtons.map((btnVal, idx) => (
+                      <div className="col-4" key={idx}>
+                        <label className="small text-muted">Button {idx + 1}</label>
+                        <input
+                          type="number"
+                          className="form-control form-control-sm"
+                          value={btnVal}
+                          onChange={(e) => {
+                            const updated = [...tempButtons];
+                            updated[idx] = Number(e.target.value) || 0;
+                            setTempButtons(updated);
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="modal-footer border-secondary">
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-sm"
+                    onClick={() => setShowButtonsModal(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-sm"
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Rules Modal */}
       {showRulesModal && (
