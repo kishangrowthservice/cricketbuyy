@@ -1,17 +1,18 @@
 export const SITE_CONFIG = {
-  title: 'SILVERBHAI',
-  logo: 'https://sitethemedata.com/sitethemes/silverbhai.com/front/logo.png',
+  title: 'CRICKETBUYY',
+  domain: 'Cricketbuyy.com',
+  logo: '/logo.svg',
   scoreboardUrl: 'wss://sportsscore24.com',
   bucketPath: 'https://sitethemedata.com/',
   dimBucketPath: 'https://cdn.926assets.com/',
   imgPath: 'https://cdn.926assets.com/g3ver/v107/static/',
-  news: 'Newly Launched Matka Market In Our Exchange | 24X7 Instant Deposits & Withdrawals Available | Enjoy Best Odds On All Cricket & Live Casino Markets',
+  news: 'Welcome to Cricketbuyy.com | Official Sports & Casino Betting Exchange | 24X7 Instant Deposits & Withdrawals Available | Enjoy Best Odds On All Cricket & Live Casino Markets',
   themeType: '4',
   bgBody: '#16191C',
   bgPrimary: '#941b2c',
   bgSecondary: '#6e101c',
   supportNo: '+91 9876543210',
-  telegram: 'https://t.me/silverbhai_official',
+  telegram: 'https://t.me/cricketbuyy_official',
   whatsapp: 'https://wa.me/919876543210'
 };
 

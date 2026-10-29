@@ -54,8 +54,13 @@ export const Header = ({ onToggleSidebar }) => {
             {isHome ? <i className="fas fa-bars me-2"></i> : <i className="fas fa-home me-1"></i>}
           </Link>
 
-          <Link to="/">
-            <img src={SITE_CONFIG.logo} alt="SILVERBHAI" />
+          <Link to="/" className="d-flex align-items-center">
+            <img
+              src={SITE_CONFIG.logo}
+              alt={SITE_CONFIG.title}
+              style={{ height: '38px', maxWidth: '210px', objectFit: 'contain' }}
+              onError={(e) => { e.target.src = '/logo.png'; }}
+            />
           </Link>
         </div>
 

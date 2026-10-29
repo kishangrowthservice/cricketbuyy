@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 80" width="100%" height="100%">
+  <defs>
+    <!-- Gold Gradients for Luxury Sports Feel -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF2A3" />
+      <stop offset="30%" stop-color="#FFD700" />
+      <stop offset="70%" stop-color="#FFA500" />
+      <stop offset="100%" stop-color="#DF7800" />
+    </linearGradient>
+
+    <linearGradient id="goldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+
+    <!-- Ball Body Gradient (Deep Ruby to Crimson) -->
+    <radialGradient id="ballGradient" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ff4757" />
+      <stop offset="40%" stop-color="#c81428" />
+      <stop offset="85%" stop-color="#800a18" />
+      <stop offset="100%" stop-color="#4a020b" />
+    </radialGradient>
+
+    <!-- Trajectory Swoosh Gradient -->
+    <linearGradient id="orbitGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFD700" stop-opacity="0.2" />
+      <stop offset="50%" stop-color="#FFD700" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#FFF8DC" stop-opacity="1" />
+    </linearGradient>
+
+    <!-- Metallic Shield Gradient -->
+    <linearGradient id="shieldBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700" />
+      <stop offset="50%" stop-color="#AA771C" />
+      <stop offset="100%" stop-color="#FEDB37" />
+    </linearGradient>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#F59E0B" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- ==================== ICON EMBLEM ==================== -->
+  <g transform="translate(10, 4)" filter="url(#glow)">
+    <!-- Hexagonal Crest Shield Base -->
+    <path d="M 36,2 L 66,16 L 66,48 L 36,70 L 6,48 L 6,16 Z"
+          fill="#14191E"
+          stroke="url(#shieldBorder)"
+          stroke-width="2.5" />
+
+    <!-- Shield Inner Fill Accent -->
+    <path d="M 36,6 L 62,18 L 62,46 L 36,65 L 10,46 L 10,18 Z"
+          fill="#1C060A"
+          opacity="0.9" />
+
+    <!-- 3D Cricket Ball (Core Sphere) -->
+    <circle cx="36" cy="34" r="22" fill="url(#ballGradient)" />
+
+    <!-- Cricket Ball Seam Stitching (Curved dashed trajectory) -->
+    <path d="M 20,20 C 31,24 41,38 48,50"
+          fill="none"
+          stroke="#FFFFFF"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-dasharray="1 3.5"
+          opacity="0.95" />
+
+    <!-- Ball Seam Ridge Highlight -->
+    <path d="M 21,19 C 32,23 42,37 49,49"
+          fill="none"
+          stroke="#FFD700"
+          stroke-width="0.8"
+          opacity="0.6" />
+
+    <!-- Dynamic Upward Orbit / Exchange Buy Swoosh -->
+    <path d="M 12,48 C 15,62 38,62 55,44 C 64,34 66,22 62,14"
+          fill="none"
+          stroke="url(#orbitGradient)"
+          stroke-width="3"
+          stroke-linecap="round" />
+
+    <!-- Orbit Arrowhead (Trading Momentum Upward) -->
+    <polygon points="61,10 68,14 62,18" fill="#FFF2A3" />
+
+    <!-- Glint / Shimmer Star -->
+    <path d="M 24,22 Q 26,24 28,24 Q 26,24 24,26 Q 24,24 22,24 Q 24,24 24,22 Z" fill="#FFFFFF" opacity="0.9"/>
+  </g>
+
+  <!-- ==================== BRAND TYPOGRAPHY ==================== -->
+  <!-- "CRICKET" (Bold Athletic Modern White) -->
+  <text x="88" y="47"
+        font-family="'Montserrat', 'Roboto Condensed', 'Kanit', sans-serif"
+        font-size="34"
+        font-weight="900"
+        letter-spacing="0.5"
+        fill="#FFFFFF"
+        filter="url(#glow)">
+    CRICKET
+  </text>
+
+  <!-- "BUYY" (High-Gloss Premium Gold) -->
+  <text x="238" y="47"
+        font-family="'Montserrat', 'Roboto Condensed', 'Kanit', sans-serif"
+        font-size="34"
+        font-weight="900"
+        letter-spacing="1"
+        fill="url(#goldGradient)"
+        filter="url(#goldGlow)">
+    BUYY
+  </text>
+
+  <!-- ==================== SUB-BADGE & DOMAIN ==================== -->
+  <!-- Sleek Golden Pill for .COM / EXCHANGE -->
+  <g transform="translate(88, 54)">
+    <!-- Pill Container -->
+    <rect x="0" y="0" width="70" height="15" rx="3" fill="#2A050A" stroke="url(#goldAccent)" stroke-width="1"/>
+    <text x="35" y="11"
+          font-family="'Roboto Condensed', 'Segoe UI', sans-serif"
+          font-size="9.5"
+          font-weight="800"
+          letter-spacing="1.5"
+          fill="#FFD700"
+          text-anchor="middle">
+      .COM
+    </text>
+
+    <!-- Tagline: SPORTS & CASINO EXCHANGE -->
+    <text x="78" y="11"
+          font-family="'Roboto Condensed', 'Segoe UI', sans-serif"
+          font-size="9"
+          font-weight="700"
+          letter-spacing="2.2"
+          fill="#D1D5DB"
+          opacity="0.85">
+      SPORTS EXCHANGE
+    </text>
+
+    <!-- Live Green Pulse Dot -->
+    <circle cx="236" cy="7.5" r="3" fill="#10B981" />
+    <text x="244" y="10.5"
+          font-family="'Roboto Condensed', sans-serif"
+          font-size="8"
+          font-weight="700"
+          letter-spacing="1"
+          fill="#10B981">
+      LIVE
+    </text>
+  </g>
+</svg>

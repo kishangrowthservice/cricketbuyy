@@ -57,6 +57,9 @@ export const Footer = () => {
           </a>
         </div>
       </div>
+      <div className="text-center py-2 text-white-50 border-top border-white-10" style={{ fontSize: '11px', borderColor: 'rgba(255,255,255,0.1)' }}>
+        © 2026 {SITE_CONFIG.domain || 'Cricketbuyy.com'}. All Rights Reserved. 18+ Play Responsibly.
+      </div>
     </section>
   );
 };

@@ -28,11 +28,13 @@ export const LoginPage = () => {
     <div className="wrapper">
       <div className="login-page">
         <div className="login-box">
-          <div className="logo-login">
+          <div className="logo-login text-center mb-3">
             <Link to="/">
               <img 
-                src="https://sitethemedata.com/sitethemes/silverbhai.com/front/logo.png" 
-                alt="SILVER EXCH" 
+                src={SITE_CONFIG.logo} 
+                alt={SITE_CONFIG.title}
+                style={{ height: '48px', maxWidth: '240px', objectFit: 'contain' }}
+                onError={(e) => { e.target.src = '/logo.png'; }}
               />
             </Link>
           </div>

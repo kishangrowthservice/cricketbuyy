@@ -38,7 +38,12 @@ export const RegisterPage = () => {
       <div className="login-box p-4 rounded shadow-lg" style={{ width: '100%', maxWidth: '440px', background: '#1c2227', border: '1px solid #2a343d' }}>
         <div className="logo-login text-center mb-4">
           <Link to="/">
-            <img src={SITE_CONFIG.logo} alt={SITE_CONFIG.title} style={{ maxHeight: '55px', height: 'auto' }} />
+            <img
+              src={SITE_CONFIG.logo}
+              alt={SITE_CONFIG.title}
+              style={{ height: '48px', maxWidth: '240px', objectFit: 'contain' }}
+              onError={(e) => { e.target.src = '/logo.png'; }}
+            />
           </Link>
         </div>
 
