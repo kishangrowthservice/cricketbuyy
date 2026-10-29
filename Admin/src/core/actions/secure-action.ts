@@ -39,7 +39,7 @@ export function createSecureAction<TSchema extends z.ZodTypeAny, TResult>(
 ) {
   return async (
     rawInput: unknown,
-    ctx: ActionContext
+    ctx?: ActionContext
   ): Promise<Result<TResult, AppError>> => {
     try {
       // 1. Parse and validate input strictly with Zod
@@ -54,7 +54,7 @@ export function createSecureAction<TSchema extends z.ZodTypeAny, TResult>(
       const validatedInput = parseResult.data;
 
       // 2. Authentication check
-      if (!ctx.actor || !ctx.actor.id) {
+      if (!ctx || !ctx.actor || !ctx.actor.id) {
         return fail(new AppError({
           code: ErrorCode.UNAUTHENTICATED,
           safeMessage: 'Authentication required to perform this action'
@@ -120,7 +120,7 @@ export function createSecureAction<TSchema extends z.ZodTypeAny, TResult>(
 
       return ok(result);
     } catch (err) {
-      if (ctx.idempotencyKey) {
+      if (ctx?.idempotencyKey) {
         idempotencyStore.delete(ctx.idempotencyKey);
       }
 

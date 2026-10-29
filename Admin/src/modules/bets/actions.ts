@@ -163,3 +163,4 @@ export const voidBetAction = createSecureAction({
     return { success: true, betId: input.betId, status: 'VOIDED', stakeRefunded: bet.stake };
   }
 });
+
