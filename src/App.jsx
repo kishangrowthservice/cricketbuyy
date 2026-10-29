@@ -107,6 +107,14 @@ function AppRoutes() {
           </ExchangeLayout>
         }
       />
+      <Route
+        path="/sports-book/:cId"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <SportsListPage />
+          </ExchangeLayout>
+        }
+      />
 
       {/* Game Details Market */}
       <Route
@@ -119,6 +127,30 @@ function AppRoutes() {
       />
       <Route
         path="/gamedetails/:etId/:gameId"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <GameDetailsPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/cricketv/:etId/:gameId"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <GameDetailsPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/virtual-cricket/:etId/:gameId"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <GameDetailsPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/tp-virtual-cricket/:etId/:gameId"
         element={
           <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
             <GameDetailsPage />
@@ -160,7 +192,23 @@ function AppRoutes() {
         }
       />
       <Route
+        path="/casino/:gType"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoListPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
         path="/live-casino-list"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoListPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/live-casino-list/:cType"
         element={
           <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
             <CasinoListPage />
@@ -176,7 +224,23 @@ function AppRoutes() {
         }
       />
       <Route
+        path="/slot-list/:cType"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoListPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
         path="/fantasy-list"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoListPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/fantasy-list/:gameName"
         element={
           <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
             <CasinoListPage />
@@ -195,6 +259,14 @@ function AppRoutes() {
       {/* Reports and Account */}
       <Route
         path="/account-statement"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <AccountStatementPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/activity-log"
         element={
           <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
             <AccountStatementPage />
@@ -246,6 +318,30 @@ function AppRoutes() {
         element={
           <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
             <CasinoResultsPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/casino-results/:type"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <CasinoResultsPage />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/deposit"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <StatementPage type="Deposit" />
+          </ExchangeLayout>
+        }
+      />
+      <Route
+        path="/withdraw"
+        element={
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <StatementPage type="Withdraw" />
           </ExchangeLayout>
         }
       />

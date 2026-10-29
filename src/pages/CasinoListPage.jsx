@@ -138,7 +138,6 @@ export const CasinoListPage = () => {
         <div className="casino-list mt-2">
           {filtered.map((game, idx) => {
             const title = game.gname || game.name;
-            const image = game.image || (game.imgpath ? `https://cdn.926assets.com/casino-icons/lc/${game.imgpath}` : 'https://cdn.926assets.com/casino-icons/default.jpg');
             return (
               <div
                 className="casino-list-item"
@@ -149,9 +148,19 @@ export const CasinoListPage = () => {
                 <div
                   className="casino-list-item-banner"
                   style={{
-                    backgroundImage: `url(${image}), url(https://cdn.926assets.com/casino-icons/default.jpg)`
+                    background: game.bg || 'linear-gradient(135deg, #1f272e 0%, #11161b 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '80px',
+                    borderRadius: '4px',
+                    boxShadow: 'inset 0 0 15px rgba(0,0,0,0.4)',
+                    color: '#fff',
+                    fontSize: '22px'
                   }}
-                />
+                >
+                  <i className="fas fa-play-circle opacity-75"></i>
+                </div>
                 <div className="casino-list-name">{title}</div>
               </div>
             );

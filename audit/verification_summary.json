@@ -1,0 +1,143 @@
+{
+  "totalRoutes": 16,
+  "passedRoutes": 16,
+  "failedRoutes": 0,
+  "consoleErrors": [],
+  "failedRequests": [],
+  "interactions": [
+    {
+      "name": "Odds Click Opens Bet Slip",
+      "status": "PASS"
+    },
+    {
+      "name": "Stake Preset Selection (+100)",
+      "status": "PASS"
+    },
+    {
+      "name": "Place Bet Execution & Balance Update",
+      "status": "PASS"
+    },
+    {
+      "name": "Header Search Autocomplete",
+      "status": "PASS"
+    },
+    {
+      "name": "Mobile Sidebar Drawer Toggle",
+      "status": "PASS"
+    }
+  ],
+  "routeResults": [
+    {
+      "path": "/login",
+      "title": "Login Gateway",
+      "status": 200,
+      "desktopScreenshot": "desktop_login.png",
+      "verified": true
+    },
+    {
+      "path": "/register",
+      "title": "Register Gateway",
+      "status": 200,
+      "desktopScreenshot": "desktop_register.png",
+      "verified": true
+    },
+    {
+      "path": "/terms-and-conditions",
+      "title": "Terms and Conditions",
+      "status": 200,
+      "desktopScreenshot": "desktop_terms-and-conditions.png",
+      "verified": true
+    },
+    {
+      "path": "/responsible-gaming",
+      "title": "Responsible Gaming",
+      "status": 200,
+      "desktopScreenshot": "desktop_responsible-gaming.png",
+      "verified": true
+    },
+    {
+      "path": "/",
+      "title": "Exchange Dashboard",
+      "status": 200,
+      "desktopScreenshot": "desktop_root.png",
+      "verified": true
+    },
+    {
+      "path": "/home",
+      "title": "Home Dashboard",
+      "status": 200,
+      "desktopScreenshot": "desktop_home.png",
+      "verified": true
+    },
+    {
+      "path": "/all-sports",
+      "title": "All Sports Fixtures",
+      "status": 200,
+      "desktopScreenshot": "desktop_all-sports.png",
+      "verified": true
+    },
+    {
+      "path": "/all-sports/4",
+      "title": "Cricket Fixtures",
+      "status": 200,
+      "desktopScreenshot": "desktop_all-sports_4.png",
+      "verified": true
+    },
+    {
+      "path": "/game-details/4/710711374",
+      "title": "Game Details & Odds Ladder",
+      "status": 200,
+      "desktopScreenshot": "desktop_game-details_4_710711374.png",
+      "verified": true
+    },
+    {
+      "path": "/casino-list",
+      "title": "Casino Lobby",
+      "status": 200,
+      "desktopScreenshot": "desktop_casino-list.png",
+      "verified": true
+    },
+    {
+      "path": "/casino-list/live",
+      "title": "Live Casino",
+      "status": 200,
+      "desktopScreenshot": "desktop_casino-list_live.png",
+      "verified": true
+    },
+    {
+      "path": "/account-statement",
+      "title": "Account Statement",
+      "status": 200,
+      "desktopScreenshot": "desktop_account-statement.png",
+      "verified": true
+    },
+    {
+      "path": "/current-bet",
+      "title": "Current Bets",
+      "status": 200,
+      "desktopScreenshot": "desktop_current-bet.png",
+      "verified": true
+    },
+    {
+      "path": "/casino-results",
+      "title": "Casino Results",
+      "status": 200,
+      "desktopScreenshot": "desktop_casino-results.png",
+      "verified": true
+    },
+    {
+      "path": "/deposit-statement",
+      "title": "Deposit Statement",
+      "status": 200,
+      "desktopScreenshot": "desktop_deposit-statement.png",
+      "verified": true
+    },
+    {
+      "path": "/withdraw-statement",
+      "title": "Withdraw Statement",
+      "status": 200,
+      "desktopScreenshot": "desktop_withdraw-statement.png",
+      "verified": true
+    }
+  ]
+}
