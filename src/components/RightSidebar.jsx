@@ -47,7 +47,7 @@ export const RightSidebar = () => {
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
-              borderBottom: '1px solid #04a1a6'
+              borderBottom: '1px solid var(--bg-primary, #800000)'
             }}
           >
             <i className="fas fa-play-circle fa-2x text-warning mb-2" style={{ cursor: 'pointer' }}></i>

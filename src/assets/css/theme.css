@@ -1,1 +1,36 @@
-:root {--bg-primary: #04A1A6;--bg-primary90: #04A1A6E6;--text-primary: #FFFFFF;--bg-secondary: #0F696E;--bg-secondary70: #0F696EB3;--bg-secondary85: #0F696ED9;--text-secondary: #FFFFFF;--bg-news: ;}
+:root {
+  --bg-primary: #800000;
+  --bg-primary90: #800000E6;
+  --text-primary: #FFFFFF;
+  --bg-secondary: #580000;
+  --bg-secondary70: #580000B3;
+  --bg-secondary85: #580000D9;
+  --text-secondary: #FFFFFF;
+  --bg-news: #1e0004;
+}
+
+/* Explicit Maroon Theme for Header & Footer */
+.header-top {
+  background-color: var(--bg-primary, #800000) !important;
+  color: var(--text-primary, #FFFFFF) !important;
+}
+
+.header-bottom {
+  background-color: var(--bg-secondary, #580000) !important;
+  color: var(--text-secondary, #FFFFFF) !important;
+}
+
+.header-bottom .navbar-nav .nav-link {
+  color: var(--text-secondary, #FFFFFF) !important;
+}
+
+.footer,
+.footer.footer-login {
+  background-color: var(--bg-primary, #800000) !important;
+  color: var(--text-primary, #FFFFFF) !important;
+}
+
+.footer .footer-links .nav-link,
+.footer.footer-login .footer-links .nav-link {
+  color: var(--text-primary, #FFFFFF) !important;
+}
