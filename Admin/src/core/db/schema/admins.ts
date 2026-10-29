@@ -20,3 +20,4 @@ export const admins = adminSchema.table('admins', {
 
 export type Admin = typeof admins.$inferSelect;
 export type NewAdmin = typeof admins.$inferInsert;
+

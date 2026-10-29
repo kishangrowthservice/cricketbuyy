@@ -13,3 +13,4 @@ export const sessions = adminSchema.table('sessions', {
 
 export type Session = typeof sessions.$inferSelect;
 export type NewSession = typeof sessions.$inferInsert;
+

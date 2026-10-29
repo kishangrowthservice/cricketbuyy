@@ -131,3 +131,4 @@ admins, sessions, admin_roles, approval_requests, permissions, role_permissions,
 
 - **Phase 2 Handoff**: Full implementation of the RBAC engine with DB query resolution, Redis caching for permission lookups, Data Access Layer (DAL) scope query filters (`own`, `team`, `all`), dynamic custom role management UI, and Dual-Custody Approval workflows.
 - **Supabase DB Connectivity**: Ready for live connection strings once provided or during deployment setup.
+

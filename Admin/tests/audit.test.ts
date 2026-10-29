@@ -48,3 +48,4 @@ describe('Audit Log Hash-Chaining & Tamper-Evidence', () => {
     expect(hashOriginal).not.toBe(hashTampered);
   });
 });
+

@@ -54,3 +54,4 @@ export const approvalRequests = adminSchema.table('approval_requests', {
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   reviewedAt: timestamp('reviewed_at', { withTimezone: true })
 });
+

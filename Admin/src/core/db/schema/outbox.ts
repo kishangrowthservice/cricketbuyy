@@ -14,3 +14,4 @@ export const outboxEvents = adminSchema.table('outbox_events', {
 
 export type OutboxEvent = typeof outboxEvents.$inferSelect;
 export type NewOutboxEvent = typeof outboxEvents.$inferInsert;
+

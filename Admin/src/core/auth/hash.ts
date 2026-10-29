@@ -17,3 +17,4 @@ export async function verifyPassword(password: string, combinedHash: string): Pr
   const derivedKey = (await scryptAsync(password, salt, 64)) as Buffer;
   return timingSafeEqual(keyBuffer, derivedKey);
 }
+

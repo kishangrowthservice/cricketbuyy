@@ -27,3 +27,4 @@ export function computeAuditHash(payload: AuditPayload): string {
 
   return createHash('sha256').update(data).digest('hex');
 }
+

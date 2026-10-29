@@ -22,7 +22,8 @@ export interface SecureActionOptions<TSchema extends z.ZodTypeAny, TResult> {
   requireStepUp?: boolean;
   rateLimitKey?: string;
   handler: (input: z.infer<TSchema>, ctx: ActionContext) => Promise<TResult>;
-  auditMetadata?: (input: z.infer<TSchema>, result: TResult) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  auditMetadata?: (input: z.infer<TSchema>, result: any) => {
     resourceType: string;
     resourceId?: string;
     beforeState?: Record<string, unknown>;
@@ -135,3 +136,4 @@ export function createSecureAction<TSchema extends z.ZodTypeAny, TResult>(
     }
   };
 }
+
