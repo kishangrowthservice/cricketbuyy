@@ -135,13 +135,13 @@ export default function AuditLedgerPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#2a1215] pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-            <ShieldCheck className="w-7 h-7 text-[#e53e3e]" />
-            Cryptographic Audit Ledger & Chain Verifier
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+            <ShieldCheck className="w-7 h-7 text-[#941b2c]" />
+            Cryptographic Audit Ledger &amp; Chain Verifier
           </h1>
-          <p className="text-sm text-zinc-400 mt-1">
+          <p className="text-sm text-slate-500 mt-1">
             Append-only, SHA-256 tamper-evident audit ledger with mathematically verifiable block chaining.
           </p>
         </div>
@@ -149,15 +149,15 @@ export default function AuditLedgerPage() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => handleExport('CSV')}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 rounded-lg transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-xl transition-colors cursor-pointer shadow-2xs"
           >
-            <Download className="w-3.5 h-3.5" />
+            <Download className="w-3.5 h-3.5 text-slate-500" />
             Export CSV
           </button>
           <button
             onClick={handleVerifyChain}
             disabled={isVerifying}
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-[#941b2c] hover:bg-[#b92b3f] rounded-lg transition-all shadow-sm cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-[#941b2c] hover:bg-[#7a1624] rounded-xl transition-all shadow-2xs cursor-pointer disabled:opacity-50"
           >
             <Hash className="w-3.5 h-3.5" />
             {isVerifying ? 'Verifying Block Digests...' : 'Verify Cryptographic Integrity'}
@@ -168,45 +168,45 @@ export default function AuditLedgerPage() {
       {/* Verification Feedback Banner */}
       {verificationFeedback && (
         <div
-          className={`p-4 rounded-xl border flex items-center justify-between gap-3 text-xs ${
+          className={`p-4 rounded-2xl border flex items-center justify-between gap-3 text-xs shadow-xs ${
             verificationFeedback.valid
-              ? 'bg-emerald-950/40 border-emerald-800/80 text-emerald-300'
-              : 'bg-rose-950/60 border-rose-800 text-rose-300'
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
+              : 'bg-rose-50 border-rose-200 text-rose-900'
           }`}
         >
           <div className="flex items-center gap-2.5">
             {verificationFeedback.valid ? (
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
             ) : (
-              <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0" />
+              <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0" />
             )}
             <div>
-              <strong className="block font-semibold">
+              <strong className="block font-bold">
                 {verificationFeedback.valid ? 'Cryptographic Chain Seal Validated' : 'Chain Integrity Discrepancy'}
               </strong>
-              <p className="text-[11px] text-zinc-300 mt-0.5">{verificationFeedback.message}</p>
+              <p className="text-[11px] text-slate-600 mt-0.5">{verificationFeedback.message}</p>
             </div>
           </div>
-          <span className="font-mono text-[10px] bg-zinc-900 px-2 py-1 rounded border border-zinc-700 text-zinc-300 shrink-0">
+          <span className="font-mono text-[10px] font-bold bg-white px-2.5 py-1 rounded-lg border border-emerald-300 text-emerald-800 shrink-0 shadow-2xs">
             SHA-256 Verified
           </span>
         </div>
       )}
 
       {/* Search & Filter Bar */}
-      <div className="flex items-center justify-between gap-4 p-4 rounded-xl bg-[#12141a] border border-zinc-800">
+      <div className="flex items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
         <div className="relative max-w-md w-full">
-          <Search className="w-4 h-4 text-zinc-500 absolute left-3 top-2.5 pointer-events-none" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by action, email, resource type or log ID..."
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-zinc-900 border border-zinc-700/80 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:border-[#941b2c]"
+            className="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
           />
         </div>
-        <div className="text-xs text-zinc-400">
-          Showing <strong className="text-white">{filtered.length}</strong> audited records
+        <div className="text-xs text-slate-500 font-medium">
+          Showing <strong className="text-slate-900">{filtered.length}</strong> audited records
         </div>
       </div>
 
@@ -217,65 +217,65 @@ export default function AuditLedgerPage() {
           return (
             <div
               key={log.id}
-              className="bg-[#12141a] border border-zinc-800 rounded-xl overflow-hidden shadow-sm transition-all"
+              className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-xs hover:border-slate-300 transition-all"
             >
               <div
                 onClick={() => setExpandedId(isExpanded ? null : log.id)}
-                className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer hover:bg-zinc-900/50 transition-colors"
+                className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer hover:bg-slate-50/70 transition-colors"
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs font-bold text-white bg-zinc-800 px-2 py-0.5 rounded">
+                    <span className="font-mono text-xs font-bold text-slate-800 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded">
                       {log.action}
                     </span>
-                    <span className="text-xs text-zinc-500">•</span>
-                    <span className="text-xs font-mono text-zinc-300">{log.resourceType}:{log.resourceId}</span>
-                    <span className="text-[10px] font-mono text-zinc-500">{log.createdAt}</span>
+                    <span className="text-xs text-slate-300">•</span>
+                    <span className="text-xs font-mono font-semibold text-slate-700">{log.resourceType}:{log.resourceId}</span>
+                    <span className="text-[10px] font-mono text-slate-400 font-medium">{log.createdAt}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-zinc-400">
+                  <div className="flex items-center gap-3 text-xs text-slate-500">
                     <span className="flex items-center gap-1">
-                      <User className="w-3.5 h-3.5 text-zinc-500" />
-                      <strong className="text-zinc-200">{log.actorEmail}</strong> ({log.actorRole})
+                      <User className="w-3.5 h-3.5 text-slate-400" />
+                      <strong className="text-slate-900 font-bold">{log.actorEmail}</strong> ({log.actorRole})
                     </span>
                     <span>•</span>
-                    <span className="font-mono text-[11px] text-zinc-500">IP: {log.ipAddress}</span>
+                    <span className="font-mono text-[11px] text-slate-500">IP: {log.ipAddress}</span>
                   </div>
                 </div>
 
                 {/* Hash Chain Indicators */}
                 <div className="flex items-center gap-3">
                   <div className="text-right font-mono text-[10px] space-y-0.5">
-                    <div className="text-zinc-500">
-                      prev: <span className="text-zinc-400">{log.prevHash?.slice(0, 10)}...</span>
+                    <div className="text-slate-400">
+                      prev: <span className="text-slate-600 font-medium">{log.prevHash?.slice(0, 10)}...</span>
                     </div>
-                    <div className="text-emerald-400 font-semibold">
+                    <div className="text-emerald-700 font-bold">
                       hash: {log.entryHash.slice(0, 10)}...
                     </div>
                   </div>
-                  {isExpanded ? <ChevronDown className="w-4 h-4 text-zinc-400" /> : <ChevronRight className="w-4 h-4 text-zinc-400" />}
+                  {isExpanded ? <ChevronDown className="w-4 h-4 text-slate-400" /> : <ChevronRight className="w-4 h-4 text-slate-400" />}
                 </div>
               </div>
 
               {/* Expanded JSON State Viewer */}
               {isExpanded && (
-                <div className="p-4 border-t border-zinc-800/80 bg-zinc-950 text-xs space-y-3">
+                <div className="p-4 border-t border-slate-200 bg-slate-50/80 text-xs space-y-3">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
-                      <div className="text-[11px] font-semibold text-zinc-400 mb-1">State Before:</div>
-                      <pre className="p-3 rounded-lg bg-zinc-900 text-zinc-300 font-mono text-[11px] overflow-x-auto border border-zinc-800">
+                      <div className="text-[11px] font-bold text-slate-600 mb-1">State Before:</div>
+                      <pre className="p-3 rounded-xl bg-white text-slate-800 font-mono text-[11px] overflow-x-auto border border-slate-200 shadow-2xs">
                         {log.beforeState ? JSON.stringify(log.beforeState, null, 2) : 'null'}
                       </pre>
                     </div>
                     <div>
-                      <div className="text-[11px] font-semibold text-emerald-400 mb-1">State After:</div>
-                      <pre className="p-3 rounded-lg bg-zinc-900 text-emerald-300 font-mono text-[11px] overflow-x-auto border border-zinc-800">
+                      <div className="text-[11px] font-bold text-emerald-700 mb-1">State After:</div>
+                      <pre className="p-3 rounded-xl bg-white text-emerald-800 font-mono text-[11px] overflow-x-auto border border-emerald-200 shadow-2xs">
                         {log.afterState ? JSON.stringify(log.afterState, null, 2) : 'null'}
                       </pre>
                     </div>
                   </div>
 
-                  <div className="pt-2 border-t border-zinc-900 text-[10px] font-mono text-zinc-500 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <div className="truncate max-w-md">Full Hash: <span className="text-zinc-300">{log.entryHash}</span></div>
+                  <div className="pt-2 border-t border-slate-200 text-[10px] font-mono text-slate-500 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div className="truncate max-w-md">Full Hash: <span className="text-slate-800 font-semibold">{log.entryHash}</span></div>
                     <div>User Agent: {log.userAgent}</div>
                   </div>
                 </div>

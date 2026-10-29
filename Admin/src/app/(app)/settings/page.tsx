@@ -91,51 +91,51 @@ export default function SettingsManagementPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#2a1215] pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-            <Settings className="w-7 h-7 text-[#e53e3e]" />
-            Global Platform Settings & Integration Contract
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+            <Settings className="w-7 h-7 text-[#941b2c]" />
+            Global Platform Settings &amp; Integration Contract
           </h1>
-          <p className="text-sm text-zinc-400 mt-1">
+          <p className="text-sm text-slate-500 mt-1">
             System configuration, brand parameters, financial risk limits, and cross-site maintenance control.
           </p>
         </div>
       </div>
 
       {feedback && (
-        <div className="p-3.5 rounded-xl bg-emerald-950/60 border border-emerald-800 text-emerald-300 text-xs flex items-center justify-between">
+        <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between shadow-2xs">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-            <span>{feedback}</span>
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span className="font-medium">{feedback}</span>
           </div>
-          <button onClick={() => setFeedback(null)} className="text-emerald-400 hover:text-white">✕</button>
+          <button onClick={() => setFeedback(null)} className="text-emerald-700 hover:text-emerald-950 font-bold p-1 cursor-pointer">✕</button>
         </div>
       )}
 
       {/* Emergency Maintenance Mode Banner (Integration Contract) */}
       <div
-        className={`p-5 rounded-2xl border transition-all ${
+        className={`p-5 rounded-2xl border transition-all shadow-xs ${
           settings.maintenanceMode
-            ? 'bg-rose-950/50 border-rose-800'
-            : 'bg-[#151218] border-[#4a1c22]'
+            ? 'bg-rose-50 border-rose-300'
+            : 'bg-white border-slate-200/90'
         }`}
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <ShieldAlert
-                className={`w-5 h-5 ${settings.maintenanceMode ? 'text-rose-400 animate-pulse' : 'text-[#e53e3e]'}`}
+                className={`w-5 h-5 ${settings.maintenanceMode ? 'text-rose-600 animate-pulse' : 'text-[#941b2c]'}`}
               />
-              <h2 className="text-base font-bold text-white">
+              <h2 className="text-base font-bold text-slate-900">
                 Platform Maintenance Mode ({settings.maintenanceMode ? 'ACTIVE' : 'STANDBY'})
               </h2>
             </div>
-            <p className="text-xs text-zinc-300">
+            <p className="text-xs text-slate-600">
               When enabled, a cryptographically signed signal is emitted to the customer site (<code>cricketbuyy.com</code>), displaying maintenance screens and halting order matching.
             </p>
             {settings.maintenanceMode && settings.maintenanceReason && (
-              <div className="mt-2 text-xs font-mono text-rose-300 bg-rose-950/80 p-2 rounded-lg border border-rose-900">
+              <div className="mt-2 text-xs font-mono text-rose-800 bg-rose-100/70 p-2.5 rounded-xl border border-rose-300 font-medium">
                 Reason: {settings.maintenanceReason}
               </div>
             )}
@@ -143,10 +143,10 @@ export default function SettingsManagementPage() {
 
           <button
             onClick={() => setIsMaintenanceOpen(true)}
-            className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-white transition-all shadow-md cursor-pointer ${
+            className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white transition-all shadow-2xs cursor-pointer ${
               settings.maintenanceMode
-                ? 'bg-emerald-700 hover:bg-emerald-600'
-                : 'bg-rose-700 hover:bg-rose-600'
+                ? 'bg-emerald-600 hover:bg-emerald-700'
+                : 'bg-rose-600 hover:bg-rose-700'
             }`}
           >
             <Power className="w-4 h-4" />
@@ -159,83 +159,83 @@ export default function SettingsManagementPage() {
       <form onSubmit={handleSaveSettings} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Platform Identity */}
-          <div className="p-5 rounded-2xl bg-[#12141a] border border-zinc-800 space-y-4">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2 border-b border-zinc-800 pb-3">
-              <Paintbrush className="w-4 h-4 text-rose-400" />
-              Platform Identity & Parameters
+          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs space-y-4">
+            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-200 pb-3">
+              <Paintbrush className="w-4 h-4 text-[#941b2c]" />
+              Platform Identity &amp; Parameters
             </h3>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="block text-zinc-300 font-medium mb-1">Site / Brand Name</label>
+                <label className="block text-slate-700 font-semibold mb-1">Site / Brand Name</label>
                 <input
                   type="text"
                   required
                   value={settings.siteName}
                   onChange={(e) => setSettings({ ...settings, siteName: e.target.value })}
-                  className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-rose-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
                 />
               </div>
 
               <div>
-                <label className="block text-zinc-300 font-medium mb-1">Platform Settlement Currency</label>
+                <label className="block text-slate-700 font-semibold mb-1">Platform Settlement Currency</label>
                 <input
                   type="text"
                   required
                   value={settings.currency}
                   onChange={(e) => setSettings({ ...settings, currency: e.target.value })}
-                  className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl font-mono text-white focus:outline-none focus:border-rose-500"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl font-mono font-bold text-slate-900 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
                 />
               </div>
 
               <div>
-                <label className="block text-zinc-300 font-medium mb-1">Brand Theme Architecture</label>
-                <div className="p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-800 flex items-center justify-between">
+                <label className="block text-slate-700 font-semibold mb-1">Brand Theme Architecture</label>
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="w-3.5 h-3.5 rounded-full bg-[#941b2c] border border-rose-500/50" />
-                    <span className="text-zinc-200 font-medium">Cricketbuyy Deep Maroon (#941b2c)</span>
+                    <span className="w-3.5 h-3.5 rounded-full bg-[#941b2c] border border-rose-300" />
+                    <span className="text-slate-800 font-bold">Cricketbuyy Deep Maroon (#941b2c)</span>
                   </div>
-                  <span className="text-[10px] font-mono text-emerald-400 uppercase font-semibold">Production Locked</span>
+                  <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 uppercase font-bold">Production Locked</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Financial Risk Limits */}
-          <div className="p-5 rounded-2xl bg-[#12141a] border border-zinc-800 space-y-4">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2 border-b border-zinc-800 pb-3">
-              <DollarSign className="w-4 h-4 text-emerald-400" />
-              Risk Limits & Liability Thresholds
+          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs space-y-4">
+            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-200 pb-3">
+              <DollarSign className="w-4 h-4 text-emerald-600" />
+              Risk Limits &amp; Liability Thresholds
             </h3>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="block text-zinc-300 font-medium mb-1">Max Bet Limit per Slip (₹)</label>
+                <label className="block text-slate-700 font-semibold mb-1">Max Bet Limit per Slip (₹)</label>
                 <input
                   type="number"
                   required
                   min="1000"
                   value={settings.maxBetLimit}
                   onChange={(e) => setSettings({ ...settings, maxBetLimit: Number(e.target.value) })}
-                  className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl font-mono text-white focus:outline-none focus:border-[#941b2c]"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl font-mono font-bold text-slate-900 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
                 />
               </div>
 
               <div>
-                <label className="block text-zinc-300 font-medium mb-1">Max Book Exposure per Market (₹)</label>
+                <label className="block text-slate-700 font-semibold mb-1">Max Book Exposure per Market (₹)</label>
                 <input
                   type="number"
                   required
                   min="50000"
                   value={settings.maxMarketExposure}
                   onChange={(e) => setSettings({ ...settings, maxMarketExposure: Number(e.target.value) })}
-                  className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl font-mono text-white focus:outline-none focus:border-[#941b2c]"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl font-mono font-bold text-slate-900 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
                 />
               </div>
 
               <div>
-                <label className="block text-zinc-300 font-medium mb-1">Dual-Custody Threshold for Voids</label>
-                <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 font-mono text-[11px] text-amber-400">
+                <label className="block text-slate-700 font-semibold mb-1">Dual-Custody Threshold for Voids</label>
+                <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 font-mono text-[11px] text-amber-800 font-bold">
                   Fixed at ₹2,00,000 (Hardcoded Security Guarantee)
                 </div>
               </div>
@@ -244,31 +244,31 @@ export default function SettingsManagementPage() {
         </div>
 
         {/* Support Contact Channels */}
-        <div className="p-5 rounded-2xl bg-[#12141a] border border-zinc-800 space-y-4">
-          <h3 className="text-sm font-bold text-white flex items-center gap-2 border-b border-zinc-800 pb-3">
-            <PhoneCall className="w-4 h-4 text-sky-400" />
-            Support Channels & Official Contact
+        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs space-y-4">
+          <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-200 pb-3">
+            <PhoneCall className="w-4 h-4 text-sky-600" />
+            Support Channels &amp; Official Contact
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div>
-              <label className="block text-zinc-300 font-medium mb-1">Customer Support Email</label>
+              <label className="block text-slate-700 font-semibold mb-1">Customer Support Email</label>
               <input
                 type="email"
                 required
                 value={settings.supportEmail}
                 onChange={(e) => setSettings({ ...settings, supportEmail: e.target.value })}
-                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-[#941b2c]"
+                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
               />
             </div>
             <div>
-              <label className="block text-zinc-300 font-medium mb-1">Support Helpline / WhatsApp</label>
+              <label className="block text-slate-700 font-semibold mb-1">Support Helpline / WhatsApp</label>
               <input
                 type="text"
                 required
                 value={settings.supportPhone}
                 onChange={(e) => setSettings({ ...settings, supportPhone: e.target.value })}
-                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-[#941b2c]"
+                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
               />
             </div>
           </div>
@@ -279,7 +279,7 @@ export default function SettingsManagementPage() {
           <button
             type="submit"
             disabled={isSaving}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#941b2c] hover:bg-[#b92b3f] transition-all shadow-md cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-[#941b2c] hover:bg-[#7a1624] transition-all shadow-2xs cursor-pointer disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
             {isSaving ? 'Saving Configurations...' : 'Save All Settings'}
@@ -289,17 +289,17 @@ export default function SettingsManagementPage() {
 
       {/* Maintenance Confirmation Modal */}
       {isMaintenanceOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4">
-          <div className="bg-[#12141a] border border-[#38161b] w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <Power className="w-5 h-5 text-rose-400" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-xs p-4">
+          <div className="bg-white border border-slate-200 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <Power className="w-5 h-5 text-rose-600" />
                 {settings.maintenanceMode ? 'Confirm Lift Maintenance' : 'Confirm Emergency Maintenance Mode'}
               </h3>
-              <button onClick={() => setIsMaintenanceOpen(false)} className="text-zinc-400 hover:text-white">✕</button>
+              <button onClick={() => setIsMaintenanceOpen(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer text-lg leading-none p-1">✕</button>
             </div>
 
-            <p className="text-xs text-zinc-300">
+            <p className="text-xs text-slate-600">
               {settings.maintenanceMode
                 ? 'Lifting maintenance mode will restore customer order matching and public traffic on Cricketbuyy.'
                 : 'Activating maintenance mode will immediately lock public routes, showing a maintenance screen with your reason.'}
@@ -308,17 +308,17 @@ export default function SettingsManagementPage() {
             {!settings.maintenanceMode && (
               <div className="space-y-3 text-xs">
                 <div>
-                  <label className="block text-zinc-300 font-medium mb-1">Downtime Reason Notice:</label>
+                  <label className="block text-slate-700 font-semibold mb-1">Downtime Reason Notice:</label>
                   <textarea
                     rows={2}
                     value={maintenanceReason}
                     onChange={(e) => setMaintenanceReason(e.target.value)}
-                    className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl text-white text-xs focus:outline-none focus:border-[#941b2c]"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-slate-900 text-xs focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-medium mb-1">
-                    Estimated Downtime: <strong className="text-amber-400">{downtimeMinutes} minutes</strong>
+                  <label className="block text-slate-700 font-semibold mb-1">
+                    Estimated Downtime: <strong className="text-amber-800 font-bold font-mono">{downtimeMinutes} minutes</strong>
                   </label>
                   <input
                     type="range"
@@ -333,14 +333,14 @@ export default function SettingsManagementPage() {
               </div>
             )}
 
-            <div className="flex justify-end gap-2 border-t border-zinc-800 pt-4">
-              <button onClick={() => setIsMaintenanceOpen(false)} className="px-4 py-2 text-xs text-zinc-400 hover:text-white">Cancel</button>
+            <div className="flex justify-end gap-2 border-t border-slate-200 pt-4">
+              <button onClick={() => setIsMaintenanceOpen(false)} className="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer">Cancel</button>
               <button
                 onClick={handleToggleMaintenance}
-                className={`px-5 py-2 text-xs font-semibold text-white rounded-xl transition-all shadow-sm ${
+                className={`px-5 py-2 text-xs font-bold text-white rounded-xl transition-all shadow-2xs cursor-pointer ${
                   settings.maintenanceMode
-                    ? 'bg-emerald-700 hover:bg-emerald-600'
-                    : 'bg-rose-700 hover:bg-rose-600'
+                    ? 'bg-emerald-600 hover:bg-emerald-700'
+                    : 'bg-rose-600 hover:bg-rose-700'
                 }`}
               >
                 {settings.maintenanceMode ? 'Confirm Lift & Resume Trading' : 'Activate Maintenance Mode'}

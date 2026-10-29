@@ -188,21 +188,21 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       {/* Real-Time Trading Terminal Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-slate-900/70 border border-slate-800/80 rounded-2xl p-5 shadow-xl">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs">
         <div className="space-y-1">
           <div className="flex items-center gap-2.5">
             <span className="flex h-2.5 w-2.5 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
             </span>
-            <h1 className="text-lg font-bold text-white tracking-tight">
+            <h1 className="text-lg font-bold text-slate-900 tracking-tight">
               Live Operations & Risk Terminal
             </h1>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800/60">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
               SOCKETS: 2,840 ONLINE
             </span>
           </div>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-500">
             Real-time in-play cricket odds ladders, book liabilities, and 4-eyes dual custody governance.
           </p>
         </div>
@@ -210,21 +210,21 @@ export default function DashboardPage() {
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setFreezeAlertOpen(true)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-950/80 hover:bg-rose-900 text-rose-300 border border-rose-800/80 transition-all cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 transition-all cursor-pointer shadow-2xs"
           >
-            <PauseCircle className="w-3.5 h-3.5 text-rose-400" />
+            <PauseCircle className="w-3.5 h-3.5 text-rose-600" />
             Emergency Market Freeze
           </button>
           <Link
             href="/roles"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-all shadow-2xs"
           >
-            <Lock className="w-3.5 h-3.5 text-slate-400" />
+            <Lock className="w-3.5 h-3.5 text-slate-500" />
             RBAC Matrix
           </Link>
           <Link
             href="/markets"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-900/80 hover:bg-rose-800 text-white border border-rose-700/60 shadow-lg shadow-rose-950/50 transition-all"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#941b2c] hover:bg-[#7a1624] text-white transition-all shadow-2xs"
           >
             <Flame className="w-3.5 h-3.5" />
             In-Play Markets
@@ -235,20 +235,20 @@ export default function DashboardPage() {
       {/* Primary Financial & Risk KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Book Exposure */}
-        <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 space-y-3">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-3">
+          <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
             <span>Total Active Book Liability</span>
-            <Activity className="w-4 h-4 text-rose-400" />
+            <Activity className="w-4 h-4 text-rose-600" />
           </div>
-          <div className="text-2xl font-bold font-mono text-white tracking-tight">
+          <div className="text-2xl font-bold font-mono text-slate-900 tracking-tight">
             ₹84,50,000
           </div>
           <div className="space-y-1.5">
-            <div className="flex justify-between text-[11px] text-slate-400">
+            <div className="flex justify-between text-[11px] text-slate-500 font-medium">
               <span>Back: ₹48.2L</span>
               <span>Lay: ₹36.3L</span>
             </div>
-            <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden flex">
+            <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex border border-slate-200/50">
               <div className="bg-sky-500 h-full" style={{ width: '57%' }} />
               <div className="bg-rose-500 h-full" style={{ width: '43%' }} />
             </div>
@@ -256,72 +256,72 @@ export default function DashboardPage() {
         </div>
 
         {/* 24h Matched Volume */}
-        <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 space-y-3">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-3">
+          <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
             <span>24h Matched Volume</span>
-            <TrendingUp className="w-4 h-4 text-emerald-400" />
+            <TrendingUp className="w-4 h-4 text-emerald-600" />
           </div>
-          <div className="text-2xl font-bold font-mono text-white tracking-tight">
+          <div className="text-2xl font-bold font-mono text-slate-900 tracking-tight">
             ₹3,18,40,000
           </div>
           <div className="flex items-center justify-between text-[11px]">
-            <span className="text-emerald-400 font-semibold flex items-center">
+            <span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 font-semibold flex items-center">
               <ArrowUpRight className="w-3.5 h-3.5 mr-0.5" />
-              +18.4% vs yesterday
+              +18.4% vs yday
             </span>
-            <span className="text-slate-500 font-mono">14,280 slips</span>
+            <span className="text-slate-500 font-mono font-medium">14,280 slips</span>
           </div>
         </div>
 
         {/* Unmatched Order Liquidity */}
-        <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 space-y-3">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-3">
+          <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
             <span>Unmatched Order Book</span>
-            <Layers className="w-4 h-4 text-amber-400" />
+            <Layers className="w-4 h-4 text-amber-600" />
           </div>
-          <div className="text-2xl font-bold font-mono text-white tracking-tight">
+          <div className="text-2xl font-bold font-mono text-slate-900 tracking-tight">
             ₹8,40,000
           </div>
           <div className="flex items-center justify-between text-[11px]">
-            <span className="text-slate-400">142 orders pending</span>
-            <span className="text-amber-400 font-semibold font-mono">Liquidity Queue</span>
+            <span className="text-slate-500 font-medium">142 orders pending</span>
+            <span className="text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200 font-semibold font-mono text-[10px]">Liquidity Queue</span>
           </div>
         </div>
 
         {/* Dual-Custody Approval Gate */}
-        <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 space-y-3">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-3">
+          <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
             <span>Dual-Custody Queue</span>
-            <ShieldAlert className="w-4 h-4 text-rose-400" />
+            <ShieldAlert className="w-4 h-4 text-[#941b2c]" />
           </div>
-          <div className="text-2xl font-bold font-mono text-white tracking-tight flex items-center gap-2">
+          <div className="text-2xl font-bold font-mono text-slate-900 tracking-tight flex items-center gap-2">
             <span>{approvals.filter((a) => a.status === 'PENDING').length}</span>
-            <span className="text-xs font-sans font-semibold text-rose-400 px-2 py-0.5 rounded bg-rose-950/60 border border-rose-800/60">
+            <span className="text-[11px] font-sans font-semibold text-rose-700 px-2 py-0.5 rounded-full bg-rose-50 border border-rose-200">
               Action Required
             </span>
           </div>
-          <div className="flex items-center justify-between text-[11px] text-slate-400">
+          <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium">
             <span>4-Eyes Maker-Checker</span>
-            <span className="text-slate-300 font-mono">Anti-Collision</span>
+            <span className="text-slate-700 font-mono font-semibold">Anti-Collision</span>
           </div>
         </div>
       </div>
 
       {/* In-Play Cricket Odds Ladders (Live Trading Desk) */}
-      <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+      <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200/80 pb-3">
           <div>
-            <h2 className="text-sm font-bold text-white flex items-center gap-2">
-              <Radio className="w-4 h-4 text-rose-400 animate-pulse" />
+            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <Radio className="w-4 h-4 text-rose-600 animate-pulse" />
               Live In-Play Cricket Odds Surveillance
             </h2>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500">
               Real-time Decimal Back/Lay ladder feeds with instant trading suspension controls.
             </p>
           </div>
           <Link
             href="/markets"
-            className="text-xs text-rose-400 hover:text-rose-300 font-semibold inline-flex items-center gap-1 self-start sm:self-auto"
+            className="text-xs text-[#941b2c] hover:underline font-semibold inline-flex items-center gap-1 self-start sm:self-auto"
           >
             <span>View All Sports Markets</span>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -334,21 +334,21 @@ export default function DashboardPage() {
               key={match.id}
               className={`p-4 rounded-xl border transition-all ${
                 match.status === 'SUSPENDED'
-                  ? 'bg-rose-950/20 border-rose-900/60'
-                  : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+                  ? 'bg-rose-50/50 border-rose-200'
+                  : 'bg-slate-50/70 border-slate-200 hover:border-slate-300'
               }`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-semibold text-slate-300 truncate max-w-[200px]" title={match.tournament}>
+                <span className="text-xs font-bold text-slate-800 truncate max-w-[200px]" title={match.tournament}>
                   {match.tournament}
                 </span>
                 <span
                   className={`text-[10px] font-bold px-2 py-0.5 rounded ${
                     match.status === 'IN_PLAY'
-                      ? 'bg-emerald-950 text-emerald-400 border border-emerald-800/60'
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                       : match.status === 'INNINGS_BREAK'
-                      ? 'bg-amber-950 text-amber-400 border border-amber-800/60'
-                      : 'bg-rose-950 text-rose-400 border border-rose-800/60'
+                      ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                      : 'bg-rose-50 text-rose-700 border border-rose-200'
                   }`}
                 >
                   {match.status}
@@ -356,47 +356,47 @@ export default function DashboardPage() {
               </div>
 
               <div className="flex items-baseline justify-between mb-3">
-                <div className="text-base font-bold text-white font-mono">{match.score}</div>
-                <div className="text-xs text-slate-400 font-mono">{match.overs}</div>
+                <div className="text-base font-bold text-slate-900 font-mono">{match.score}</div>
+                <div className="text-xs text-slate-500 font-mono font-medium">{match.overs}</div>
               </div>
 
               {/* Odds Ladder */}
               <div className="space-y-1.5 mb-3 text-xs">
                 {/* Team A */}
-                <div className="flex items-center justify-between p-1.5 rounded bg-slate-900/80 border border-slate-800">
-                  <span className="font-semibold text-slate-200">{match.teamA}</span>
+                <div className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 shadow-2xs">
+                  <span className="font-bold text-slate-800 text-xs">{match.teamA}</span>
                   <div className="flex gap-1.5 font-mono text-xs">
-                    <span className="px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800/60 font-bold">
+                    <span className="px-2.5 py-1 rounded bg-sky-50 text-sky-800 border border-sky-300 font-bold hover:bg-sky-100 transition-colors">
                       {match.teamABack.toFixed(2)}
                     </span>
-                    <span className="px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800/60 font-bold">
+                    <span className="px-2.5 py-1 rounded bg-rose-50 text-rose-800 border border-rose-300 font-bold hover:bg-rose-100 transition-colors">
                       {match.teamALay.toFixed(2)}
                     </span>
                   </div>
                 </div>
 
                 {/* Team B */}
-                <div className="flex items-center justify-between p-1.5 rounded bg-slate-900/80 border border-slate-800">
-                  <span className="font-semibold text-slate-200">{match.teamB}</span>
+                <div className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 shadow-2xs">
+                  <span className="font-bold text-slate-800 text-xs">{match.teamB}</span>
                   <div className="flex gap-1.5 font-mono text-xs">
-                    <span className="px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800/60 font-bold">
+                    <span className="px-2.5 py-1 rounded bg-sky-50 text-sky-800 border border-sky-300 font-bold hover:bg-sky-100 transition-colors">
                       {match.teamBBack.toFixed(2)}
                     </span>
-                    <span className="px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800/60 font-bold">
+                    <span className="px-2.5 py-1 rounded bg-rose-50 text-rose-800 border border-rose-300 font-bold hover:bg-rose-100 transition-colors">
                       {match.teamBLay.toFixed(2)}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800/60 pt-2">
-                <span>Matched: <strong className="text-slate-200 font-mono">{match.matchedVolume}</strong></span>
+              <div className="flex items-center justify-between text-[11px] text-slate-500 border-t border-slate-200/80 pt-2.5">
+                <span>Matched: <strong className="text-slate-800 font-mono">{match.matchedVolume}</strong></span>
                 <button
                   onClick={() => handleToggleMarketFreeze(match.id)}
-                  className={`text-[11px] font-semibold px-2 py-1 rounded transition-colors cursor-pointer ${
+                  className={`text-[11px] font-bold px-2.5 py-1 rounded-md transition-colors cursor-pointer border ${
                     match.status === 'SUSPENDED'
-                      ? 'text-emerald-400 hover:bg-emerald-950/60'
-                      : 'text-rose-400 hover:bg-rose-950/60'
+                      ? 'text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border-emerald-200'
+                      : 'text-rose-700 bg-rose-50 hover:bg-rose-100 border-rose-200'
                   }`}
                 >
                   {match.status === 'SUSPENDED' ? 'Resume Market' : 'Freeze Market'}
@@ -410,18 +410,18 @@ export default function DashboardPage() {
       {/* Dual Custody 4-Eyes Queue & Live Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Approvals Queue */}
-        <div className="lg:col-span-8 bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+        <div className="lg:col-span-8 bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
             <div>
-              <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                <FileCheck className="w-4 h-4 text-amber-400" />
+              <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <FileCheck className="w-4 h-4 text-amber-600" />
                 Dual-Custody 4-Eyes Maker-Checker Queue
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 High-consequence financial adjustments and match voids require independent review.
               </p>
             </div>
-            <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
               Maker ≠ Checker
             </span>
           </div>
@@ -432,36 +432,36 @@ export default function DashboardPage() {
               return (
                 <div
                   key={item.id}
-                  className="p-4 rounded-xl border border-slate-800 bg-slate-950/60 hover:bg-slate-950/90 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  className="p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-slate-100/60 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-bold text-xs text-white">{item.type}</span>
-                      <span className="font-mono text-xs font-bold text-amber-400 bg-amber-950/50 px-2 py-0.5 rounded border border-amber-800/50">
+                      <span className="font-bold text-xs text-slate-900">{item.type}</span>
+                      <span className="font-mono text-xs font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
                         {item.amount}
                       </span>
                       {item.status === 'PENDING' && (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-950 text-amber-400 border border-amber-800/60">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
                           Pending Review
                         </span>
                       )}
                       {item.status === 'APPROVED' && (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800/60">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
                           Approved &amp; Executed
                         </span>
                       )}
                       {item.status === 'REJECTED' && (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-rose-950 text-rose-400 border border-rose-800/60">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200">
                           Rejected
                         </span>
                       )}
                     </div>
-                    <div className="text-xs text-slate-300">{item.resource}</div>
-                    <p className="text-[11px] text-slate-400">{item.details}</p>
+                    <div className="text-xs font-semibold text-slate-700">{item.resource}</div>
+                    <p className="text-[11px] text-slate-500">{item.details}</p>
                     <div className="flex items-center gap-2 text-[10px] text-slate-500 pt-1">
-                      <span>Requested by: <strong className="text-slate-300">{item.requesterName}</strong></span>
+                      <span>Requested by: <strong className="text-slate-800 font-semibold">{item.requesterName}</strong></span>
                       <span>•</span>
-                      <span className="text-amber-400">{item.expiresIn}</span>
+                      <span className="text-amber-700 font-semibold">{item.expiresIn}</span>
                     </div>
                   </div>
 
@@ -469,13 +469,13 @@ export default function DashboardPage() {
                     <div className="flex items-center gap-2 shrink-0">
                       <button
                         onClick={() => setActiveModalItem(item)}
-                        className="px-3 py-1.5 text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg transition-colors cursor-pointer"
+                        className="px-3 py-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-300 rounded-lg transition-colors cursor-pointer shadow-2xs"
                       >
                         Details
                       </button>
                       {isSelfMaker ? (
                         <div
-                          className="px-2.5 py-1.5 text-[11px] font-semibold text-slate-500 bg-slate-900 border border-slate-800 rounded-lg cursor-not-allowed"
+                          className="px-2.5 py-1.5 text-[11px] font-semibold text-slate-400 bg-slate-100 border border-slate-200 rounded-lg cursor-not-allowed"
                           title="Self-Approval Prohibited by Policy"
                         >
                           Self-Approval Blocked
@@ -483,7 +483,7 @@ export default function DashboardPage() {
                       ) : (
                         <button
                           onClick={() => handleApprove(item)}
-                          className="px-3 py-1.5 text-xs font-semibold text-white bg-emerald-700 hover:bg-emerald-600 rounded-lg transition-colors flex items-center gap-1 shadow-sm cursor-pointer"
+                          className="px-3 py-1.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
                         >
                           <Check className="w-3.5 h-3.5" />
                           Approve
@@ -498,76 +498,76 @@ export default function DashboardPage() {
         </div>
 
         {/* Real-Time Risk Stream & High-Value Alerts */}
-        <div className="lg:col-span-4 bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
-            <h2 className="text-sm font-bold text-white flex items-center gap-2">
-              <Zap className="w-4 h-4 text-amber-400" />
+        <div className="lg:col-span-4 bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
+            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <Zap className="w-4 h-4 text-amber-500" />
               Live Risk Stream &amp; Alerts
             </h2>
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           </div>
 
           <div className="space-y-3 text-xs">
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
+            <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200 space-y-1">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-rose-400 flex items-center gap-1">
-                  <AlertTriangle className="w-3.5 h-3.5" />
+                <span className="font-bold text-rose-700 flex items-center gap-1 text-[11px]">
+                  <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
                   High Liability Alert
                 </span>
-                <span className="text-[10px] text-slate-500">2m ago</span>
+                <span className="text-[10px] text-slate-400 font-mono">2m ago</span>
               </div>
-              <p className="text-slate-300 text-[11px]">
-                VIP Player #1042 placed <strong>₹1,50,000</strong> Lay on Pakistan @ 2.28 (Book Liability: ₹1,92,000).
+              <p className="text-slate-600 text-[11px]">
+                VIP Player #1042 placed <strong className="text-slate-800">₹1,50,000</strong> Lay on Pakistan @ 2.28 (Book Liability: ₹1,92,000).
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
+            <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200 space-y-1">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-emerald-400 flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
+                <span className="font-bold text-emerald-700 flex items-center gap-1 text-[11px]">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                   Instant Settle Triggered
                 </span>
-                <span className="text-[10px] text-slate-500">8m ago</span>
+                <span className="text-[10px] text-slate-400 font-mono">8m ago</span>
               </div>
-              <p className="text-slate-300 text-[11px]">
+              <p className="text-slate-600 text-[11px]">
                 IND 10-Over Session (Runs &gt; 74) settled YES. Payout ₹1,42,000 distributed to 34 wallets.
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
+            <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200 space-y-1">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-sky-400 flex items-center gap-1">
-                  <TrendingUp className="w-3.5 h-3.5" />
+                <span className="font-bold text-sky-700 flex items-center gap-1 text-[11px]">
+                  <TrendingUp className="w-3.5 h-3.5 text-sky-600" />
                   UPI Gateway Auto-Credit
                 </span>
-                <span className="text-[10px] text-slate-500">14m ago</span>
+                <span className="text-[10px] text-slate-400 font-mono">14m ago</span>
               </div>
-              <p className="text-slate-300 text-[11px]">
+              <p className="text-slate-600 text-[11px]">
                 HDFC Gateway matched UTR #881290 for ₹50,000 into Wallet #W-4410 with zero latency.
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
+            <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200 space-y-1">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-amber-400 flex items-center gap-1">
-                  <Activity className="w-3.5 h-3.5" />
+                <span className="font-bold text-amber-700 flex items-center gap-1 text-[11px]">
+                  <Activity className="w-3.5 h-3.5 text-amber-600" />
                   Velocity Spike Detected
                 </span>
-                <span className="text-[10px] text-slate-500">25m ago</span>
+                <span className="text-[10px] text-slate-400 font-mono">25m ago</span>
               </div>
-              <p className="text-slate-300 text-[11px]">
+              <p className="text-slate-600 text-[11px]">
                 Player #9921 submitted 6 bet orders in 18 seconds on Fancy Line. Placed on watchlist.
               </p>
             </div>
           </div>
 
-          <div className="border-t border-slate-800/80 pt-3">
+          <div className="border-t border-slate-200/80 pt-3">
             <Link
               href="/bets"
-              className="w-full inline-flex items-center justify-between px-3 py-2 text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors"
+              className="w-full inline-flex items-center justify-between px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors"
             >
               <span>Inspect Full Bet Risk Stream</span>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+              <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
             </Link>
           </div>
         </div>
@@ -575,86 +575,86 @@ export default function DashboardPage() {
 
       {/* Review Modal */}
       {activeModalItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-slate-900 border border-slate-800 w-full max-w-lg rounded-2xl p-6 shadow-2xl space-y-5">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <FileCheck className="w-5 h-5 text-amber-400" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-xs p-4">
+          <div className="bg-white border border-slate-200 w-full max-w-lg rounded-2xl p-6 shadow-2xl space-y-5">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <FileCheck className="w-5 h-5 text-amber-600" />
                 Review Dual-Custody Request
               </h3>
               <button
                 onClick={() => setActiveModalItem(null)}
-                className="text-slate-400 hover:text-white cursor-pointer"
+                className="text-slate-400 hover:text-slate-700 cursor-pointer text-lg leading-none p-1"
               >
                 ✕
               </button>
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Request Type:</span>
-                  <strong className="text-white">{activeModalItem.type}</strong>
+                  <span className="text-slate-500 font-medium">Request Type:</span>
+                  <strong className="text-slate-900">{activeModalItem.type}</strong>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Transaction Amount:</span>
-                  <strong className="text-amber-400 font-mono text-sm">{activeModalItem.amount}</strong>
+                  <span className="text-slate-500 font-medium">Transaction Amount:</span>
+                  <strong className="text-amber-800 font-mono text-sm bg-amber-50 px-2 py-0.5 rounded border border-amber-200">{activeModalItem.amount}</strong>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Target Entity:</span>
-                  <strong className="text-slate-200">{activeModalItem.resource}</strong>
+                  <span className="text-slate-500 font-medium">Target Entity:</span>
+                  <strong className="text-slate-800">{activeModalItem.resource}</strong>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Initiating Maker:</span>
-                  <strong className="text-slate-200">{activeModalItem.requesterName}</strong>
+                  <span className="text-slate-500 font-medium">Initiating Maker:</span>
+                  <strong className="text-slate-800">{activeModalItem.requesterName}</strong>
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1 font-medium">Operation Justification &amp; Payload:</label>
-                <div className="p-3 rounded-xl bg-slate-950 font-mono text-[11px] text-slate-300 border border-slate-800">
+                <label className="block text-slate-600 mb-1 font-semibold text-xs">Operation Justification &amp; Payload:</label>
+                <div className="p-3 rounded-xl bg-slate-50 font-mono text-[11px] text-slate-700 border border-slate-200">
                   {activeModalItem.details}
                 </div>
               </div>
 
               {activeModalItem.requesterId !== currentAdminId && (
                 <div>
-                  <label className="block text-slate-400 mb-1 font-medium">Rejection Justification (if denying):</label>
+                  <label className="block text-slate-600 mb-1 font-semibold text-xs">Rejection Justification (if denying):</label>
                   <input
                     type="text"
                     value={rejectionReason}
                     onChange={(e) => setRejectionReason(e.target.value)}
                     placeholder="Enter reason for rejection..."
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white text-xs focus:outline-none focus:border-rose-500"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-xs focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
                   />
                 </div>
               )}
             </div>
 
-            <div className="flex justify-end gap-2 border-t border-slate-800 pt-4">
+            <div className="flex justify-end gap-2 border-t border-slate-200 pt-4">
               <button
                 onClick={() => setActiveModalItem(null)}
-                className="px-3 py-1.5 text-xs font-semibold text-slate-400 hover:text-white cursor-pointer"
+                className="px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer"
               >
                 Close
               </button>
               {activeModalItem.requesterId === currentAdminId ? (
-                <div className="text-xs text-rose-400 flex items-center gap-1 font-medium">
-                  <AlertTriangle className="w-3.5 h-3.5" />
+                <div className="text-xs text-rose-700 bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-200 flex items-center gap-1 font-semibold">
+                  <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
                   Self-approval blocked by policy
                 </div>
               ) : (
                 <>
                   <button
                     onClick={() => handleReject(activeModalItem)}
-                    className="px-3 py-1.5 text-xs font-semibold text-rose-300 bg-rose-950/60 hover:bg-rose-900 border border-rose-800/80 rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
+                    className="px-3 py-1.5 text-xs font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-300 rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
                   >
                     <XCircle className="w-3.5 h-3.5" />
                     Reject
                   </button>
                   <button
                     onClick={() => handleApprove(activeModalItem)}
-                    className="px-4 py-1.5 text-xs font-semibold text-white bg-emerald-700 hover:bg-emerald-600 rounded-lg transition-colors flex items-center gap-1 shadow-sm cursor-pointer"
+                    className="px-4 py-1.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
                   >
                     <Check className="w-3.5 h-3.5" />
                     Approve &amp; Execute
@@ -668,19 +668,19 @@ export default function DashboardPage() {
 
       {/* Emergency Freeze Modal */}
       {freezeAlertOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-slate-900 border border-rose-800/80 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center gap-2 text-rose-400">
-              <AlertTriangle className="w-5 h-5 shrink-0" />
-              <h3 className="text-base font-bold text-white">Emergency Market Freeze</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-xs p-4">
+          <div className="bg-white border border-rose-200 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center gap-2 text-rose-700">
+              <AlertTriangle className="w-5 h-5 shrink-0 text-rose-600" />
+              <h3 className="text-base font-bold text-slate-900">Emergency Market Freeze</h3>
             </div>
-            <p className="text-xs text-slate-300">
+            <p className="text-xs text-slate-600">
               This action suspends all live cricket in-play betting order matching across all connected customer clients instantly.
             </p>
-            <div className="flex justify-end gap-2 pt-2">
+            <div className="flex justify-end gap-2 pt-2 border-t border-slate-200">
               <button
                 onClick={() => setFreezeAlertOpen(false)}
-                className="px-3 py-1.5 text-xs font-semibold text-slate-400 hover:text-white cursor-pointer"
+                className="px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer"
               >
                 Cancel
               </button>
@@ -689,7 +689,7 @@ export default function DashboardPage() {
                   setMatches((prev) => prev.map((m) => ({ ...m, status: 'SUSPENDED' })));
                   setFreezeAlertOpen(false);
                 }}
-                className="px-4 py-1.5 text-xs font-semibold text-white bg-rose-700 hover:bg-rose-600 rounded-lg shadow-lg cursor-pointer"
+                className="px-4 py-1.5 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 rounded-lg shadow-2xs cursor-pointer"
               >
                 Confirm Full Freeze
               </button>
