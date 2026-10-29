@@ -34,3 +34,4 @@ renderLogo().catch(err => {
   console.error('Error generating logo PNG:', err);
   process.exit(1);
 });
+
