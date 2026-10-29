@@ -74,3 +74,4 @@ export function applyFieldMask<T>(
 
   return result as T;
 }
+

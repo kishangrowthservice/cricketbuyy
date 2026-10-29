@@ -213,3 +213,4 @@ export async function seedRbacRegistry() {
 if (process.argv[1]?.includes('seed-rbac')) {
   seedRbacRegistry();
 }
+

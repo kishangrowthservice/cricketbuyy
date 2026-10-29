@@ -136,3 +136,4 @@ export function can(
     reason: `Granted with scope ${resolvedScope}`
   };
 }
+

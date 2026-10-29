@@ -70,3 +70,4 @@ export const SYSTEM_PERMISSIONS: SystemPermissionDef[] = [
 ];
 
 export type ActionName = typeof SYSTEM_PERMISSIONS[number]['action'];
+
