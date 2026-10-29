@@ -30,3 +30,4 @@ describe('Admin Hardened Session Engine Tests', () => {
     expect(SessionManager.isStepUpActive(pastDate)).toBe(false);
   });
 });
+

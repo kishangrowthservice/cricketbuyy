@@ -106,3 +106,4 @@ export class ImpersonationEngine {
     return claims;
   }
 }
+

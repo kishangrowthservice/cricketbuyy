@@ -126,3 +126,4 @@ export function verifyTotpToken(
 export function getTotpUri(email: string, secret: string, issuer: string = 'Cricketbuyy Admin'): string {
   return `otpauth://totp/${encodeURIComponent(issuer)}:${encodeURIComponent(email)}?secret=${secret}&issuer=${encodeURIComponent(issuer)}&algorithm=SHA1&digits=6&period=30`;
 }
+
