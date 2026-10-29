@@ -18,3 +18,4 @@
 5. **No hardcoded bypasses**: Super Admin is an immutable system role with a wildcard grant, evaluated through the same engine and fully audited.
 6. **No client-side auth decisions**: The server data-access layer filters all data according to actor scope (`own`, `team`, `all`) and applies field-level masking before returning DTOs.
 7. **Strict quality gates**: Zero TypeScript errors (`strict: true`), zero ESLint warnings, 100% passing tests, and no bypassed checks.
+

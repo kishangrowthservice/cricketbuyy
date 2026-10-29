@@ -87,3 +87,4 @@ From our comprehensive inspection of `src/data/mockData.js`, `src/context/`, and
 3. **Signalling Mechanisms**:
    - Fast cache-layer flags (Maintenance Mode, Global Banners) updated via Edge Config / Redis.
    - Webhook events dispatched with HMAC-SHA256 signatures for async events.
+

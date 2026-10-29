@@ -1,0 +1,43 @@
+{
+  "name": "cricketbuyy-admin",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "next start --port 3001",
+    "lint": "next lint",
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "bootstrap:super-admin": "tsx scripts/bootstrap-super-admin.ts",
+    "check:actions": "tsx scripts/check-secure-actions.ts"
+  },
+  "dependencies": {
+    "next": "^16.4.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "drizzle-orm": "^0.45.4",
+    "postgres": "^3.4.5",
+    "better-auth": "^1.7.14",
+    "zod": "^3.24.2",
+    "lucide-react": "^1.16.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.5.0",
+    "pino": "^10.3.1",
+    "dotenv": "^17.3.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "@types/node": "^24.11.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "drizzle-kit": "^0.31.9",
+    "tsx": "^4.21.0",
+    "vitest": "^4.1.4",
+    "postcss": "^8.5.8",
+    "@tailwindcss/postcss": "^4.2.1",
+    "tailwindcss": "^4.2.1"
+  }
+}

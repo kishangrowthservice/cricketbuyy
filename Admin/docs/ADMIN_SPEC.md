@@ -167,3 +167,4 @@ Principles:
 | Email | Resend + React Email |
 | Observability | Sentry, OpenTelemetry (@vercel/otel), Pino structured logs |
 | Testing | Vitest, Testing Library, Playwright, Testcontainers |
+

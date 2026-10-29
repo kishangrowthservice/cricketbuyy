@@ -10,7 +10,7 @@ The Admin application lives in `Admin/` and is deployed as a distinct Vercel pro
 We implement a hybrid integration model:
 
 1. **Database Layer (Option A — Shared PostgreSQL with Dedicated Schema)**:
-   - PostgreSQL 16+ on Neon.
+   - PostgreSQL 16+ on Supabase.
    - Admin-owned metadata (Admins, Roles, Permissions, Approvals, Audit Logs, Feature Flags, System Settings) lives in the dedicated schema `admin`.
    - Domain tables (`customers`, `bets`, `matches`, `transactions`) live in `public`.
    - Admin connects using a dedicated database role `admin_app` with explicit SELECT/UPDATE/INSERT grants. Admin migrations never alter `public` tables directly without formal contract versioning.
@@ -24,3 +24,4 @@ We implement a hybrid integration model:
 ## Consequences
 - Zero blast radius: A problem in the main site's frontend cannot crash the admin panel.
 - Fast propagation of administrative actions without polling.
+

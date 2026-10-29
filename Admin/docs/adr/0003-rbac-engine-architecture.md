@@ -29,3 +29,4 @@ We implement an in-house database-driven RBAC engine with the following architec
 ## Consequences
 - Highly auditable and compliant with enterprise security standards.
 - Granular delegation prevents accidental catastrophic actions by lower-tier admins.
+

@@ -15,7 +15,7 @@ We select the following core stack conforming strictly to §3 of `ADMIN_SPEC.md`
    - Pinned exact versions in `Admin/package.json`.
 2. **Language & Compiler**: **TypeScript 5.x** with `strict: true`, `noUncheckedIndexedAccess: true`, `noImplicitOverride: true`.
 3. **Styling & Components**: **Tailwind CSS v4** + **shadcn/ui** (accessible Radix primitives) + **Lucide Icons** + **TanStack Table** (with TanStack Virtual for 100k+ row pagination).
-4. **Data Access & ORM**: **Drizzle ORM** + `drizzle-kit` targeting **PostgreSQL 16+** (Neon on Vercel Marketplace). Hand-crafted SQL migrations for PostgreSQL Row-Level Security, triggers, and partitioning.
+4. **Data Access & ORM**: **Drizzle ORM** + `drizzle-kit` targeting **PostgreSQL 16+ (Supabase)** with pooled and direct connection URLs. Hand-crafted SQL migrations for PostgreSQL Row-Level Security, triggers, and partitioning.
 5. **Authentication**: **Better Auth** with Email/Password, TOTP 2FA, Passkeys (WebAuthn), and secure HTTP-only session cookies stored in PostgreSQL + Redis secondary store.
 6. **Authorization Engine**: In-house database-driven RBAC engine enforcing:
    - Super Admin (system wildcard) & Admin (customizable top level).
@@ -27,3 +27,4 @@ We select the following core stack conforming strictly to §3 of `ADMIN_SPEC.md`
 - Clean separation of concerns between Admin and customer frontend.
 - Zero `any` types; all API inputs validated via Zod schemas.
 - High velocity and safety with pre-built accessible UI primitives.
+
