@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import { db } from '../db/client';
-import { sessions, admins } from '../db/schema';
+import { sessions } from '../db/schema';
 import { eq, and, gt } from 'drizzle-orm';
 import { AppError } from '../errors/app-error';
 import { ErrorCode } from '../errors/codes';
@@ -17,17 +17,51 @@ export interface AdminSession {
 
 export const SESSION_CONFIG = {
   COOKIE_NAME: '__Host-admin-session',
+  COOKIE_OPTIONS: {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'lax' as const,
+    path: '/'
+    // __Host- cookies must NOT specify domain
+  },
   IDLE_TIMEOUT_MINUTES: 30,
+  SUPER_ADMIN_IDLE_TIMEOUT_MINUTES: 15,
   ABSOLUTE_TIMEOUT_HOURS: 12,
+  SUPER_ADMIN_ABSOLUTE_TIMEOUT_HOURS: 8,
   STEP_UP_VALIDITY_MINUTES: 10
 };
 
 export class SessionManager {
   /**
-   * Generates a cryptographically secure 256-bit session token
+   * Generates a cryptographically secure 256-bit raw session token
    */
   public static generateSessionId(): string {
     return crypto.randomBytes(32).toString('hex');
+  }
+
+  /**
+   * Computes SHA-256 digest of session token (§5.6)
+   */
+  public static hashSessionToken(token: string): string {
+    return crypto.createHash('sha256').update(token).digest('hex');
+  }
+
+  /**
+   * Gets idle timeout for a given role (Super Admin = 15m, Admin = 30m)
+   */
+  public static getIdleTimeoutMinutes(isSuperAdmin: boolean = false): number {
+    return isSuperAdmin
+      ? SESSION_CONFIG.SUPER_ADMIN_IDLE_TIMEOUT_MINUTES
+      : SESSION_CONFIG.IDLE_TIMEOUT_MINUTES;
+  }
+
+  /**
+   * Gets absolute session lifetime for a given role (Super Admin = 8h, Admin = 12h)
+   */
+  public static getAbsoluteTimeoutHours(isSuperAdmin: boolean = false): number {
+    return isSuperAdmin
+      ? SESSION_CONFIG.SUPER_ADMIN_ABSOLUTE_TIMEOUT_HOURS
+      : SESSION_CONFIG.ABSOLUTE_TIMEOUT_HOURS;
   }
 
   /**
@@ -36,15 +70,18 @@ export class SessionManager {
   public static async createSession(
     adminId: string,
     ipAddress?: string,
-    userAgent?: string
+    userAgent?: string,
+    isSuperAdmin: boolean = false
   ): Promise<AdminSession> {
-    const sessionId = this.generateSessionId();
-    const expiresAt = new Date(Date.now() + SESSION_CONFIG.IDLE_TIMEOUT_MINUTES * 60 * 1000);
+    const rawSessionToken = this.generateSessionId();
+    const tokenHash = this.hashSessionToken(rawSessionToken);
+    const idleMinutes = this.getIdleTimeoutMinutes(isSuperAdmin);
+    const expiresAt = new Date(Date.now() + idleMinutes * 60 * 1000);
 
     const [session] = await db
       .insert(sessions)
       .values({
-        id: sessionId,
+        id: tokenHash,
         adminId,
         ipAddress: ipAddress || null,
         userAgent: userAgent || null,
@@ -136,4 +173,3 @@ export class SessionManager {
     await db.delete(sessions).where(eq(sessions.adminId, adminId));
   }
 }
-

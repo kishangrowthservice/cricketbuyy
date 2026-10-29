@@ -21,3 +21,4 @@ export const SETTINGS_STATE: PlatformSettings = {
   maintenanceMode: false,
   maintenanceReason: null
 };
+

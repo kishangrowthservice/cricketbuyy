@@ -79,3 +79,4 @@ export function verifyAuditChain(entries: AuditLogItem[]): VerificationResult {
     totalEntries: entries.length
   };
 }
+
