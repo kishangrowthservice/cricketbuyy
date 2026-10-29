@@ -36,3 +36,4 @@ export class OptimisticLockEngine {
     return currentVersion + 1;
   }
 }
+

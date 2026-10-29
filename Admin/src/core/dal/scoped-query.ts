@@ -56,3 +56,4 @@ export class DalScopingEngine {
     return records.filter((r) => String(r[ownerKey]) === options.actorId);
   }
 }
+
