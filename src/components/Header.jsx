@@ -1,22 +1,52 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { SITE_CONFIG, MATCHES_DATA } from '../data/mockData';
 
 export const Header = ({ onToggleSidebar }) => {
-  const { isLoggedIn, user, loginDemo, logout } = useAuth();
+  const { isLoggedIn, user, login, loginDemo, logout, authNotification, dismissNotification } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Navigation & Dropdown states
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Modals
   const [showRulesModal, setShowRulesModal] = useState(false);
   const [showButtonsModal, setShowButtonsModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  // Quick Login Form
+  const [loginUsername, setLoginUsername] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+  // Settings
   const [stakeButtons, setStakeButtons] = useState([100, 500, 1000, 5000, 10000, 25000]);
   const [tempButtons, setTempButtons] = useState([100, 500, 1000, 5000, 10000, 25000]);
+
   const searchInputRef = useRef(null);
+  const dropdownRef = useRef(null);
 
   const isHome = location.pathname === '/' || location.pathname === '/home';
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    if (dropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdownOpen]);
 
   const toggleSearch = () => {
     setSearchOpen(!searchOpen);
@@ -35,8 +65,63 @@ export const Header = ({ onToggleSidebar }) => {
     setShowButtonsModal(false);
   };
 
+  const handleModalLogin = (e) => {
+    e.preventDefault();
+    setLoginError('');
+
+    if (!loginUsername.trim() || !loginPassword.trim()) {
+      setLoginError('Please enter both username and password.');
+      return;
+    }
+
+    setIsLoggingIn(true);
+    setTimeout(() => {
+      login(loginUsername.trim(), loginPassword);
+      setIsLoggingIn(false);
+      setShowLoginModal(false);
+      setLoginUsername('');
+      setLoginPassword('');
+    }, 250);
+  };
+
+  const handleModalDemoLogin = () => {
+    loginDemo();
+    setShowLoginModal(false);
+  };
+
+  const handleLogout = () => {
+    setDropdownOpen(false);
+    logout();
+    if (['/account-statement', '/current-bet', '/deposit', '/withdraw', '/deposit-statement', '/withdraw-statement'].includes(location.pathname)) {
+      navigate('/');
+    }
+  };
+
   return (
-    <section className="header">
+    <section className="header position-relative">
+      {/* Toast Notification Banner */}
+      {authNotification && (
+        <div
+          className="position-fixed top-0 start-50 translate-middle-x mt-3 px-3 py-2 rounded-pill shadow-lg d-flex align-items-center gap-2 text-white"
+          style={{
+            zIndex: 9999,
+            background: authNotification.type === 'info' ? '#17a2b8' : '#28a745',
+            fontSize: '12px',
+            fontWeight: '600',
+            border: '1px solid rgba(255,255,255,0.2)'
+          }}
+        >
+          <i className={authNotification.type === 'info' ? 'fas fa-info-circle' : 'fas fa-check-circle'}></i>
+          <span>{authNotification.message}</span>
+          <button
+            type="button"
+            className="btn-close btn-close-white btn-sm ms-2"
+            style={{ fontSize: '9px' }}
+            onClick={dismissNotification}
+          ></button>
+        </div>
+      )}
+
       {/* Header Top */}
       <div className="header-top">
         {/* Logo and Mobile Hamburger */}
@@ -125,7 +210,7 @@ export const Header = ({ onToggleSidebar }) => {
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  alert('Silverbhai APK v1.9 download started!');
+                  alert('Cricketbuyy APK download started!');
                 }}
               >
                 <span>
@@ -150,15 +235,15 @@ export const Header = ({ onToggleSidebar }) => {
               </div>
 
               {/* User Account Dropdown */}
-              <div className="user-name ms-3 position-relative">
+              <div className="user-name ms-2 ms-xl-3 position-relative" ref={dropdownRef}>
                 <div
                   className="pointer text-white fw-bold d-flex align-items-center py-1 px-2 rounded"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  style={{ cursor: 'pointer', background: 'rgba(0,0,0,0.2)' }}
+                  style={{ cursor: 'pointer', background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.1)' }}
                 >
                   <i className="fas fa-user-circle me-1 text-warning"></i>
-                  <span>{user?.uname || 'demouser'}</span>
-                  <i className="fas fa-chevron-down ms-1" style={{ fontSize: '11px' }}></i>
+                  <span className="text-truncate" style={{ maxWidth: '100px' }}>{user?.uname || 'demouser'}</span>
+                  <i className="fas fa-chevron-down ms-1" style={{ fontSize: '10px' }}></i>
                 </div>
 
                 {dropdownOpen && (
@@ -169,12 +254,17 @@ export const Header = ({ onToggleSidebar }) => {
                       background: '#1c2125',
                       minWidth: '220px',
                       overflow: 'hidden',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.5)'
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.6)',
+                      borderRadius: '8px'
                     }}
                   >
                     <li className="p-2 border-bottom border-secondary text-light small d-flex align-items-center justify-content-between">
                       <span>Signed in as <b>{user?.uname || 'demouser'}</b></span>
-                      <span className="badge bg-success" style={{ fontSize: '10px' }}>Active</span>
+                      {user?.isDemo ? (
+                        <span className="badge bg-warning text-dark" style={{ fontSize: '9px' }}>DEMO</span>
+                      ) : (
+                        <span className="badge bg-success" style={{ fontSize: '9px' }}>ACTIVE</span>
+                      )}
                     </li>
                     <li>
                       <Link
@@ -266,14 +356,10 @@ export const Header = ({ onToggleSidebar }) => {
                     <li>
                       <button
                         type="button"
-                        className="dropdown-item text-danger py-2 border-top border-secondary w-100 text-start bg-transparent"
-                        onClick={() => {
-                          setDropdownOpen(false);
-                          logout();
-                          navigate('/');
-                        }}
+                        className="dropdown-item text-danger py-2 border-top border-secondary w-100 text-start bg-transparent d-flex align-items-center fw-bold"
+                        onClick={handleLogout}
                       >
-                        <i className="fas fa-sign-out-alt me-2"></i> Logout
+                        <i className="fas fa-sign-out-alt me-2 text-danger"></i> Logout
                       </button>
                     </li>
                   </ul>
@@ -281,18 +367,29 @@ export const Header = ({ onToggleSidebar }) => {
               </div>
             </>
           ) : (
-            <div className="user-details-auth ms-3 d-flex align-items-center">
+            <div className="user-details-auth ms-2 ms-xl-3 d-flex align-items-center gap-1 gap-sm-2">
               <button
                 type="button"
-                className="btn btn-warning btn-sm me-2 fw-bold text-dark px-3"
+                className="btn btn-warning btn-sm fw-bold text-dark px-2 px-sm-3"
+                style={{ fontSize: '12px' }}
                 onClick={loginDemo}
+                title="Instant Demo Access"
               >
-                Demo ID
+                <i className="fas fa-play me-1 d-none d-sm-inline"></i> Demo ID
               </button>
-              <Link to="/login" className="btn btn-outline-light btn-sm me-2 px-3">
+              <button
+                type="button"
+                className="btn btn-outline-light btn-sm px-2 px-sm-3"
+                style={{ fontSize: '12px' }}
+                onClick={() => setShowLoginModal(true)}
+              >
                 Login
-              </Link>
-              <Link to="/register" className="btn btn-light btn-sm px-3">
+              </button>
+              <Link
+                to="/register"
+                className="btn btn-light btn-sm px-2 px-sm-3 d-none d-sm-inline-block"
+                style={{ fontSize: '12px' }}
+              >
                 Register
               </Link>
             </div>
@@ -400,6 +497,102 @@ export const Header = ({ onToggleSidebar }) => {
           </ul>
         </nav>
       </div>
+
+      {/* Quick Login Modal */}
+      {showLoginModal && (
+        <div
+          className="modal fade show d-block"
+          tabIndex="-1"
+          style={{ background: 'rgba(0,0,0,0.75)', zIndex: 1300 }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowLoginModal(false);
+          }}
+        >
+          <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: '400px' }}>
+            <div className="modal-content" style={{ background: '#1c2125', color: '#fff', border: '1px solid var(--bg-primary, #941b2c)', borderRadius: '12px', overflow: 'hidden' }}>
+              <div className="modal-header py-2 px-3" style={{ background: 'var(--bg-primary, #941b2c)' }}>
+                <h6 className="modal-title fw-bold text-white d-flex align-items-center gap-2 m-0">
+                  <i className="fas fa-lock"></i> Sign In to Cricketbuyy
+                </h6>
+                <button
+                  type="button"
+                  className="btn-close btn-close-white"
+                  onClick={() => setShowLoginModal(false)}
+                ></button>
+              </div>
+              <div className="modal-body p-4">
+                {loginError && (
+                  <div className="alert alert-danger py-1 px-2 small mb-3">
+                    <i className="fas fa-exclamation-triangle me-1"></i> {loginError}
+                  </div>
+                )}
+                <form onSubmit={handleModalLogin}>
+                  <div className="mb-3">
+                    <label className="small text-muted mb-1 fw-bold">Username / ID</label>
+                    <div className="input-group input-group-sm">
+                      <span className="input-group-text bg-dark border-secondary text-muted">
+                        <i className="fas fa-user"></i>
+                      </span>
+                      <input
+                        type="text"
+                        required
+                        autoFocus
+                        placeholder="Enter username"
+                        value={loginUsername}
+                        onChange={(e) => { setLoginUsername(e.target.value); setLoginError(''); }}
+                        className="form-control bg-dark text-white border-secondary"
+                      />
+                    </div>
+                  </div>
+                  <div className="mb-3">
+                    <label className="small text-muted mb-1 fw-bold">Password</label>
+                    <div className="input-group input-group-sm">
+                      <span className="input-group-text bg-dark border-secondary text-muted">
+                        <i className="fas fa-key"></i>
+                      </span>
+                      <input
+                        type="password"
+                        required
+                        placeholder="Enter password"
+                        value={loginPassword}
+                        onChange={(e) => { setLoginPassword(e.target.value); setLoginError(''); }}
+                        className="form-control bg-dark text-white border-secondary"
+                      />
+                    </div>
+                  </div>
+                  <div className="d-grid gap-2 mt-4">
+                    <button
+                      type="submit"
+                      disabled={isLoggingIn}
+                      className="btn btn-sm fw-bold text-white py-2"
+                      style={{ background: 'var(--bg-primary, #941b2c)', borderColor: 'var(--bg-primary, #941b2c)' }}
+                    >
+                      {isLoggingIn ? 'Logging in...' : 'Sign In'}
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-warning btn-sm fw-bold text-dark py-2"
+                      onClick={handleModalDemoLogin}
+                    >
+                      <i className="fas fa-play-circle me-1"></i> Instant Demo Login (₹1,00,000)
+                    </button>
+                  </div>
+                  <div className="text-center mt-3 pt-2 border-top border-secondary small text-muted">
+                    Don't have an account?{' '}
+                    <Link
+                      to="/register"
+                      className="text-warning fw-bold text-decoration-none"
+                      onClick={() => setShowLoginModal(false)}
+                    >
+                      Register Now
+                    </Link>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Set Button Values Modal */}
       {showButtonsModal && (

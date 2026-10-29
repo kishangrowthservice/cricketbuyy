@@ -60,25 +60,17 @@ function AppRoutes() {
       <Route
         path="/"
         element={
-          isLoggedIn ? (
-            <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-              <HomePage />
-            </ExchangeLayout>
-          ) : (
-            <LoginPage />
-          )
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <HomePage />
+          </ExchangeLayout>
         }
       />
       <Route
         path="/home"
         element={
-          isLoggedIn ? (
-            <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-              <HomePage />
-            </ExchangeLayout>
-          ) : (
-            <LoginPage />
-          )
+          <ExchangeLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+            <HomePage />
+          </ExchangeLayout>
         }
       />
 

@@ -150,7 +150,12 @@ export const RegisterPage = () => {
             </div>
 
             <div className="text-center mt-3 text-muted small">
-              Already have an account? <Link to="/login" className="text-info fw-bold">Login here</Link>
+              Already have an account? <Link to="/login" className="text-warning fw-bold">Login here</Link>
+            </div>
+            <div className="text-center mt-2">
+              <Link to="/" className="text-muted small text-decoration-none">
+                <i className="fas fa-arrow-left me-1"></i> Back to Live Exchange
+              </Link>
             </div>
           </form>
         </div>
