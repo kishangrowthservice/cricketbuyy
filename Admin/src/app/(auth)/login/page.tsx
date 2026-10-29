@@ -47,16 +47,16 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="w-full max-w-md p-8 rounded-3xl bg-white border border-slate-200/90 shadow-xl space-y-6">
+    <div className="w-full max-w-md p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-xl space-y-6">
       {/* Brand Header */}
       <div className="text-center space-y-2">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#941b2c] border border-rose-300 shadow-lg shadow-rose-900/10 mb-1">
-          <ShieldCheck className="w-8 h-8 text-white" />
+        <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#941b2c] border border-rose-300 shadow-lg shadow-rose-900/10 mb-1">
+          <ShieldCheck className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
         </div>
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+        <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
           Cricketbuyy <span className="text-[#941b2c]">Admin</span>
         </h1>
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-slate-500 max-w-xs mx-auto">
           Restricted administrative access. All sessions are monitored and cryptographically audited.
         </p>
       </div>
@@ -76,14 +76,14 @@ export default function LoginPage() {
             <div className="space-y-1.5">
               <label className="block text-xs font-semibold text-slate-700">Administrator Email</label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3.5 pointer-events-none" />
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@cricketbuyy.com"
-                  className="w-full pl-9 pr-3 py-2.5 text-xs bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c] transition-colors"
+                  className="w-full pl-9 pr-3 py-2.5 sm:py-3 text-xs bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c] transition-colors min-h-[44px]"
                 />
               </div>
             </div>
@@ -94,14 +94,14 @@ export default function LoginPage() {
                 <span className="text-[11px] text-slate-400 font-medium">MFA Protected</span>
               </div>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3.5 pointer-events-none" />
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full pl-9 pr-3 py-2.5 text-xs bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c] transition-colors"
+                  className="w-full pl-9 pr-3 py-2.5 sm:py-3 text-xs bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c] transition-colors min-h-[44px]"
                 />
               </div>
             </div>
@@ -123,7 +123,7 @@ export default function LoginPage() {
               value={totpCode}
               onChange={(e) => setTotpCode(e.target.value.replace(/\D/g, ''))}
               placeholder="000000"
-              className="w-full text-center tracking-[0.5em] font-mono text-lg py-2.5 bg-white border border-amber-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#941b2c]"
+              className="w-full text-center tracking-[0.5em] font-mono text-lg py-2.5 bg-white border border-amber-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#941b2c] min-h-[44px]"
             />
           </div>
         )}
@@ -131,7 +131,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-[#941b2c] hover:bg-[#7a1624] transition-all shadow-md shadow-rose-900/10 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+          className="w-full py-3 px-4 rounded-xl text-xs font-bold text-white bg-[#941b2c] hover:bg-[#7a1624] transition-all shadow-md shadow-rose-900/10 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer min-h-[44px]"
         >
           {isLoading ? (
             <span>Authenticating...</span>

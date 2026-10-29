@@ -91,20 +91,20 @@ export default function SettingsManagementPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 border-b border-slate-200 pb-4 sm:pb-5">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-            <Settings className="w-7 h-7 text-[#941b2c]" />
-            Global Platform Settings &amp; Integration Contract
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+            <Settings className="w-6 h-6 sm:w-7 sm:h-7 text-[#941b2c] shrink-0" />
+            <span>Global Platform Settings &amp; Integration Contract</span>
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             System configuration, brand parameters, financial risk limits, and cross-site maintenance control.
           </p>
         </div>
       </div>
 
       {feedback && (
-        <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between shadow-2xs">
+        <div className="p-3 sm:p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between shadow-2xs">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             <span className="font-medium">{feedback}</span>
@@ -115,19 +115,19 @@ export default function SettingsManagementPage() {
 
       {/* Emergency Maintenance Mode Banner (Integration Contract) */}
       <div
-        className={`p-5 rounded-2xl border transition-all shadow-xs ${
+        className={`p-4 sm:p-5 rounded-xl sm:rounded-2xl border transition-all shadow-xs ${
           settings.maintenanceMode
             ? 'bg-rose-50 border-rose-300'
             : 'bg-white border-slate-200/90'
         }`}
       >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <ShieldAlert
                 className={`w-5 h-5 ${settings.maintenanceMode ? 'text-rose-600 animate-pulse' : 'text-[#941b2c]'}`}
               />
-              <h2 className="text-base font-bold text-slate-900">
+              <h2 className="text-sm sm:text-base font-bold text-slate-900">
                 Platform Maintenance Mode ({settings.maintenanceMode ? 'ACTIVE' : 'STANDBY'})
               </h2>
             </div>
@@ -135,7 +135,7 @@ export default function SettingsManagementPage() {
               When enabled, a cryptographically signed signal is emitted to the customer site (<code>cricketbuyy.com</code>), displaying maintenance screens and halting order matching.
             </p>
             {settings.maintenanceMode && settings.maintenanceReason && (
-              <div className="mt-2 text-xs font-mono text-rose-800 bg-rose-100/70 p-2.5 rounded-xl border border-rose-300 font-medium">
+              <div className="mt-2 text-xs font-mono text-rose-800 bg-rose-100/70 p-2.5 rounded-xl border border-rose-300 font-medium break-words">
                 Reason: {settings.maintenanceReason}
               </div>
             )}
@@ -143,21 +143,21 @@ export default function SettingsManagementPage() {
 
           <button
             onClick={() => setIsMaintenanceOpen(true)}
-            className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white transition-all shadow-2xs cursor-pointer ${
+            className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white transition-all shadow-2xs cursor-pointer min-h-[42px] sm:min-h-0 shrink-0 ${
               settings.maintenanceMode
                 ? 'bg-emerald-600 hover:bg-emerald-700'
                 : 'bg-rose-600 hover:bg-rose-700'
             }`}
           >
             <Power className="w-4 h-4" />
-            {settings.maintenanceMode ? 'Lift Maintenance Mode' : 'Trigger Emergency Maintenance'}
+            <span>{settings.maintenanceMode ? 'Lift Maintenance Mode' : 'Trigger Emergency Maintenance'}</span>
           </button>
         </div>
       </div>
 
       {/* Main Settings Form */}
-      <form onSubmit={handleSaveSettings} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSaveSettings} className="space-y-4 sm:space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {/* Platform Identity */}
           <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs space-y-4">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-200 pb-3">
@@ -279,18 +279,18 @@ export default function SettingsManagementPage() {
           <button
             type="submit"
             disabled={isSaving}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-[#941b2c] hover:bg-[#7a1624] transition-all shadow-2xs cursor-pointer disabled:opacity-50"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 sm:py-2.5 rounded-xl text-xs font-bold text-white bg-[#941b2c] hover:bg-[#7a1624] transition-all shadow-2xs cursor-pointer disabled:opacity-50 min-h-[44px]"
           >
             <Save className="w-4 h-4" />
-            {isSaving ? 'Saving Configurations...' : 'Save All Settings'}
+            <span>{isSaving ? 'Saving Configurations...' : 'Save All Settings'}</span>
           </button>
         </div>
       </form>
 
       {/* Maintenance Confirmation Modal */}
       {isMaintenanceOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-xs p-4">
-          <div className="bg-white border border-slate-200 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-xs p-3.5 sm:p-4">
+          <div className="bg-white border border-slate-200 w-full max-w-md rounded-2xl p-4 sm:p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b border-slate-200 pb-3">
               <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
                 <Power className="w-5 h-5 text-rose-600" />

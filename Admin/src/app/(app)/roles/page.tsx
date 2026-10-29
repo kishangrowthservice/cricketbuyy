@@ -188,29 +188,29 @@ export default function RolesManagementPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 border-b border-slate-200 pb-4 sm:pb-5">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-            <ShieldCheck className="w-7 h-7 text-[#941b2c]" />
-            Roles &amp; Permissions Matrix
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+            <ShieldCheck className="w-6 h-6 sm:w-7 sm:h-7 text-[#941b2c] shrink-0" />
+            <span>Roles &amp; Permissions Matrix</span>
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Database-driven dynamic RBAC engine with scoped permissions, field-level masking, and dual-custody policies.
           </p>
         </div>
         <button
           onClick={() => setIsCreateModalOpen(true)}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold text-white bg-[#941b2c] hover:bg-[#7a1624] rounded-xl transition-colors shadow-2xs cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 text-xs font-bold text-white bg-[#941b2c] hover:bg-[#7a1624] rounded-xl transition-colors shadow-2xs cursor-pointer min-h-[42px] sm:min-h-0 w-full sm:w-auto"
         >
           <Plus className="w-4 h-4" />
-          Create Custom Role
+          <span>Create Custom Role</span>
         </button>
       </div>
 
       {/* Main 2-Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
         {/* Roles Sidebar / List */}
-        <div className="lg:col-span-4 space-y-3">
+        <div className="lg:col-span-4 space-y-2.5 sm:space-y-3">
           <div className="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">
             Configured Roles ({rolesList.length})
           </div>
@@ -221,7 +221,7 @@ export default function RolesManagementPage() {
                 <div
                   key={role.id}
                   onClick={() => setSelectedRole(role)}
-                  className={`p-4 rounded-2xl border cursor-pointer transition-all ${
+                  className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border cursor-pointer transition-all ${
                     isSelected
                       ? 'bg-rose-50/70 border-[#941b2c] shadow-xs'
                       : 'bg-white border-slate-200/90 hover:border-slate-300 hover:bg-slate-50/50 shadow-xs'
@@ -229,7 +229,7 @@ export default function RolesManagementPage() {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-sm text-slate-900">{role.name}</span>
+                      <span className="font-bold text-xs sm:text-sm text-slate-900">{role.name}</span>
                       {role.isSystem ? (
                         <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
                           <Lock className="w-2.5 h-2.5 text-amber-600" />
@@ -247,7 +247,7 @@ export default function RolesManagementPage() {
                           e.stopPropagation();
                           handleDeleteRole(role.id);
                         }}
-                        className="p-1 text-slate-400 hover:text-rose-600 rounded transition-colors cursor-pointer"
+                        className="p-1.5 text-slate-400 hover:text-rose-600 rounded transition-colors cursor-pointer"
                         title="Delete Role"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -255,7 +255,7 @@ export default function RolesManagementPage() {
                     )}
                   </div>
                   <p className="text-xs text-slate-500 mt-1 line-clamp-2">{role.description}</p>
-                  <div className="mt-3 flex items-center justify-between text-xs text-slate-500 border-t border-slate-200/80 pt-2">
+                  <div className="mt-2.5 sm:mt-3 flex items-center justify-between text-xs text-slate-500 border-t border-slate-200/80 pt-2">
                     <span className="font-mono text-[11px] font-semibold text-slate-600">{role.slug}</span>
                     <span className="flex items-center gap-1 font-medium">
                       <Users className="w-3.5 h-3.5 text-slate-400" />
@@ -269,7 +269,7 @@ export default function RolesManagementPage() {
         </div>
 
         {/* Selected Role Permissions Matrix */}
-        <div className="lg:col-span-8 bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs">
+        <div className="lg:col-span-8 bg-white border border-slate-200/90 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xs">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 pb-4">
             <div>
               <div className="flex items-center gap-3">

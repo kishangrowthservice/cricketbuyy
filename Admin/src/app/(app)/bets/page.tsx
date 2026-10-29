@@ -166,33 +166,33 @@ export default function BetsSurveillancePage() {
       )}
 
       {/* KPI Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
-          <div className="text-xs text-slate-500 font-semibold">Total Active Bet Exposure</div>
-          <div className="mt-2 text-2xl font-bold text-slate-900 font-mono">₹2,16,000</div>
-          <div className="mt-1 text-[11px] text-slate-500 font-medium">Across 3 live cricket events</div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4">
+        <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-xs space-y-1 sm:space-y-2">
+          <div className="text-[11px] sm:text-xs text-slate-500 font-semibold">Total Active Bet Exposure</div>
+          <div className="text-lg sm:text-2xl font-bold text-slate-900 font-mono">₹2,16,000</div>
+          <div className="text-[10px] sm:text-[11px] text-slate-500 font-medium">Across 3 live cricket events</div>
         </div>
-        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
-          <div className="text-xs text-slate-500 font-semibold">Highest Liability Runner</div>
-          <div className="mt-2 text-2xl font-bold text-rose-700 font-mono">Pakistan (Lay)</div>
-          <div className="mt-1 text-[11px] text-rose-700 font-medium">₹1,26,000 potential book loss</div>
+        <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-xs space-y-1 sm:space-y-2">
+          <div className="text-[11px] sm:text-xs text-slate-500 font-semibold">Highest Liability Runner</div>
+          <div className="text-lg sm:text-2xl font-bold text-rose-700 font-mono">Pakistan (Lay)</div>
+          <div className="text-[10px] sm:text-[11px] text-rose-700 font-medium">₹1,26,000 potential book loss</div>
         </div>
-        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
-          <div className="text-xs text-slate-500 font-semibold">Unmatched Slip Orders</div>
-          <div className="mt-2 text-2xl font-bold text-amber-800 font-mono">1 Order</div>
-          <div className="mt-1 text-[11px] text-amber-700 font-medium">₹15,000 waiting for liquidity</div>
+        <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-xs space-y-1 sm:space-y-2">
+          <div className="text-[11px] sm:text-xs text-slate-500 font-semibold">Unmatched Slip Orders</div>
+          <div className="text-lg sm:text-2xl font-bold text-amber-800 font-mono">1 Order</div>
+          <div className="text-[10px] sm:text-[11px] text-amber-700 font-medium">₹15,000 waiting for liquidity</div>
         </div>
       </div>
 
       {/* Filter Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs text-xs">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-xs text-xs">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <div className="flex items-center gap-1.5 flex-1 sm:flex-initial">
             <span className="text-slate-500 font-semibold">Type:</span>
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value as 'ALL' | 'BACK' | 'LAY')}
-              className="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-slate-800 font-semibold focus:outline-none focus:border-[#941b2c]"
+              className="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-800 font-semibold focus:outline-none focus:border-[#941b2c] min-h-[38px] w-full sm:w-auto"
             >
               <option value="ALL">All Sides</option>
               <option value="BACK">BACK Only</option>
@@ -200,12 +200,12 @@ export default function BetsSurveillancePage() {
             </select>
           </div>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 flex-1 sm:flex-initial">
             <span className="text-slate-500 font-semibold">Status:</span>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as 'ALL' | 'MATCHED' | 'UNMATCHED' | 'CANCELLED' | 'VOIDED')}
-              className="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-slate-800 font-semibold focus:outline-none focus:border-[#941b2c]"
+              className="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-800 font-semibold focus:outline-none focus:border-[#941b2c] min-h-[38px] w-full sm:w-auto"
             >
               <option value="ALL">All Status</option>
               <option value="MATCHED">Matched</option>
@@ -216,20 +216,103 @@ export default function BetsSurveillancePage() {
           </div>
         </div>
 
-        <div className="relative max-w-xs w-full">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" />
+        <div className="relative w-full sm:max-w-xs">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 sm:top-2.5 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search bet ID, customer, match..."
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
+            className="w-full pl-9 pr-3 py-2.5 sm:py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c] min-h-[42px] sm:min-h-0"
           />
         </div>
       </div>
 
-      {/* Bets Table */}
-      <div className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-xs">
+      {/* Mobile Bet Cards (< md) */}
+      <div className="md:hidden space-y-3">
+        {filtered.map((b) => (
+          <div 
+            key={b.id}
+            className={`p-3.5 sm:p-4 rounded-xl border bg-white shadow-xs space-y-2.5 ${
+              b.type === 'BACK' ? 'border-l-4 border-l-sky-500 border-slate-200' : 'border-l-4 border-l-rose-500 border-slate-200'
+            }`}
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="font-mono font-bold text-xs text-slate-900">{b.id}</span>
+                <span
+                  className={`text-[10px] font-bold px-2 py-0.5 rounded font-mono ${
+                    b.type === 'BACK'
+                      ? 'bg-sky-50 text-sky-800 border border-sky-300'
+                      : 'bg-rose-50 text-rose-800 border border-rose-300'
+                  }`}
+                >
+                  {b.type}
+                </span>
+              </div>
+              <span
+                className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                  b.status === 'MATCHED'
+                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                    : b.status === 'UNMATCHED'
+                    ? 'bg-amber-50 text-amber-700 border-amber-200'
+                    : 'bg-slate-100 text-slate-600 border-slate-200'
+                }`}
+              >
+                {b.status}
+              </span>
+            </div>
+
+            <div>
+              <div className="text-xs font-bold text-slate-900">{b.runnerName}</div>
+              <div className="text-[11px] text-slate-600 truncate">{b.marketName}</div>
+              <div className="text-[10px] text-slate-400">{b.customerName} ({b.customerId}) • {b.placedAt}</div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-2 p-2 rounded-lg bg-slate-50 border border-slate-200 text-center font-mono">
+              <div>
+                <span className="text-[9px] text-slate-500 block">ODDS</span>
+                <strong className="text-xs text-slate-900">{b.odds.toFixed(2)}</strong>
+              </div>
+              <div>
+                <span className="text-[9px] text-slate-500 block">STAKE</span>
+                <strong className="text-xs text-slate-800">₹{b.stake.toLocaleString('en-IN')}</strong>
+              </div>
+              <div>
+                <span className="text-[9px] text-slate-500 block">LIABILITY</span>
+                <strong className="text-xs text-amber-800">₹{b.liability.toLocaleString('en-IN')}</strong>
+              </div>
+            </div>
+
+            {(b.status === 'UNMATCHED' || b.status === 'MATCHED') && (
+              <div className="flex gap-2 pt-1 border-t border-slate-100">
+                {b.status === 'UNMATCHED' && (
+                  <button
+                    onClick={() => handleCancelBet(b)}
+                    className="flex-1 py-2 text-xs font-bold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-300 rounded-lg transition-colors cursor-pointer min-h-[40px] flex items-center justify-center"
+                  >
+                    Cancel Unmatched Order
+                  </button>
+                )}
+                {b.status === 'MATCHED' && (
+                  <button
+                    onClick={() => {
+                      setVoidModalBet(b);
+                      setVoidReason('');
+                    }}
+                    className="flex-1 py-2 text-xs font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-300 rounded-lg transition-colors cursor-pointer min-h-[40px] flex items-center justify-center shadow-2xs"
+                  >
+                    Void Bet
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Bets Table (Desktop md+) */}
+      <div className="hidden md:block bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-slate-50 text-slate-600 uppercase tracking-wider text-[10px] font-bold border-b border-slate-200">

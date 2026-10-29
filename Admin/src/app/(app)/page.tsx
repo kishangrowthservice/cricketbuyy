@@ -188,14 +188,14 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       {/* Real-Time Trading Terminal Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 sm:gap-4 bg-white border border-slate-200/90 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-xs">
         <div className="space-y-1">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
             <span className="flex h-2.5 w-2.5 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
             </span>
-            <h1 className="text-lg font-bold text-slate-900 tracking-tight">
+            <h1 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
               Live Operations & Risk Terminal
             </h1>
             <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
@@ -210,43 +210,43 @@ export default function DashboardPage() {
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setFreezeAlertOpen(true)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 transition-all cursor-pointer shadow-2xs"
+            className="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg text-xs font-semibold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 transition-all cursor-pointer shadow-2xs min-h-[40px] sm:min-h-0 flex-1 sm:flex-initial"
           >
             <PauseCircle className="w-3.5 h-3.5 text-rose-600" />
-            Emergency Market Freeze
+            <span>Emergency Freeze</span>
           </button>
           <Link
             href="/roles"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-all shadow-2xs"
+            className="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-all shadow-2xs min-h-[40px] sm:min-h-0"
           >
             <Lock className="w-3.5 h-3.5 text-slate-500" />
-            RBAC Matrix
+            <span>RBAC Matrix</span>
           </Link>
           <Link
             href="/markets"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#941b2c] hover:bg-[#7a1624] text-white transition-all shadow-2xs"
+            className="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg text-xs font-semibold bg-[#941b2c] hover:bg-[#7a1624] text-white transition-all shadow-2xs min-h-[40px] sm:min-h-0 flex-1 sm:flex-initial"
           >
             <Flame className="w-3.5 h-3.5" />
-            In-Play Markets
+            <span>In-Play Markets</span>
           </Link>
         </div>
       </div>
 
-      {/* Primary Financial & Risk KPIs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Primary Financial & Risk KPIs (2x2 Grid on Mobile, 4-Col on Desktop) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
         {/* Total Book Exposure */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-3">
-          <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
-            <span>Total Active Book Liability</span>
-            <Activity className="w-4 h-4 text-rose-600" />
+        <div className="bg-white border border-slate-200/90 rounded-xl sm:rounded-2xl p-3.5 sm:p-5 shadow-xs space-y-2 sm:space-y-3">
+          <div className="flex items-center justify-between text-[11px] sm:text-xs text-slate-500 font-medium">
+            <span className="truncate pr-1">Active Book Liability</span>
+            <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-rose-600 shrink-0" />
           </div>
-          <div className="text-2xl font-bold font-mono text-slate-900 tracking-tight">
+          <div className="text-lg sm:text-2xl font-bold font-mono text-slate-900 tracking-tight">
             ₹84,50,000
           </div>
-          <div className="space-y-1.5">
-            <div className="flex justify-between text-[11px] text-slate-500 font-medium">
-              <span>Back: ₹48.2L</span>
-              <span>Lay: ₹36.3L</span>
+          <div className="space-y-1">
+            <div className="flex justify-between text-[10px] sm:text-[11px] text-slate-500 font-medium">
+              <span>Back: 48.2L</span>
+              <span>Lay: 36.3L</span>
             </div>
             <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex border border-slate-200/50">
               <div className="bg-sky-500 h-full" style={{ width: '57%' }} />
@@ -256,53 +256,53 @@ export default function DashboardPage() {
         </div>
 
         {/* 24h Matched Volume */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-3">
-          <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
-            <span>24h Matched Volume</span>
-            <TrendingUp className="w-4 h-4 text-emerald-600" />
+        <div className="bg-white border border-slate-200/90 rounded-xl sm:rounded-2xl p-3.5 sm:p-5 shadow-xs space-y-2 sm:space-y-3">
+          <div className="flex items-center justify-between text-[11px] sm:text-xs text-slate-500 font-medium">
+            <span className="truncate pr-1">24h Matched Vol</span>
+            <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 shrink-0" />
           </div>
-          <div className="text-2xl font-bold font-mono text-slate-900 tracking-tight">
+          <div className="text-lg sm:text-2xl font-bold font-mono text-slate-900 tracking-tight">
             ₹3,18,40,000
           </div>
-          <div className="flex items-center justify-between text-[11px]">
+          <div className="flex items-center justify-between text-[10px] sm:text-[11px]">
             <span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 font-semibold flex items-center">
-              <ArrowUpRight className="w-3.5 h-3.5 mr-0.5" />
-              +18.4% vs yday
+              <ArrowUpRight className="w-3 h-3 mr-0.5" />
+              +18.4%
             </span>
-            <span className="text-slate-500 font-mono font-medium">14,280 slips</span>
+            <span className="text-slate-500 font-mono font-medium hidden sm:inline">14,280 slips</span>
           </div>
         </div>
 
         {/* Unmatched Order Liquidity */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-3">
-          <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
-            <span>Unmatched Order Book</span>
-            <Layers className="w-4 h-4 text-amber-600" />
+        <div className="bg-white border border-slate-200/90 rounded-xl sm:rounded-2xl p-3.5 sm:p-5 shadow-xs space-y-2 sm:space-y-3">
+          <div className="flex items-center justify-between text-[11px] sm:text-xs text-slate-500 font-medium">
+            <span className="truncate pr-1">Unmatched Book</span>
+            <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-600 shrink-0" />
           </div>
-          <div className="text-2xl font-bold font-mono text-slate-900 tracking-tight">
+          <div className="text-lg sm:text-2xl font-bold font-mono text-slate-900 tracking-tight">
             ₹8,40,000
           </div>
-          <div className="flex items-center justify-between text-[11px]">
-            <span className="text-slate-500 font-medium">142 orders pending</span>
-            <span className="text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200 font-semibold font-mono text-[10px]">Liquidity Queue</span>
+          <div className="flex items-center justify-between text-[10px] sm:text-[11px]">
+            <span className="text-slate-500 font-medium">142 orders</span>
+            <span className="text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200 font-semibold font-mono text-[9px] sm:text-[10px]">Queue</span>
           </div>
         </div>
 
         {/* Dual-Custody Approval Gate */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-3">
-          <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
-            <span>Dual-Custody Queue</span>
-            <ShieldAlert className="w-4 h-4 text-[#941b2c]" />
+        <div className="bg-white border border-slate-200/90 rounded-xl sm:rounded-2xl p-3.5 sm:p-5 shadow-xs space-y-2 sm:space-y-3">
+          <div className="flex items-center justify-between text-[11px] sm:text-xs text-slate-500 font-medium">
+            <span className="truncate pr-1">4-Eyes Queue</span>
+            <ShieldAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#941b2c] shrink-0" />
           </div>
-          <div className="text-2xl font-bold font-mono text-slate-900 tracking-tight flex items-center gap-2">
+          <div className="text-lg sm:text-2xl font-bold font-mono text-slate-900 tracking-tight flex items-center gap-1.5">
             <span>{approvals.filter((a) => a.status === 'PENDING').length}</span>
-            <span className="text-[11px] font-sans font-semibold text-rose-700 px-2 py-0.5 rounded-full bg-rose-50 border border-rose-200">
-              Action Required
+            <span className="text-[10px] font-sans font-semibold text-rose-700 px-1.5 py-0.5 rounded-full bg-rose-50 border border-rose-200">
+              Pending
             </span>
           </div>
-          <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium">
-            <span>4-Eyes Maker-Checker</span>
-            <span className="text-slate-700 font-mono font-semibold">Anti-Collision</span>
+          <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-slate-500 font-medium">
+            <span>Maker ≠ Checker</span>
+            <span className="text-slate-700 font-mono font-semibold hidden sm:inline">Guarded</span>
           </div>
         </div>
       </div>
@@ -575,34 +575,34 @@ export default function DashboardPage() {
 
       {/* Review Modal */}
       {activeModalItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-xs p-4">
-          <div className="bg-white border border-slate-200 w-full max-w-lg rounded-2xl p-6 shadow-2xl space-y-5">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-xs p-3.5 sm:p-4">
+          <div className="bg-white border border-slate-200 w-full max-w-lg rounded-2xl p-4 sm:p-6 shadow-2xl space-y-4 sm:space-y-5 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                <FileCheck className="w-5 h-5 text-amber-600" />
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2">
+                <FileCheck className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600" />
                 Review Dual-Custody Request
               </h3>
               <button
                 onClick={() => setActiveModalItem(null)}
-                className="text-slate-400 hover:text-slate-700 cursor-pointer text-lg leading-none p-1"
+                className="w-8 h-8 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center cursor-pointer text-base"
               >
                 ✕
               </button>
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
                 <div className="flex justify-between">
                   <span className="text-slate-500 font-medium">Request Type:</span>
                   <strong className="text-slate-900">{activeModalItem.type}</strong>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500 font-medium">Transaction Amount:</span>
-                  <strong className="text-amber-800 font-mono text-sm bg-amber-50 px-2 py-0.5 rounded border border-amber-200">{activeModalItem.amount}</strong>
+                  <strong className="text-amber-800 font-mono text-xs sm:text-sm bg-amber-50 px-2 py-0.5 rounded border border-amber-200">{activeModalItem.amount}</strong>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500 font-medium">Target Entity:</span>
-                  <strong className="text-slate-800">{activeModalItem.resource}</strong>
+                  <strong className="text-slate-800 truncate max-w-[180px] sm:max-w-none">{activeModalItem.resource}</strong>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500 font-medium">Initiating Maker:</span>
@@ -612,7 +612,7 @@ export default function DashboardPage() {
 
               <div>
                 <label className="block text-slate-600 mb-1 font-semibold text-xs">Operation Justification &amp; Payload:</label>
-                <div className="p-3 rounded-xl bg-slate-50 font-mono text-[11px] text-slate-700 border border-slate-200">
+                <div className="p-3 rounded-xl bg-slate-50 font-mono text-[11px] text-slate-700 border border-slate-200 break-words">
                   {activeModalItem.details}
                 </div>
               </div>
@@ -625,41 +625,41 @@ export default function DashboardPage() {
                     value={rejectionReason}
                     onChange={(e) => setRejectionReason(e.target.value)}
                     placeholder="Enter reason for rejection..."
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-xs focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 text-xs focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c] min-h-[42px]"
                   />
                 </div>
               )}
             </div>
 
-            <div className="flex justify-end gap-2 border-t border-slate-200 pt-4">
+            <div className="flex flex-col sm:flex-row justify-end gap-2 border-t border-slate-200 pt-4">
               <button
                 onClick={() => setActiveModalItem(null)}
-                className="px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer"
+                className="px-3 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer min-h-[40px] rounded-lg hover:bg-slate-100"
               >
                 Close
               </button>
               {activeModalItem.requesterId === currentAdminId ? (
-                <div className="text-xs text-rose-700 bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-200 flex items-center gap-1 font-semibold">
+                <div className="text-xs text-rose-700 bg-rose-50 px-3 py-2 rounded-lg border border-rose-200 flex items-center justify-center gap-1 font-semibold min-h-[40px]">
                   <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
                   Self-approval blocked by policy
                 </div>
               ) : (
-                <>
+                <div className="flex gap-2">
                   <button
                     onClick={() => handleReject(activeModalItem)}
-                    className="px-3 py-1.5 text-xs font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-300 rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
+                    className="flex-1 sm:flex-initial px-3 py-2 text-xs font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-300 rounded-lg transition-colors flex items-center justify-center gap-1 cursor-pointer min-h-[42px]"
                   >
                     <XCircle className="w-3.5 h-3.5" />
                     Reject
                   </button>
                   <button
                     onClick={() => handleApprove(activeModalItem)}
-                    className="px-4 py-1.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
+                    className="flex-1 sm:flex-initial px-4 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors flex items-center justify-center gap-1 shadow-2xs cursor-pointer min-h-[42px]"
                   >
                     <Check className="w-3.5 h-3.5" />
                     Approve &amp; Execute
                   </button>
-                </>
+                </div>
               )}
             </div>
           </div>

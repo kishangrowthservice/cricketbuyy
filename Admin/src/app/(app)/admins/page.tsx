@@ -224,22 +224,22 @@ export default function AdminsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-slate-200 pb-4 sm:pb-5">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-            <UserCheck className="w-7 h-7 text-[#941b2c]" />
-            Administrator Staff &amp; Privileged Accounts
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <UserCheck className="w-6 h-6 sm:w-7 sm:h-7 text-[#941b2c] shrink-0" />
+            <span>Administrator Staff &amp; Privileged Accounts</span>
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Provision staff profiles, manage 2FA enforcement, assign roles, and audit access credentials.
           </p>
         </div>
         <button
           onClick={() => setShowInviteModal(true)}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#941b2c] hover:bg-[#7a1624] text-white shadow-2xs transition-all cursor-pointer self-start sm:self-auto"
+          className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 rounded-xl text-xs font-bold bg-[#941b2c] hover:bg-[#7a1624] text-white shadow-2xs transition-all cursor-pointer min-h-[42px] sm:min-h-0 w-full sm:w-auto"
         >
           <Plus className="w-4 h-4" />
-          Provision Administrator
+          <span>Provision Administrator</span>
         </button>
       </div>
 
@@ -267,7 +267,7 @@ export default function AdminsPage() {
       )}
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-3 items-center justify-between bg-white p-4 rounded-2xl border border-slate-200/90 shadow-xs">
+      <div className="flex flex-col sm:flex-row gap-3 items-center justify-between bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/90 shadow-xs">
         <div className="relative w-full sm:w-80">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -275,15 +275,15 @@ export default function AdminsPage() {
             placeholder="Search by name, email, or role..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
+            className="w-full pl-9 pr-3 py-2 sm:py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c] min-h-[40px] sm:min-h-0"
           />
         </div>
-        <div className="flex gap-1.5 self-end sm:self-auto">
+        <div className="flex gap-1.5 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
           {(['ALL', 'ACTIVE', 'SUSPENDED'] as const).map((s) => (
             <button
               key={s}
               onClick={() => setStatusFilter(s)}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
+              className={`flex-1 sm:flex-initial px-3 py-2 sm:py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer min-h-[38px] flex items-center justify-center ${
                 statusFilter === s
                   ? 'bg-[#941b2c] text-white shadow-2xs'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
@@ -295,8 +295,84 @@ export default function AdminsPage() {
         </div>
       </div>
 
-      {/* Table */}
-      <div className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-xs">
+      {/* Mobile Admin Cards (< md) */}
+      <div className="md:hidden space-y-3">
+        {filteredAdmins.map((a) => (
+          <div key={a.id} className="p-3.5 sm:p-4 rounded-xl border border-slate-200 bg-white shadow-xs space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-bold text-xs text-slate-900 flex items-center gap-1.5">
+                  {a.name}
+                  {a.isSuper && <Shield className="w-3.5 h-3.5 text-[#941b2c]" />}
+                </div>
+                <div className="text-[11px] text-slate-500">{a.email}</div>
+              </div>
+              <span
+                className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                  a.status === 'ACTIVE'
+                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                    : 'bg-rose-50 text-rose-700 border border-rose-200'
+                }`}
+              >
+                {a.status}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2 flex-wrap text-xs">
+              <span className="font-semibold text-slate-800 bg-slate-100 px-2 py-0.5 rounded text-[11px] border border-slate-200">
+                {a.role}
+              </span>
+              {a.isSuper ? (
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
+                  <Shield className="w-3 h-3 mr-1" />
+                  Wildcard (*)
+                </span>
+              ) : (
+                <span className="text-slate-500 font-medium text-[10px] bg-slate-50 px-2 py-0.5 rounded border border-slate-200">Scoped</span>
+              )}
+              {a.twoFactorEnabled ? (
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <Key className="w-2.5 h-2.5 mr-1" />
+                  MFA Active
+                </span>
+              ) : (
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                  <AlertTriangle className="w-2.5 h-2.5 mr-1" />
+                  Unpaired
+                </span>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between text-[10px] text-slate-400 font-medium pt-1 border-t border-slate-100">
+              <span>Last login: {a.lastLogin}</span>
+              <div className="flex items-center gap-2">
+                {a.twoFactorEnabled && (
+                  <button
+                    onClick={() => handleReset2fa(a)}
+                    className="p-1.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer flex items-center gap-1 text-[10px] font-semibold"
+                  >
+                    <RefreshCw className="w-3 h-3" />
+                    <span>Reset 2FA</span>
+                  </button>
+                )}
+                <button
+                  onClick={() => handleToggleStatus(a)}
+                  className={`text-[11px] font-bold px-2.5 py-1 rounded-lg transition-colors cursor-pointer border shadow-2xs ${
+                    a.status === 'ACTIVE'
+                      ? 'text-rose-700 bg-rose-50 hover:bg-rose-100 border-rose-200'
+                      : 'text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border-emerald-200'
+                  }`}
+                >
+                  {a.status === 'ACTIVE' ? 'Suspend' : 'Reactivate'}
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Table (Desktop md+) */}
+      <div className="hidden md:block bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold uppercase tracking-wider text-[10px]">

@@ -134,41 +134,41 @@ export default function CustomersManagementPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 border-b border-slate-200 pb-4 sm:pb-5">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-            <Users className="w-7 h-7 text-[#941b2c]" />
-            Customer Management &amp; Surveillance
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+            <Users className="w-6 h-6 sm:w-7 sm:h-7 text-[#941b2c] shrink-0" />
+            <span>Customer Management &amp; Surveillance</span>
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Accounts ledger, exposure surveillance, PII field-masking, and audited customer impersonation.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
           <button
             onClick={() => setAllowPii(!allowPii)}
-            className={`inline-flex items-center gap-2 px-3.5 py-2 text-xs font-bold rounded-xl border transition-colors cursor-pointer shadow-2xs ${
+            className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3.5 py-2.5 sm:py-2 text-xs font-bold rounded-xl border transition-colors cursor-pointer shadow-2xs min-h-[42px] sm:min-h-0 ${
               allowPii
                 ? 'bg-amber-50 border-amber-300 text-amber-800'
                 : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
             }`}
           >
             {allowPii ? <Eye className="w-4 h-4 text-amber-600" /> : <EyeOff className="w-4 h-4 text-slate-400" />}
-            {allowPii ? 'PII Unmasked (Compliance Mode)' : 'PII Field-Masking Active'}
+            <span>{allowPii ? 'PII Unmasked (Compliance)' : 'PII Field-Masking Active'}</span>
           </button>
         </div>
       </div>
 
       {/* Search & Filters */}
-      <div className="flex items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
-        <div className="relative flex-1 max-w-md">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-xs">
+        <div className="relative flex-1 w-full sm:max-w-md">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by ID, username, or customer name..."
-            className="w-full pl-9 pr-3 py-2 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
+            className="w-full pl-9 pr-3 py-2 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c] min-h-[42px] sm:min-h-0"
           />
         </div>
         <div className="text-xs text-slate-500 font-medium">
@@ -176,8 +176,71 @@ export default function CustomersManagementPage() {
         </div>
       </div>
 
-      {/* Customer Table */}
-      <div className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-xs">
+      {/* Mobile Customer Cards (< md) */}
+      <div className="md:hidden space-y-3">
+        {filtered.map((c) => {
+          const displayEmail = allowPii ? c.email : maskEmail(c.email);
+          const displayPhone = allowPii ? c.phone : maskPhone(c.phone);
+
+          return (
+            <div key={c.id} className="p-3.5 sm:p-4 rounded-xl border border-slate-200 bg-white shadow-xs space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-bold text-xs text-slate-900">{c.name}</div>
+                  <div className="text-[10px] font-mono text-slate-500">{c.id} • @{c.username}</div>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                      c.status === 'ACTIVE'
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                        : 'bg-rose-50 text-rose-700 border border-rose-200'
+                    }`}
+                  >
+                    {c.status}
+                  </span>
+                  <span className="text-[10px] font-bold font-mono px-2 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-700">
+                    {c.tier}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-2 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono space-y-0.5">
+                <div className="text-slate-800 text-[11px] truncate">{displayEmail}</div>
+                <div className="text-slate-500 text-[10px]">{displayPhone}</div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 p-2 rounded-lg bg-slate-50 border border-slate-200 text-center font-mono">
+                <div>
+                  <span className="text-[9px] text-slate-500 block">BALANCE</span>
+                  <strong className="text-xs text-emerald-700">₹{c.balance.toLocaleString('en-IN')}</strong>
+                </div>
+                <div>
+                  <span className="text-[9px] text-slate-500 block">ACTIVE EXPOSURE</span>
+                  <strong className="text-xs text-amber-800">₹{c.exposure.toLocaleString('en-IN')}</strong>
+                </div>
+              </div>
+
+              <div className="pt-1 border-t border-slate-100">
+                <button
+                  onClick={() => {
+                    setImpersonateTarget(c);
+                    setImpersonateReason('');
+                    setGeneratedToken(null);
+                  }}
+                  className="w-full py-2.5 text-xs font-bold text-rose-800 bg-rose-50 hover:bg-rose-100 border border-rose-300 rounded-lg transition-colors shadow-2xs cursor-pointer flex items-center justify-center gap-1.5 min-h-[42px]"
+                >
+                  <UserCheck className="w-3.5 h-3.5 text-[#941b2c]" />
+                  <span>Impersonate Customer</span>
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Customer Table (Desktop md+) */}
+      <div className="hidden md:block bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-slate-50 text-slate-600 uppercase tracking-wider text-[10px] font-bold border-b border-slate-200">

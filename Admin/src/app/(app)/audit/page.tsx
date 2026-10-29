@@ -135,32 +135,32 @@ export default function AuditLedgerPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 border-b border-slate-200 pb-4 sm:pb-5">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-            <ShieldCheck className="w-7 h-7 text-[#941b2c]" />
-            Cryptographic Audit Ledger &amp; Chain Verifier
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+            <ShieldCheck className="w-6 h-6 sm:w-7 sm:h-7 text-[#941b2c] shrink-0" />
+            <span>Cryptographic Audit Ledger &amp; Chain Verifier</span>
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Append-only, SHA-256 tamper-evident audit ledger with mathematically verifiable block chaining.
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <button
             onClick={() => handleExport('CSV')}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-xl transition-colors cursor-pointer shadow-2xs"
+            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:py-2 text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-xl transition-colors cursor-pointer shadow-2xs min-h-[42px] sm:min-h-0"
           >
             <Download className="w-3.5 h-3.5 text-slate-500" />
-            Export CSV
+            <span>Export CSV</span>
           </button>
           <button
             onClick={handleVerifyChain}
             disabled={isVerifying}
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-[#941b2c] hover:bg-[#7a1624] rounded-xl transition-all shadow-2xs cursor-pointer disabled:opacity-50"
+            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 text-xs font-bold text-white bg-[#941b2c] hover:bg-[#7a1624] rounded-xl transition-all shadow-2xs cursor-pointer disabled:opacity-50 min-h-[42px] sm:min-h-0"
           >
             <Hash className="w-3.5 h-3.5" />
-            {isVerifying ? 'Verifying Block Digests...' : 'Verify Cryptographic Integrity'}
+            <span>{isVerifying ? 'Verifying...' : 'Verify Chain'}</span>
           </button>
         </div>
       </div>
@@ -168,17 +168,17 @@ export default function AuditLedgerPage() {
       {/* Verification Feedback Banner */}
       {verificationFeedback && (
         <div
-          className={`p-4 rounded-2xl border flex items-center justify-between gap-3 text-xs shadow-xs ${
+          className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-xs ${
             verificationFeedback.valid
               ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
               : 'bg-rose-50 border-rose-200 text-rose-900'
           }`}
         >
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-start sm:items-center gap-2.5">
             {verificationFeedback.valid ? (
-              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5 sm:mt-0" />
             ) : (
-              <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0" />
+              <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5 sm:mt-0" />
             )}
             <div>
               <strong className="block font-bold">
@@ -187,22 +187,22 @@ export default function AuditLedgerPage() {
               <p className="text-[11px] text-slate-600 mt-0.5">{verificationFeedback.message}</p>
             </div>
           </div>
-          <span className="font-mono text-[10px] font-bold bg-white px-2.5 py-1 rounded-lg border border-emerald-300 text-emerald-800 shrink-0 shadow-2xs">
+          <span className="font-mono text-[10px] font-bold bg-white px-2.5 py-1 rounded-lg border border-emerald-300 text-emerald-800 shrink-0 shadow-2xs self-start sm:self-auto">
             SHA-256 Verified
           </span>
         </div>
       )}
 
       {/* Search & Filter Bar */}
-      <div className="flex items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-xs">
         <div className="relative max-w-md w-full">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 sm:top-2.5 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by action, email, resource type or log ID..."
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
+            className="w-full pl-9 pr-3 py-2 sm:py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c] min-h-[42px] sm:min-h-0"
           />
         </div>
         <div className="text-xs text-slate-500 font-medium">

@@ -173,20 +173,20 @@ export default function MarketsManagementPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 border-b border-slate-200 pb-4 sm:pb-5">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-            <Trophy className="w-7 h-7 text-[#941b2c]" />
-            Sports Markets &amp; In-Play Control Center
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+            <Trophy className="w-6 h-6 sm:w-7 sm:h-7 text-[#941b2c] shrink-0" />
+            <span>Sports Markets &amp; In-Play Control Center</span>
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Real-time odds ladder management, in-play emergency suspension, and multi-version settlement.
           </p>
         </div>
       </div>
 
       {feedback && (
-        <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between shadow-2xs">
+        <div className="p-3 sm:p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between shadow-2xs">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             <span className="font-medium">{feedback}</span>
@@ -196,13 +196,13 @@ export default function MarketsManagementPage() {
       )}
 
       {/* Tabs & Search Filter */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-xs">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
           {(['ALL', 'IN_PLAY', 'UPCOMING', 'SUSPENDED', 'SETTLED'] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
+              className={`px-3 py-2 sm:py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer min-h-[38px] flex items-center justify-center ${
                 activeTab === tab
                   ? 'bg-[#941b2c] text-white shadow-2xs'
                   : 'bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200'
@@ -213,20 +213,20 @@ export default function MarketsManagementPage() {
           ))}
         </div>
 
-        <div className="relative max-w-xs w-full">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" />
+        <div className="relative w-full sm:max-w-xs">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 sm:top-2.5 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search match or tournament..."
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c]"
+            className="w-full pl-9 pr-3 py-2.5 sm:py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#941b2c] focus:ring-1 focus:ring-[#941b2c] min-h-[42px] sm:min-h-0"
           />
         </div>
       </div>
 
       {/* Markets Cards Grid */}
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 gap-3.5 sm:gap-4">
         {filtered.map((m) => {
           const isSuspended = m.status === 'SUSPENDED';
           const isSettled = m.status === 'SETTLED';
@@ -235,7 +235,7 @@ export default function MarketsManagementPage() {
           return (
             <div
               key={m.id}
-              className={`p-5 rounded-2xl border transition-all ${
+              className={`p-4 sm:p-5 rounded-xl sm:rounded-2xl border transition-all ${
                 isSuspended
                   ? 'bg-amber-50/40 border-amber-200/80 shadow-xs'
                   : isSettled
@@ -243,12 +243,12 @@ export default function MarketsManagementPage() {
                   : 'bg-white border-slate-200/90 hover:border-slate-300 shadow-xs'
               }`}
             >
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 sm:gap-4">
                 <div className="space-y-1">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-mono text-xs font-semibold text-slate-600">{m.sport}</span>
                     <span className="text-slate-300">•</span>
-                    <span className="text-xs text-slate-600 font-medium">{m.tournament}</span>
+                    <span className="text-xs text-slate-600 font-medium truncate max-w-[180px] sm:max-w-none">{m.tournament}</span>
                     <span
                       className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
                         m.status === 'IN_PLAY'
@@ -264,22 +264,22 @@ export default function MarketsManagementPage() {
                     </span>
                     <span className="font-mono text-[11px] text-slate-400 font-medium">v{m.version}</span>
                   </div>
-                  <h3 className="text-base font-bold text-slate-900">{m.eventName}</h3>
-                  <div className="flex items-center gap-3 text-xs text-slate-500">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900">{m.eventName}</h3>
+                  <div className="flex items-center gap-2 sm:gap-3 text-xs text-slate-500 flex-wrap">
                     <span>ID: <code className="font-mono text-slate-700 font-semibold">{m.id}</code></span>
-                    <span>•</span>
-                    <span>Total Market Liability: <strong className="text-amber-800 font-mono font-bold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">₹{m.totalExposure.toLocaleString('en-IN')}</strong></span>
+                    <span className="hidden sm:inline">•</span>
+                    <span>Liability: <strong className="text-amber-800 font-mono font-bold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">₹{m.totalExposure.toLocaleString('en-IN')}</strong></span>
                   </div>
                 </div>
 
                 {/* Odds Ladder Display */}
-                <div className="flex items-center gap-2 overflow-x-auto py-2">
+                <div className="flex items-center gap-2 overflow-x-auto py-1.5 scrollbar-none">
                   {m.runners.map((r) => {
                     const isWinner = m.winningRunnerId === r.id;
                     return (
                       <div
                         key={r.id}
-                        className={`p-2.5 rounded-xl border text-center min-w-[130px] ${
+                        className={`p-2.5 rounded-xl border text-center min-w-[125px] sm:min-w-[130px] shrink-0 ${
                           isWinner
                             ? 'bg-emerald-50 border-emerald-300 shadow-2xs'
                             : 'bg-slate-50/70 border-slate-200 shadow-2xs'
@@ -303,10 +303,10 @@ export default function MarketsManagementPage() {
 
                 {/* Action Buttons */}
                 {!isSettled && !isVoided && (
-                  <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex items-center gap-2 shrink-0 pt-2 lg:pt-0 border-t lg:border-t-0 border-slate-100">
                     <button
                       onClick={() => handleToggleSuspend(m)}
-                      className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer shadow-2xs ${
+                      className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer shadow-2xs min-h-[42px] sm:min-h-0 ${
                         isSuspended
                           ? 'bg-emerald-50 text-emerald-700 border-emerald-300 hover:bg-emerald-100'
                           : 'bg-amber-50 text-amber-700 border-amber-300 hover:bg-amber-100'
@@ -314,7 +314,7 @@ export default function MarketsManagementPage() {
                       title={isSuspended ? 'Resume In-Play Trading' : 'Emergency In-Play Suspension'}
                     >
                       {isSuspended ? <PlayCircle className="w-4 h-4" /> : <PauseCircle className="w-4 h-4" />}
-                      {isSuspended ? 'Resume' : 'Suspend'}
+                      <span>{isSuspended ? 'Resume' : 'Suspend'}</span>
                     </button>
 
                     <button
@@ -322,10 +322,10 @@ export default function MarketsManagementPage() {
                         setSettleModalMarket(m);
                         setSelectedWinnerId(m.runners[0]?.id || '');
                       }}
-                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 border border-blue-300 hover:bg-blue-100 transition-colors cursor-pointer shadow-2xs"
+                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 border border-blue-300 hover:bg-blue-100 transition-colors cursor-pointer shadow-2xs min-h-[42px] sm:min-h-0"
                     >
                       <CheckCircle2 className="w-4 h-4" />
-                      Settle
+                      <span>Settle</span>
                     </button>
 
                     <button
@@ -333,10 +333,10 @@ export default function MarketsManagementPage() {
                         setVoidModalMarket(m);
                         setVoidReason('');
                       }}
-                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-rose-50 text-rose-700 border border-rose-300 hover:bg-rose-100 transition-colors cursor-pointer shadow-2xs"
+                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-rose-50 text-rose-700 border border-rose-300 hover:bg-rose-100 transition-colors cursor-pointer shadow-2xs min-h-[42px] sm:min-h-0"
                     >
                       <XCircle className="w-4 h-4" />
-                      Void
+                      <span>Void</span>
                     </button>
                   </div>
                 )}
