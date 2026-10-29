@@ -53,3 +53,4 @@ All core routes were loaded directly via browser URL bar and refreshed (`F5`) to
 - **Login Form**: Validates non-empty username/password fields without submitting payloads to external servers.
 - **Register Form**: Enforces 10-digit mobile number format and matching password confirmation.
 - **Stake Value Settings**: Enforces positive numeric values for user custom stake buttons (`100` to `25,000`).
+

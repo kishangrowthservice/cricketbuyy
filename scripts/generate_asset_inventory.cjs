@@ -53,3 +53,4 @@ const csvRows = assets.map(a => `"${a.path}","${a.type}","${a.source}","${a.size
 
 fs.writeFileSync(path.resolve(__dirname, '../audit/asset-inventory.csv'), csvHeader + csvRows);
 console.log(`Saved audit/asset-inventory.csv with ${assets.length} assets.`);
+

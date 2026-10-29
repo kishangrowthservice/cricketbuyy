@@ -138,7 +138,7 @@ export const RegisterPage = () => {
               <button 
                 type="submit" 
                 className="btn btn-primary fw-bold py-2"
-                style={{ background: 'var(--bg-primary, #800000)', borderColor: 'var(--bg-primary, #800000)' }}
+                style={{ background: 'var(--bg-primary, #941b2c)', borderColor: 'var(--bg-primary, #941b2c)' }}
               >
                 Register Now <i className="fas fa-arrow-right ms-1"></i>
               </button>

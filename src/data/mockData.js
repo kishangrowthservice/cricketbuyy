@@ -8,8 +8,8 @@ export const SITE_CONFIG = {
   news: 'Newly Launched Matka Market In Our Exchange | 24X7 Instant Deposits & Withdrawals Available | Enjoy Best Odds On All Cricket & Live Casino Markets',
   themeType: '4',
   bgBody: '#16191C',
-  bgPrimary: '#800000',
-  bgSecondary: '#580000',
+  bgPrimary: '#941b2c',
+  bgSecondary: '#6e101c',
   supportNo: '+91 9876543210',
   telegram: 'https://t.me/silverbhai_official',
   whatsapp: 'https://wa.me/919876543210'

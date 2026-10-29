@@ -57,3 +57,4 @@ const csvRows = routes.map(r => `"${r.url}","${r.title}","${r.type}",${r.status}
 
 fs.writeFileSync(path.resolve(__dirname, '../audit/route-inventory.csv'), csvHeader + csvRows);
 console.log(`Saved audit/route-inventory.csv with ${routes.length} routes.`);
+

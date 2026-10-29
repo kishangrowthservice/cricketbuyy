@@ -398,8 +398,8 @@ export const GameDetailsPage = () => {
           style={{ background: 'rgba(0,0,0,0.7)', zIndex: 1200 }}
         >
           <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content" style={{ background: '#1c2125', color: '#fff', border: '1px solid var(--bg-primary, #800000)' }}>
-              <div className="modal-header" style={{ background: 'var(--bg-primary, #800000)' }}>
+            <div className="modal-content" style={{ background: '#1c2125', color: '#fff', border: '1px solid var(--bg-primary, #941b2c)' }}>
+              <div className="modal-header" style={{ background: 'var(--bg-primary, #941b2c)' }}>
                 <h5 className="modal-title fw-bold">Run Amount - {selectedFancy.name}</h5>
                 <button
                   type="button"

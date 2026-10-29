@@ -1,22 +1,22 @@
 :root {
-  --bg-primary: #800000;
-  --bg-primary90: #800000E6;
+  --bg-primary: #941b2c;
+  --bg-primary90: #941b2cE6;
   --text-primary: #FFFFFF;
-  --bg-secondary: #580000;
-  --bg-secondary70: #580000B3;
-  --bg-secondary85: #580000D9;
+  --bg-secondary: #6e101c;
+  --bg-secondary70: #6e101cB3;
+  --bg-secondary85: #6e101cD9;
   --text-secondary: #FFFFFF;
-  --bg-news: #1e0004;
+  --bg-news: #2a050a;
 }
 
-/* Explicit Maroon Theme for Header & Footer */
+/* Explicit Light Maroon Theme for Header & Footer */
 .header-top {
-  background-color: var(--bg-primary, #800000) !important;
+  background-color: var(--bg-primary, #941b2c) !important;
   color: var(--text-primary, #FFFFFF) !important;
 }
 
 .header-bottom {
-  background-color: var(--bg-secondary, #580000) !important;
+  background-color: var(--bg-secondary, #6e101c) !important;
   color: var(--text-secondary, #FFFFFF) !important;
 }
 
@@ -26,7 +26,7 @@
 
 .footer,
 .footer.footer-login {
-  background-color: var(--bg-primary, #800000) !important;
+  background-color: var(--bg-primary, #941b2c) !important;
   color: var(--text-primary, #FFFFFF) !important;
 }
 

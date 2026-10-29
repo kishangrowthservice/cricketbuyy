@@ -67,3 +67,4 @@ The following screenshot files are stored in `audit/screenshots/`:
 - `mobile_home.png`: Mobile home view.
 - `mobile_sidebar_open.png`: Mobile off-canvas sports drawer active.
 - `mobile_game_details.png`: Mobile cricket match view.
+
