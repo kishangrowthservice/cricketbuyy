@@ -158,40 +158,23 @@ export default function SettingsManagementPage() {
       {/* Main Settings Form */}
       <form onSubmit={handleSaveSettings} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Brand & Theme */}
+          {/* Platform Identity */}
           <div className="p-5 rounded-2xl bg-[#12141a] border border-zinc-800 space-y-4">
             <h3 className="text-sm font-bold text-white flex items-center gap-2 border-b border-zinc-800 pb-3">
-              <Paintbrush className="w-4 h-4 text-[#e53e3e]" />
-              Brand & Visual Appearance
+              <Paintbrush className="w-4 h-4 text-rose-400" />
+              Platform Identity & Parameters
             </h3>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="block text-zinc-300 font-medium mb-1">Site / Platform Name</label>
+                <label className="block text-zinc-300 font-medium mb-1">Site / Brand Name</label>
                 <input
                   type="text"
                   required
                   value={settings.siteName}
                   onChange={(e) => setSettings({ ...settings, siteName: e.target.value })}
-                  className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-[#941b2c]"
+                  className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl text-white focus:outline-none focus:border-rose-500"
                 />
-              </div>
-
-              <div>
-                <label className="block text-zinc-300 font-medium mb-1">Primary Maroon Accent Hex</label>
-                <div className="flex items-center gap-2">
-                  <div
-                    className="w-8 h-8 rounded-lg border border-zinc-600 shrink-0"
-                    style={{ backgroundColor: settings.brandMaroonColor }}
-                  />
-                  <input
-                    type="text"
-                    required
-                    value={settings.brandMaroonColor}
-                    onChange={(e) => setSettings({ ...settings, brandMaroonColor: e.target.value })}
-                    className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl font-mono text-white focus:outline-none focus:border-[#941b2c]"
-                  />
-                </div>
               </div>
 
               <div>
@@ -201,8 +184,19 @@ export default function SettingsManagementPage() {
                   required
                   value={settings.currency}
                   onChange={(e) => setSettings({ ...settings, currency: e.target.value })}
-                  className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl font-mono text-white focus:outline-none focus:border-[#941b2c]"
+                  className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-xl font-mono text-white focus:outline-none focus:border-rose-500"
                 />
+              </div>
+
+              <div>
+                <label className="block text-zinc-300 font-medium mb-1">Brand Theme Architecture</label>
+                <div className="p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-800 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-3.5 h-3.5 rounded-full bg-[#941b2c] border border-rose-500/50" />
+                    <span className="text-zinc-200 font-medium">Cricketbuyy Deep Maroon (#941b2c)</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-emerald-400 uppercase font-semibold">Production Locked</span>
+                </div>
               </div>
             </div>
           </div>

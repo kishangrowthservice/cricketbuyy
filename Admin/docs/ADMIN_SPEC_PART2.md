@@ -86,3 +86,4 @@ Always step-up for: role/permission changes, creating or promoting a Super Admin
 ### 5.10 Security events (all logged, searchable in §7.7)
 
 Login success/failure, MFA success/failure, lockout/unlock, password change/reset, MFA enrol/remove, passkey add/remove, session revoke, new device/location, invite create/accept/revoke, role change, API-key events, impersonation start/stop, permission-denied spikes.
+

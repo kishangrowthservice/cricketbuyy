@@ -107,3 +107,4 @@ export class InvitationManager {
     return false;
   }
 }
+
